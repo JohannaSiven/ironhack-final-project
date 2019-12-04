@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar/Navbar";
 import Home from "./pages/home/Home";
 import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
+import ProjectFeed from "./pages/project/ProjectFeed";
 
 class App extends Component {
   state = {
@@ -31,6 +32,7 @@ class App extends Component {
           path="/signup"
           render={props => <Signup {...props} setUser={this.setUser} />}
         />
+        <Route exact path="/projects" component={ProjectFeed} />
       </div>
     );
   }
