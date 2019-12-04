@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
-
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./pages/home/Home";
 import Login from "./pages/auth/Login";
@@ -20,7 +19,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Navbar />
+        <Navbar user={this.state.user} clearUser={this.setUser} />
         <Route exact path="/" component={Home} />
         <Route
           exact
