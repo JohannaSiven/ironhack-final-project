@@ -54,7 +54,7 @@ class Signup extends Component {
           />
         </div>
         {this.state.error && <Alert>{this.state.error}</Alert>}
-        <button type="submit">Sing up</button>
+        <button type="submit">Signup</button>
       </Form>
     );
   }

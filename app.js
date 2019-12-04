@@ -86,7 +86,7 @@ passport.use(
     {
       consumerKey: process.env.LINKEDIN_API_KEY,
       consumerSecret: process.env.LINKEDIN_SECRET_KEY,
-      callbackURL: "http://127.0.0.1:3000/auth/linkedin/callback"
+      callbackURL: "http://127.0.0.1:5555/api/auth/linkedin/callback"
     },
     function(token, tokenSecret, profile, done) {
       User.findOrCreate({ linkedinId: profile.id }, function(err, user) {
