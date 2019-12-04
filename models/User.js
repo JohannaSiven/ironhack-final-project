@@ -11,13 +11,9 @@ const userSchema = new Schema(
       type: String,
       required: true
     },
-    location: {
-      type: String,
-      required: true
-    },
+    location: String,
     role: {
       type: String,
-      required: true,
       enum: ["Frontend", "Backend", "Fullstack", "Designer", "UI/UX"]
     },
     skills: [],

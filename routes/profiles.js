@@ -4,9 +4,6 @@ const mongoose = require("mongoose");
 
 const User = require("../models/User");
 
-router.get("/")
-
-
 /*--------------------------------------------------*/
 
 // PROFILE FEED
@@ -25,7 +22,7 @@ router.get("/", (req, res) => {
 /*--------------------------------------------------*/
 
 // PROFILE
-// GET/api/profiles/:id
+// GET /api/profiles/:id
 
 router.get("/:id", (req, res) => {
   User.findById(req.params.id)
@@ -42,7 +39,7 @@ router.get("/:id", (req, res) => {
 /*--------------------------------------------------*/
 
 // PROFILE
-// PUT/api/profiles/:id
+// PUT /api/profiles/:id
 
 router.put("/:id", (req, res) => {
   User.findByIdAndUpdate(
@@ -62,11 +59,6 @@ router.put("/:id", (req, res) => {
       res.status(500).json(err);
     });
 });
-
-/*--------------------------------------------------*/
-
-// PROFILE
-// DELETE/api/profiles/:id
 
 /*--------------------------------------------------*/
 

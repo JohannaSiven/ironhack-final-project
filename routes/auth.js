@@ -72,7 +72,7 @@ router.get("/loggedin", (req, res) => {
 
 /* ------------------------------ Social login ------------------------------ */
 
-app.get(
+router.get(
   "/auth/linkedin",
   passport.authenticate("linkedin", {
     scope: ["r_basicprofile", "r_emailaddress"]

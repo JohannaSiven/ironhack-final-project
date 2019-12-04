@@ -3,7 +3,7 @@ const router = express.Router();
 const mongoose = require("mongoose");
 
 const User = require("../models/User");
-//const Project = require("../models/Project");
+const Project = require("../models/Project");
 
 /*--------------------------------------------------*/
 
@@ -34,10 +34,10 @@ router.post("/", (req, res) => {
     requiredRoles: req.body.requiredRoles,
     owner: req.user._id,
     contributors: [],
-    tags: req.body.tags,
-    timestamp: new Date()
+    tags: req.body.tags
   })
     .then(project => {
+      console.log(project);
       res.json(project);
     })
     .catch(err => {
@@ -48,7 +48,7 @@ router.post("/", (req, res) => {
 /*--------------------------------------------------*/
 
 // PROJECT DETAIL
-// GET/api/projects/:id
+// GET /api/projects/:id
 
 router.get("/:id", (req, res) => {
   // if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
@@ -70,7 +70,7 @@ router.get("/:id", (req, res) => {
 /*--------------------------------------------------*/
 
 // PROJECT FORM
-// PUT/api/projects/:id
+// PUT /api/projects/:id
 
 router.put("/:id", (req, res) => {
   Project.findByIdAndUpdate(
@@ -98,7 +98,7 @@ router.put("/:id", (req, res) => {
 /*--------------------------------------------------*/
 
 // PROJECT FORM
-// DELETE/api/projects/:id
+// DELETE /api/projects/:id
 router.delete("/:id", (req, res) => {
   Project.findByIdAndDelete(req.params.id)
     .then(response => res.json({ message: "ok" }))

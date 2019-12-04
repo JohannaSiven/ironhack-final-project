@@ -1,22 +1,20 @@
-require('dotenv').config();
+require("dotenv").config();
 
-const bodyParser   = require('body-parser');
-const cookieParser = require('cookie-parser');
-const express      = require('express');
-const favicon      = require('serve-favicon');
-const hbs          = require('hbs');
-const mongoose     = require('mongoose');
-const logger       = require('morgan');
-const path         = require('path');
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+const express = require("express");
+const favicon = require("serve-favicon");
+const hbs = require("hbs");
+const mongoose = require("mongoose");
+const logger = require("morgan");
+const path = require("path");
 
-const session    = require("express-session");
-const MongoStore = require('connect-mongo')(session);
-const flash      = require("connect-flash");
+const session = require("express-session");
+const MongoStore = require("connect-mongo")(session);
+const flash = require("connect-flash");
 const passport = require("passport");
 const LinkedInStrategy = require("passport-linkedin").Strategy;
-const User = require("../models/User");
-
-    
+const User = require("./models/User");
 
 mongoose
   .connect("mongodb://localhost/final-project", { useNewUrlParser: true })
@@ -82,19 +80,6 @@ app.use(
 app.use(flash());
 require("./passport")(app);
 
-const index = require("./routes/index");
-app.use("/", index);
-
-const authRoutes = require("./routes/auth");
-app.use("/auth", authRoutes);
-
-const profileRoutes = require("./routes/profiles");
-app.use("/api/profiles", profileRoutes);
-
-const projectRoutes = require("./routes/projects");
-app.use("/api/projects", projectRoutes);
-
-
 // Linkedin Authentication
 passport.use(
   new LinkedInStrategy(
@@ -111,12 +96,16 @@ passport.use(
   )
 );
 
+const index = require("./routes/index");
+app.use("/", index);
 
-const index = require('./routes/index');
-app.use('/', index);
+const profileRoutes = require("./routes/profiles");
+app.use("/api/profiles", profileRoutes);
 
-const authRoutes = require('./routes/auth');
-app.use('/api/auth', authRoutes);
-      
+const projectRoutes = require("./routes/projects");
+app.use("/api/projects", projectRoutes);
+
+const authRoutes = require("./routes/auth");
+app.use("/api/auth", authRoutes);
 
 module.exports = app;
