@@ -12,6 +12,10 @@ const path         = require('path');
 const session    = require("express-session");
 const MongoStore = require('connect-mongo')(session);
 const flash      = require("connect-flash");
+const passport = require("passport");
+const LinkedInStrategy = require("passport-linkedin").Strategy;
+const User = require("../models/User");
+
     
 
 mongoose
@@ -75,11 +79,28 @@ app.use(flash());
 require('./passport')(app);
     
 
+// Linkedin Authentication
+passport.use(
+  new LinkedInStrategy(
+    {
+      consumerKey: process.env.LINKEDIN_API_KEY,
+      consumerSecret: process.env.LINKEDIN_SECRET_KEY,
+      callbackURL: "http://127.0.0.1:3000/auth/linkedin/callback"
+    },
+    function(token, tokenSecret, profile, done) {
+      User.findOrCreate({ linkedinId: profile.id }, function(err, user) {
+        return done(err, user);
+      });
+    }
+  )
+);
+
+
 const index = require('./routes/index');
 app.use('/', index);
 
 const authRoutes = require('./routes/auth');
-app.use('/auth', authRoutes);
+app.use('/api/auth', authRoutes);
       
 
 module.exports = app;
