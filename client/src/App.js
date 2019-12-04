@@ -1,17 +1,40 @@
-import React from "react";
+import React, { Component } from "react";
 import { Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./pages/home/Home";
+import Login from "./pages/auth/Login";
+import Signup from "./pages/auth/Signup";
 
-function App() {
-  return (
-    <div>
-      <Navbar />
-      <h1>We need a name for this project</h1>
-      <Route exact path="/" component={Home} />
-    </div>
-  );
+class App extends Component {
+  state = {
+    user: this.props.user
+  };
+
+  setUser = user => {
+    this.setState({
+      user: user
+    });
+  };
+
+  render() {
+    return (
+      <div>
+        <Navbar />
+        <Route exact path="/" component={Home} />
+        <Route
+          exact
+          path="/login"
+          render={props => <Login {...props} setUser={this.setUser} />}
+        />
+        <Route
+          exact
+          path="/signup"
+          render={props => <Signup {...props} setUser={this.setUser} />}
+        />
+      </div>
+    );
+  }
 }
 
 export default App;
