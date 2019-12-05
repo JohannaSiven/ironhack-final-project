@@ -18,7 +18,7 @@ const projectSchema = new Schema(
     status: {
       type: String,
       required: true,
-      enum: ["Open", "On process", "Completed"],
+      enum: ["Open", "In progress", "Completed"],
       default: "Open"
     },
     requiredRoles: [{}],

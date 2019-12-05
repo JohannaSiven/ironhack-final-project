@@ -28,27 +28,13 @@ class ProjectForm extends Component {
   onSelect = event => {
     this.setState({
       requiredRoles: event
-    })
-    // let roleList = event.map(function(el) {
-    //   return el.name;
-    // })
-    // console.log('role selection: ',roleList);
-    // this.setState({
-    //   requiredRoles: roleList
-    // })
+    });
   };
 
   onRemove = event => {
     this.setState({
       requiredRoles: event
-    })
-    // let roleList = event.map(function(el) {
-    //   return el.name;
-    // })
-    // console.log('role selection: ',roleList);
-    // this.setState({
-    //   requiredRoles: roleList
-    // })
+    });
   };
 
   handleSubmit = event => {
@@ -103,22 +89,6 @@ class ProjectForm extends Component {
 
         <label htmlFor="requiredRoles">Choose which roles are required </label>
         <RoleSelect onSelect={this.onSelect} onRemove={this.onRemove} />
-        {/* <select multiple
-          type="text"
-          name="requiredRoles"
-          id="requiredRoles"
-          //value={this.state.requiredRoles}
-          //onChange={this.handleChange}
-        >
-          <option value="Frontend Developer">Frontend Developer</option>
-          <option value="Backend Developer">Backend Developer</option>
-          <option value="Fullstack Developer">Fullstack Developer</option>
-          <option value="UX/UI Designer">UX/UI Designer</option>
-          <option value="Data analyst">Data analyst</option>
-          <option value="Quality tester">Quality tester</option>
-          <option value="Project manager">Project manager</option>
-          <option value="Other">Other</option>
-        </select> */}
 
         <label htmlFor="tags">Attach keywords that apply </label>
         <input

@@ -14,8 +14,8 @@ const ProjectCards = props => {
               {project.requiredRoles && (
                 <>
                   <h4>Roles required: </h4>
-                  {project.requiredRoles.map(role => {
-                    return <p>{role.name}</p>;
+                  {project.requiredRoles.map((role, index) => {
+                    return <p key={index}>{role.name}</p>;
                   })}
                 </>
               )}
@@ -24,8 +24,8 @@ const ProjectCards = props => {
               {project.tags && (
                 <>
                   <h4>Keywords: </h4>
-                  {project.tags.map(tag => {
-                    return <p>{tag}</p>;
+                  {project.tags.map((tag, index) => {
+                    return <p key={index}>{tag}</p>;
                   })}
                 </>
               )}

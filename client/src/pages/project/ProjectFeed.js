@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import ProjectCards from "./ProjectCards";
 import ProjectForm from "./ProjectForm";
+import ProjectSearch from "./ProjectSearch";
 
 export default class Project extends Component {
   state = {
@@ -16,7 +17,6 @@ export default class Project extends Component {
         this.setState({
           projects: response.data
         });
-        console.log(response.data);
       })
       .catch(err => {
         console.log(err);
@@ -24,7 +24,6 @@ export default class Project extends Component {
   }
 
   componentDidMount() {
-    console.log("component mounted");
     this.getProjects();
   }
 
@@ -32,8 +31,18 @@ export default class Project extends Component {
     return (
       <div>
         <h1>Project feed</h1>
-        <ProjectForm user={this.state.user}/>
-        <ProjectCards projects={this.state.projects} />
+        <div>
+          <ProjectSearch
+            user={this.state.user}
+            projects={this.state.projects}
+          />
+        </div>
+        <div>
+          <ProjectForm user={this.state.user} />
+        </div>
+        <div>
+          <ProjectCards projects={this.state.projects} />
+        </div>
       </div>
     );
   }
