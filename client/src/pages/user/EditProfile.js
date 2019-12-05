@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 
+import { handleUpload } from "../../services/cloudinary";
+
 export default class EditProfile extends Component {
   state = {
     role: this.props.profileUser.role,
@@ -8,11 +10,14 @@ export default class EditProfile extends Component {
     skills: this.props.profileUser.skills,
     portfolio: this.props.profileUser.portfolio,
     tags: this.props.profileUser.tags,
+    photo: this.props.profileUser.photo,
+    description: this.props.profileUser.description,
 
     showForm: "",
     newSkill: "",
     newPortfolio: "",
-    newTag: ""
+    newTag: "",
+    uploadOn: false
   };
 
   handleChange = event => {
@@ -63,12 +68,37 @@ export default class EditProfile extends Component {
     }
   };
 
+  handleFileUpload = e => {
+    // console.log("The file to be uploaded is: ", e.target.files[0]);
+    const uploadData = new FormData();
+    uploadData.append("imageUrl", e.target.files[0]);
+
+    this.setState({ uploadOn: true });
+    handleUpload(uploadData)
+      .then(response => {
+        // console.log("response is: ", response);
+        this.setState({ photo: response.secure_url, uploadOn: false });
+      })
+      .catch(err => {
+        console.log("Error while uploading the file: ", err);
+      });
+  };
+
   uploadProfile = () => {
     this.changeState();
+    if (this.state.uploadOn) return;
 
     const { _id } = this.props.profileUser;
 
-    const { role, location, skills, portfolio, tags } = this.state;
+    const {
+      role,
+      location,
+      skills,
+      portfolio,
+      tags,
+      photo,
+      description
+    } = this.state;
 
     axios
       .put(`/api/profiles/${_id}`, {
@@ -76,7 +106,9 @@ export default class EditProfile extends Component {
         location,
         skills,
         portfolio,
-        tags
+        tags,
+        description,
+        photo
       })
       .then(response => {
         this.setState({
@@ -109,8 +141,48 @@ export default class EditProfile extends Component {
     const profile = this.props.profileUser;
     return (
       <div>
-        <h1>{profile.username}</h1>
         <form onSubmit={this.handleSubmit}>
+          {/* ------------------ PHOTO ------------------ */}
+          <img src={profile.photo} alt={profile.username} />
+          <br />
+          <input
+            id="image"
+            type="file"
+            name="photo"
+            onChange={e => this.handleFileUpload(e)}
+          />
+          <button type="submit" disabled={this.state.uploadOn}>
+            Edit Photo
+          </button>
+          {/* ------------------ USERNAME ------------------ */}
+          <h1>{profile.username}</h1>
+          <br />
+          {/* ------------------ DESCRIPTION ------------------ */}
+          {this.state.showForm === "description" ? (
+            <>
+              <input
+                type="text"
+                name="description"
+                value={this.state.description}
+                onChange={this.handleChange}
+              />
+              <button type="submit">Save</button>
+            </>
+          ) : profile.description ? (
+            <>
+              <p>{profile.description}</p>
+              <button name="description" onClick={this.toggleEdit}>
+                edit
+              </button>
+            </>
+          ) : (
+            <>
+              <button name="description" onClick={this.toggleEdit}>
+                Add description
+              </button>
+            </>
+          )}
+          <br />
           {/* ------------------ ROLE ------------------ */}
           {this.state.showForm === "role" ? (
             <>
@@ -120,9 +192,7 @@ export default class EditProfile extends Component {
                 value={this.state.role}
                 onChange={this.handleChange}
               />
-              <button type="submit" onSubmit={this.handleSubmit}>
-                Save
-              </button>
+              <button type="submit">Save</button>
             </>
           ) : profile.role ? (
             <>
@@ -147,9 +217,7 @@ export default class EditProfile extends Component {
                 value={this.state.location}
                 onChange={this.handleChange}
               />
-              <button type="submit" onSubmit={this.handleSubmit}>
-                Save
-              </button>
+              <button type="submit">Save</button>
             </>
           ) : profile.location ? (
             <>
@@ -192,7 +260,7 @@ export default class EditProfile extends Component {
                 Save
               </button>
             </>
-          ) : profile.skills ? (
+          ) : profile.skills[0] ? (
             <>
               <ul>
                 {profile.skills.map((skill, i) => {
@@ -237,7 +305,7 @@ export default class EditProfile extends Component {
                 Save
               </button>
             </>
-          ) : profile.portfolio ? (
+          ) : profile.portfolio[0] ? (
             <>
               <ul>
                 {profile.portfolio.map((pf, i) => {
@@ -282,7 +350,7 @@ export default class EditProfile extends Component {
                 Save
               </button>
             </>
-          ) : profile.tags ? (
+          ) : profile.tags[0] ? (
             <>
               <ul>
                 {profile.tags.map((tag, i) => {
