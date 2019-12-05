@@ -1,17 +1,5 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const projectRoles = [
-  "Frontend Developer",
-  "Backend Developer",
-  "Fullstack Developer",
-  "Mobile Developer",
-  "UI/UX Designer",
-  "Project Manager",
-  "Data Analyst",
-  "Quality Assurance",
-  "Software Tester",
-  "Other"
-];
 
 const userSchema = new Schema(
   {
@@ -26,9 +14,21 @@ const userSchema = new Schema(
     email: String,
     profilePic: String,
     location: String,
+
     role: {
       type: String,
-      enum: projectRoles,
+      enum: [
+        "Frontend Developer",
+        "Backend Developer",
+        "Fullstack Developer",
+        "Mobile Developer",
+        "UI/UX Designer",
+        "Project Manager",
+        "Data Analyst",
+        "Quality Assurance",
+        "Software Tester",
+        "Other"
+      ],
       default: "Other"
     },
     skills: [],
@@ -46,4 +46,3 @@ const userSchema = new Schema(
 const User = mongoose.model("User", userSchema);
 module.exports = User;
 
-exports = projectRoles;
