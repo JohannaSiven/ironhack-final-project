@@ -15,7 +15,7 @@ const ProjectCards = props => {
                 <>
                   <h4>Roles required: </h4>
                   {project.requiredRoles.map(role => {
-                    return <p>{role}</p>;
+                    return <p>{role.name}</p>;
                   })}
                 </>
               )}

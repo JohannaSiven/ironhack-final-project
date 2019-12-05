@@ -5,7 +5,8 @@ import ProjectForm from "./ProjectForm";
 
 export default class Project extends Component {
   state = {
-    projects: []
+    projects: [],
+    user: this.props.user
   };
 
   getProjects() {
@@ -31,7 +32,7 @@ export default class Project extends Component {
     return (
       <div>
         <h1>Project feed</h1>
-        <ProjectForm />
+        <ProjectForm user={this.state.user}/>
         <ProjectCards projects={this.state.projects} />
       </div>
     );

@@ -21,22 +21,7 @@ const projectSchema = new Schema(
       enum: ["Open", "On process", "Completed"],
       default: "Open"
     },
-    requiredRoles: {
-      type: [String],
-      enum: [
-        "Frontend Developer",
-        "Backend Developer",
-        "Fullstack Developer",
-        "Mobile Developer",
-        "UI/UX Designer",
-        "Project Manager",
-        "Data Analyst",
-        "Quality Assurance",
-        "Software Tester",
-        "Other"
-      ],
-      default: "Other"
-    },
+    requiredRoles: [{}],
     owner: {
       type: Schema.Types.ObjectId,
       ref: "User",

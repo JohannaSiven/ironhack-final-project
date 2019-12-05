@@ -39,7 +39,11 @@ class App extends Component {
           path="/user/:userId"
           render={props => <Profile {...props} user={this.state.user} />}
         />
-        <Route exact path="/projects" component={ProjectFeed} />
+         <Route
+          exact
+          path="/projects"
+          render={props => <ProjectFeed {...props} user={this.state.user} />}
+        />
       </div>
     );
   }

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import RoleSelect from "./RoleSelect";
 
 class ProjectForm extends Component {
   state = {
@@ -24,14 +25,39 @@ class ProjectForm extends Component {
     });
   };
 
+  onSelect = event => {
+    this.setState({
+      requiredRoles: event
+    })
+    // let roleList = event.map(function(el) {
+    //   return el.name;
+    // })
+    // console.log('role selection: ',roleList);
+    // this.setState({
+    //   requiredRoles: roleList
+    // })
+  };
+
+  onRemove = event => {
+    this.setState({
+      requiredRoles: event
+    })
+    // let roleList = event.map(function(el) {
+    //   return el.name;
+    // })
+    // console.log('role selection: ',roleList);
+    // this.setState({
+    //   requiredRoles: roleList
+    // })
+  };
+
   handleSubmit = event => {
     event.preventDefault();
-    // MISSING CURRENT USER! --> submit not working
 
     axios
       .post("/api/projects", {
         status: "Open",
-        // owner: this.req.user,
+        owner: this.props.user,
         contributors: [],
         title: this.state.title,
         description: this.state.description,
@@ -47,6 +73,7 @@ class ProjectForm extends Component {
           tags: [],
           remote: true
         });
+        console.log(response);
       })
       .catch(err => {
         console.log(err);
@@ -74,22 +101,23 @@ class ProjectForm extends Component {
           onChange={this.handleChange}
         />
 
-        {/* <label htmlFor="requiredRoles">Choose which roles are required </label>
-        <select
+        <label htmlFor="requiredRoles">Choose which roles are required </label>
+        <RoleSelect onSelect={this.onSelect} onRemove={this.onRemove} />
+        {/* <select multiple
           type="text"
           name="requiredRoles"
           id="requiredRoles"
-          value={this.state.requiredRoles}
-          onSelect={this.handleSelect}
+          //value={this.state.requiredRoles}
+          //onChange={this.handleChange}
         >
-          <option value="Frontend Developer" />
-          <option value="Backend Developer" />
-          <option value="Fullstack Developer" />
-          <option value="UX/UI Designer" />
-          <option value="Data analyst" />
-          <option value="Quality tester" />
-          <option value="Project manager" />
-          <option value="Other" />
+          <option value="Frontend Developer">Frontend Developer</option>
+          <option value="Backend Developer">Backend Developer</option>
+          <option value="Fullstack Developer">Fullstack Developer</option>
+          <option value="UX/UI Designer">UX/UI Designer</option>
+          <option value="Data analyst">Data analyst</option>
+          <option value="Quality tester">Quality tester</option>
+          <option value="Project manager">Project manager</option>
+          <option value="Other">Other</option>
         </select> */}
 
         <label htmlFor="tags">Attach keywords that apply </label>
