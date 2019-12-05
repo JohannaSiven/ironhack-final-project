@@ -83,23 +83,6 @@ require("./passport")(app);
 const index = require("./routes/index");
 app.use("/", index);
 
-// // Linkedin Authentication
-// passport.use(
-//   new LinkedInStrategy(
-//     {
-//       consumerKey: process.env.LINKEDIN_API_KEY,
-//       consumerSecret: process.env.LINKEDIN_SECRET_KEY,
-//       callbackURL: "/api/auth/linkedin/callback"
-//     },
-//     function(token, tokenSecret, profile, done) {
-//       console.log(JSON.stringify(profile));
-//       User.findOrCreate({ linkedinId: profile.id }, function(err, user) {
-//         return done(err, user);
-//       });
-//     }
-//   )
-// );
-
 const profileRoutes = require("./routes/profiles");
 app.use("/api/profiles", profileRoutes);
 
