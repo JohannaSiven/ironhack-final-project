@@ -1,90 +1,77 @@
-import React, { Component } from 'react'
-import axios from "axios"
+import React, { Component } from "react";
+import axios from "axios";
+import BestProjects from "./BestProjects"
 
-class BestProjects extends Component {
 
-  
+class OnGoingProjects extends Component {
 
   render(){
-    const filter = this.props.projects.filter(value => {
-      if (value.requiredRoles.indexOf(this.props.user.role) >= 0) {
-        return value;
-      }
-      return;
-    });
 
-    const sorted = filter.sort((a, b) => {
-      const aTags = a.tags.filter(value => this.props.user.tags.indexOf(value) !== -1)
-        .length;
-      const bTags = b.tags.filter(value => this.props.user.tags.indexOf(value) !== -1)
-        .length;
-      return bTags - aTags;
-    });
+    /* const {user, projecst} = this.props
+
+    const myProjects = projects.filter(value =>{
+      if (value.)
+    }) */
 
     return(
-      
-    <div>{sorted.map(value =>{
-      return <div>
-    <h1>Title: {value.title}</h1>
-    <h3>Tags</h3>
-    {value.tags.map(value =>{
-    return <p>{value}</p>
-    })}
-      </div>
-    })}</div>
+      <div>Projects I am working on</div>
     )
   }
 }
 
 
-
 export default class Dashboard extends Component {
-                 state = {
-                   projects: [],
-                   user: this.props.user
-                 };
+  state = {
+    projects: [],
+    user: this.props.user
+  };
 
-                 getProjects() {
-                   axios
-                     .get("/api/projects")
-                     .then(response => {
-                      let responseFilter = response.data.filter(value => {
-                           if (value.requiredRoles.indexOf(this.props.user.role) >= 0) {
-                             return value;
-                           }
-                           return;
-                         })
+  getProjects() {
+    axios
+      .get("/api/projects")
+      .then(response => {
+        // filter to get only projects with similar roles available
+        let responseFilter = response.data.filter(value => {
+          const roles = value.requiredRoles.map(requiredRoles => {
+            if (requiredRoles.open) {
+              return requiredRoles.name;
+            }
+            return false
+          });
+          if (roles.indexOf(this.props.user.role) >= 0) {
+            return value;
+          }
+          return false;
+        });
 
-                       this.setState({
-                         projects: responseFilter
-                       });
-                       console.log(this.state.projects);
-                     })
-                     .catch(err => {
-                       console.log(err);
-                     });
-                 }
+        this.setState({
+          projects: responseFilter
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
 
-                 componentDidMount() {
-                   console.log("component mounted");
-                   this.getProjects();
-                 }
+  componentDidMount() {
+    this.getProjects();
+  }
 
-
-
-                 render() {
-                  
-
-
-                   console.log(this.props.user, this.state);
-                   return (
-                     <div>
-                       <div>
-
-                         Projects matching Your Profile
-                         <BestProjects projects={this.state.projects} user={this.props.user}/>
-                       </div>
-                     </div>
-                   );
-                 }
-               }
+  render() {
+    return (
+      <div>
+        <h1>{this.props.user.username} Dashboard </h1>
+        <div>
+          <OnGoingProjects
+            projects={this.state.projects}
+            user={this.props.user}
+          />
+        </div>
+        <div style={{ textAlign: "center" }}>
+          Projects matching Your Profile
+          <BestProjects projects={this.state.projects} user={this.props.user} />
+        </div>
+      </div>
+    );
+  }
+}

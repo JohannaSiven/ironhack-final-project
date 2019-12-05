@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 
+const uploadCloud = require("../config/cloudinary");
+
 const User = require("../models/User");
 
 /*--------------------------------------------------*/
@@ -46,10 +48,12 @@ router.put("/:id", (req, res) => {
     req.params.id,
     {
       role: req.body.role,
+      description: req.body.description,
       location: req.body.location,
       skills: req.body.skills,
       portfolio: req.body.portfolio,
-      tags: req.body.tags
+      tags: req.body.tags,
+      photo: req.body.photo
     },
     { new: true }
   )
@@ -59,6 +63,18 @@ router.put("/:id", (req, res) => {
     .catch(err => {
       res.status(500).json(err);
     });
+});
+
+/*--------------------------------------------------*/
+
+// PROFILE
+// POST /api/profiles/upload
+router.post("/upload", uploadCloud.single("imageUrl"), (req, res, next) => {
+  if (!req.file) {
+    next(new Error("No file uploaded!"));
+    return;
+  }
+  res.json({ secure_url: req.file.secure_url });
 });
 
 /*--------------------------------------------------*/
