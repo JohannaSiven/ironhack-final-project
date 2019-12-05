@@ -1,5 +1,17 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const requiredRoles = [
+  "Frontend Developer",
+  "Backend Developer",
+  "Fullstack Developer",
+  "Mobile Developer",
+  "UI/UX Designer",
+  "Project Manager",
+  "Data Analyst",
+  "Quality Assurance",
+  "Software Tester",
+  "Other"
+];
 
 const projectSchema = new Schema(
   {
@@ -21,8 +33,9 @@ const projectSchema = new Schema(
       enum: ["Open", "On process", "Completed"]
     },
     requiredRoles: {
-      type: [],
-      required: true
+      type: String,
+      enum: requiredRoles,
+      default: "other"
     },
     owner: {
       type: Schema.Types.ObjectId,
