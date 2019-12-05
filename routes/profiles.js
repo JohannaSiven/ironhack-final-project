@@ -45,6 +45,7 @@ router.put("/:id", (req, res) => {
   User.findByIdAndUpdate(
     req.params.id,
     {
+      role: req.body.role,
       location: req.body.location,
       skills: req.body.skills,
       portfolio: req.body.portfolio,

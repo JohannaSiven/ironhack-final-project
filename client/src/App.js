@@ -6,6 +6,8 @@ import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
 import ProjectFeed from "./pages/project/ProjectFeed";
 
+import Profile from "./pages/user/Profile";
+
 class App extends Component {
   state = {
     user: this.props.user
@@ -31,6 +33,11 @@ class App extends Component {
           exact
           path="/signup"
           render={props => <Signup {...props} setUser={this.setUser} />}
+        />
+        <Route
+          exact
+          path="/user/:userId"
+          render={props => <Profile {...props} user={this.state.user} />}
         />
         <Route exact path="/projects" component={ProjectFeed} />
       </div>
