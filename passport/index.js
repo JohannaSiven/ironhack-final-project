@@ -32,7 +32,7 @@ passport.use(
             User.create({
               linkedinId: profile.id,
               username: profile.displayName,
-              profilePic: profile.photos[2].value,
+              photo: profile.photos[2].value,
               email: profile.emails[0].value
             }).then(createdUser => {
               console.log("USER FROM STRAT:", createdUser);

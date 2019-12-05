@@ -10,11 +10,15 @@ const userSchema = new Schema(
     password: {
       type: String
     },
+    description: String,
     linkedinId: String,
     email: String,
-    profilePic: String,
     location: String,
-
+    photo: {
+      type: String,
+      default:
+        "https://res.cloudinary.com/jeffmoraes/image/upload/v1574348835/images/unknown-user.jpg.jpg"
+    },
     role: {
       type: String,
       enum: [
@@ -45,4 +49,3 @@ const userSchema = new Schema(
 
 const User = mongoose.model("User", userSchema);
 module.exports = User;
-

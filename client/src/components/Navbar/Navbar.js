@@ -13,7 +13,6 @@ export default class Navbar extends Component {
   };
 
   render() {
-    console.log(this.props.user);
     return (
       <Nav active>
         {this.props.user ? (
