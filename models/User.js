@@ -8,9 +8,11 @@ const userSchema = new Schema(
       required: true
     },
     password: {
-      type: String,
-      required: true
+      type: String
     },
+    linkedinId: String,
+    email: String,
+    profilePic: String,
     location: String,
     role: {
       type: String,

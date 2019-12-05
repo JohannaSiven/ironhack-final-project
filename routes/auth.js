@@ -67,24 +67,25 @@ router.delete("/logout", (req, res) => {
 });
 
 router.get("/loggedin", (req, res) => {
+  console.log("loggedin: ", req.user);
   res.json(req.user);
 });
 
 /* ------------------------------ Social login ------------------------------ */
 
 router.get(
-  "/auth/linkedin",
+  "/linkedin",
   passport.authenticate("linkedin", {
-    scope: ["r_basicprofile", "r_emailaddress"]
+    // scope: ["r_liteprofile"]
   })
 );
 
-router.get('/linkedin/callback',
-  passport.authenticate('linkedin', 
-  { successRedirect: '/',
-    failureRedirect: 'login' }),
-  function(req, res) {
-    res.redirect('/');
-  });
+router.get(
+  "/linkedin/callback",
+  passport.authenticate("linkedin", {
+    successRedirect: "http://localhost:3000",
+    failureRedirect: "/login"
+  })
+);
 
 module.exports = router;
