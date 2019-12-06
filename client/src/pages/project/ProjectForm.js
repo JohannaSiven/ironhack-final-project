@@ -29,32 +29,12 @@ class ProjectForm extends Component {
     this.setState({
       requiredRoles: event
     });
-<<<<<<< HEAD
-=======
-    // let roleList = event.map(function(el) {
-    //   return el.name;
-    // })
-    // console.log('role selection: ',roleList);
-    // this.setState({
-    //   requiredRoles: roleList
-    // })
->>>>>>> front/project
   };
 
   onRemove = event => {
     this.setState({
       requiredRoles: event
     });
-<<<<<<< HEAD
-=======
-    // let roleList = event.map(function(el) {
-    //   return el.name;
-    // })
-    // console.log('role selection: ',roleList);
-    // this.setState({
-    //   requiredRoles: roleList
-    // })
->>>>>>> front/project
   };
 
   handleSubmit = event => {
