@@ -17,7 +17,7 @@ export default class EditProfile extends Component {
     newSkill: "",
     newPortfolio: "",
     newTag: "",
-    uploadOn: false
+    uploadOn: true
   };
 
   handleChange = event => {
@@ -26,12 +26,12 @@ export default class EditProfile extends Component {
     });
   };
 
-  handleRemove = skill => {
+  handleRemove = elem => {
     this.setState(
       {
-        skills: this.state.skills.filter(s => s !== skill),
-        portfolio: this.state.portfolio.filter(p => p !== skill),
-        tags: this.state.tags.filter(t => t !== skill)
+        skills: this.state.skills.filter(s => s !== elem),
+        portfolio: this.state.portfolio.filter(p => p !== elem),
+        tags: this.state.tags.filter(t => t !== elem)
       },
       () => this.uploadProfile()
     );
@@ -145,10 +145,12 @@ export default class EditProfile extends Component {
           {/* ------------------ PHOTO ------------------ */}
           <img src={profile.photo} alt={profile.username} />
           <br />
+          <label htmlFor="image">Select image</label>
           <input
             id="image"
             type="file"
             name="photo"
+            style={{ display: "none" }}
             onChange={e => this.handleFileUpload(e)}
           />
           <button type="submit" disabled={this.state.uploadOn}>

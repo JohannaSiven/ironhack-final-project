@@ -5,8 +5,10 @@ import Home from "./pages/home/Home";
 import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
 import ProjectFeed from "./pages/project/ProjectFeed";
+import ProjectDetails from "./pages/project/ProjectDetails";
 import Profile from "./pages/user/Profile";
 import Dashboard from "./pages/dashboard/Dashboard";
+import UsersFeed from "./pages/feed/UsersFeed";
 
 class App extends Component {
   state = {
@@ -39,11 +41,28 @@ class App extends Component {
           path="/user/:userId"
           render={props => <Profile {...props} user={this.state.user} />}
         />
-         <Route
+        <Route
           exact
           path="/projects"
           render={props => <ProjectFeed {...props} user={this.state.user} />}
         />
+        <Route
+          exact
+          path="/projects/:projectId"
+          render={props => <ProjectDetails {...props} user={this.state.user} />}
+        />
+        <Route
+          exact
+          path="/dashboard"
+          render={props => (
+            <Dashboard
+              {...props}
+              projects={ProjectFeed}
+              user={this.state.user}
+            />
+          )}
+        />
+        <Route exact path="/users" component={UsersFeed}/>
         <Route exact path="/dashboard" render ={props => <Dashboard {...props} projects={ProjectFeed} user={this.state.user}/>}/>
       </div>
     );

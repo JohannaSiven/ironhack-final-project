@@ -44,7 +44,7 @@ class ProjectForm extends Component {
       .post("/api/projects", {
         status: "Open",
         owner: this.props.user,
-        contributors: [],
+        contributors: [this.props.user],
         title: this.state.title,
         description: this.state.description,
         requiredRoles: this.state.requiredRoles,
