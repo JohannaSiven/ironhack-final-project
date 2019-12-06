@@ -6,7 +6,9 @@ export default class UserProfile extends Component {
 
     return (
       <div>
+        <img src={profile.photo} alt={profile.username} />
         <h1>{profile.username}</h1>
+        <p>{profile.description}</p>
         <p>{profile.role}</p>
         <p>{profile.location}</p>
         {profile.skills && (
