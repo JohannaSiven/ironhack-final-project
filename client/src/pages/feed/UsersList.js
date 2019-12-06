@@ -21,7 +21,9 @@ export default class UsersList extends Component {
         if (value.location) {
           return value.location.toLowerCase().includes(this.props.city.toLowerCase());
         }
-        console.log("filtervalue", value);
+        else{
+          return false
+        }
       });
     }
 
