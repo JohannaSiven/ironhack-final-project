@@ -29,12 +29,32 @@ class ProjectForm extends Component {
     this.setState({
       requiredRoles: event
     });
+<<<<<<< HEAD
+=======
+    // let roleList = event.map(function(el) {
+    //   return el.name;
+    // })
+    // console.log('role selection: ',roleList);
+    // this.setState({
+    //   requiredRoles: roleList
+    // })
+>>>>>>> front/project
   };
 
   onRemove = event => {
     this.setState({
       requiredRoles: event
     });
+<<<<<<< HEAD
+=======
+    // let roleList = event.map(function(el) {
+    //   return el.name;
+    // })
+    // console.log('role selection: ',roleList);
+    // this.setState({
+    //   requiredRoles: roleList
+    // })
+>>>>>>> front/project
   };
 
   handleSubmit = event => {
@@ -44,7 +64,7 @@ class ProjectForm extends Component {
       .post("/api/projects", {
         status: "Open",
         owner: this.props.user,
-        contributors: [],
+        contributors: [this.props.user],
         title: this.state.title,
         description: this.state.description,
         requiredRoles: this.state.requiredRoles,
