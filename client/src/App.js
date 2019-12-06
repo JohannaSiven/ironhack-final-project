@@ -63,7 +63,6 @@ class App extends Component {
           )}
         />
         <Route exact path="/users" component={UsersFeed}/>
-        <Route exact path="/dashboard" render ={props => <Dashboard {...props} projects={ProjectFeed} user={this.state.user}/>}/>
       </div>
     );
   }
