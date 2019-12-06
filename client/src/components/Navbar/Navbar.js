@@ -22,6 +22,7 @@ export default class Navbar extends Component {
             <Link to="/dashboard">Dashboard</Link>
             <Link to={`/user/${this.props.user._id}`}>Profile</Link>
             <Link to="/projects">Projects</Link>
+            <Link to="/users">Users</Link>
 
             <Link to="/" onClick={this.handleLogout}>
               Logout

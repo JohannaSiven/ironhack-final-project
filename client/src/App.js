@@ -8,6 +8,7 @@ import ProjectFeed from "./pages/project/ProjectFeed";
 import ProjectDetails from "./pages/project/ProjectDetails";
 import Profile from "./pages/user/Profile";
 import Dashboard from "./pages/dashboard/Dashboard";
+import UsersFeed from "./pages/feed/UsersFeed";
 
 class App extends Component {
   state = {
@@ -61,6 +62,8 @@ class App extends Component {
             />
           )}
         />
+        <Route exact path="/users" component={UsersFeed}/>
+        <Route exact path="/dashboard" render ={props => <Dashboard {...props} projects={ProjectFeed} user={this.state.user}/>}/>
       </div>
     );
   }
