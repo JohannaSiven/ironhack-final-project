@@ -77,7 +77,7 @@ class ProjectForm extends Component {
           value={this.state.title}
           onChange={this.handleChange}
         />
-
+        <br />
         <label htmlFor="description">Description: </label>
         <input
           type="text"
@@ -86,10 +86,7 @@ class ProjectForm extends Component {
           value={this.state.description}
           onChange={this.handleChange}
         />
-
-        <label htmlFor="requiredRoles">Choose which roles are required </label>
-        <RoleSelect onSelect={this.onSelect} onRemove={this.onRemove} />
-
+        <br />
         <label htmlFor="tags">Attach keywords that apply </label>
         <input
           type="text"
@@ -98,7 +95,7 @@ class ProjectForm extends Component {
           value={this.state.tags}
           onChange={this.handleChange}
         />
-
+        <br />
         <label htmlFor="remote">
           People can join the project group remotely from any location
         </label>
@@ -109,6 +106,10 @@ class ProjectForm extends Component {
           checked={this.state.remote}
           onChange={this.handleCheckBox}
         />
+        <br />
+        <label htmlFor="requiredRoles">Choose which roles are required: </label>
+        <RoleSelect onSelect={this.onSelect} onRemove={this.onRemove} />
+
         <button type="submit">Submit new project</button>
       </form>
     );

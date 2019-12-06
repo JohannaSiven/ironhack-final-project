@@ -32,10 +32,11 @@ export default class Project extends Component {
       <div>
         <h1>Project feed</h1>
         <div>
-          <ProjectSearch
-            user={this.state.user}
+          {/* <ProjectSearch
             projects={this.state.projects}
-          />
+            user={this.state.user}
+            updateProjects={this.updateProjects}
+          /> */}
         </div>
         <div>
           <ProjectForm user={this.state.user} />
