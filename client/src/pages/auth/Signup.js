@@ -25,7 +25,7 @@ class Signup extends Component {
         });
       } else {
         this.props.setUser(data);
-        this.props.history.push("/");
+        this.props.history.push("/user/" + data._id);
       }
     });
   };
@@ -57,7 +57,7 @@ class Signup extends Component {
           {this.state.error && <Alert>{this.state.error}</Alert>}
           <button type="submit">Signup</button>
         </Form>
-        <a href="http://localhost:5555/api/auth/linkedin">
+        <a href= {process.env.CALLBACK_URL + "/api/auth/linkedin"}>
           <img
             src="https://content.linkedin.com/content/dam/developer/global/en_US/site/img/signin-button.png"
             alt="Linkedin Btn"

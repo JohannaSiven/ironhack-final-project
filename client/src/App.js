@@ -7,6 +7,7 @@ import Signup from "./pages/auth/Signup";
 import ProjectFeed from "./pages/project/ProjectFeed";
 import Profile from "./pages/user/Profile";
 import Dashboard from "./pages/dashboard/Dashboard";
+import UsersFeed from "./pages/feed/UsersFeed";
 
 class App extends Component {
   state = {
@@ -44,6 +45,7 @@ class App extends Component {
           path="/projects"
           render={props => <ProjectFeed {...props} user={this.state.user} />}
         />
+        <Route exact path="/users" component={UsersFeed}/>
         <Route exact path="/dashboard" render ={props => <Dashboard {...props} projects={ProjectFeed} user={this.state.user}/>}/>
       </div>
     );
