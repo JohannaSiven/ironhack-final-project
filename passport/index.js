@@ -12,7 +12,7 @@ passport.use(
     {
       clientID: process.env.LINKEDIN_API_KEY,
       clientSecret: process.env.LINKEDIN_SECRET_KEY,
-      callbackURL: "http://localhost:5555/api/auth/linkedin/callback",
+      callbackURL: process.env.CALLBACK_URL + '/api/auth/linkedin/callback',
       scope: ["r_liteprofile", "w_member_social", "r_emailaddress"],
       state: true
     },

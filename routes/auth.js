@@ -83,7 +83,7 @@ router.get(
 router.get(
   "/linkedin/callback",
   passport.authenticate("linkedin", {
-    successRedirect: "http://localhost:3000",
+    successRedirect: process.env.SUCCESS_REDIRECT,
     failureRedirect: "/login"
   })
 );
