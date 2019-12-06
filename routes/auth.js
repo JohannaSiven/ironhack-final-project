@@ -67,7 +67,6 @@ router.delete("/logout", (req, res) => {
 });
 
 router.get("/loggedin", (req, res) => {
-  console.log("loggedin: ", req.user);
   res.json(req.user);
 });
 
@@ -83,7 +82,7 @@ router.get(
 router.get(
   "/linkedin/callback",
   passport.authenticate("linkedin", {
-    successRedirect: "http://localhost:3000",
+    successRedirect: process.env.SUCCESS_REDIRECT,
     failureRedirect: "/login"
   })
 );

@@ -33,6 +33,15 @@ const projectSchema = new Schema(
         ref: "User"
       }
     ],
+    applications: [
+      {
+        user: {
+          type: Schema.Types.ObjectId,
+          ref: "User"
+        },
+        role: String
+      }
+    ],
     tags: []
   },
   {
