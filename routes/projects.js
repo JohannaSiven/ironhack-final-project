@@ -33,7 +33,7 @@ router.post("/", (req, res) => {
     status: req.body.status,
     requiredRoles: req.body.requiredRoles,
     owner: req.user._id,
-    contributors: [],
+    contributors: [req.user._id],
     tags: req.body.tags
   })
     .then(project => {
@@ -57,6 +57,8 @@ router.get("/:id", (req, res) => {
   // }
 
   Project.findById(req.params.id)
+    .populate("contributors")
+    .populate("owner")
     .then(project => {
       if (project) {
         res.json(project);
@@ -65,6 +67,29 @@ router.get("/:id", (req, res) => {
     .catch(err => {
       res.status(500).json(err);
     });
+});
+
+/*--------------------------------------------------*/
+
+// PROJECT FORM
+// POST /api/projects/apply/:id
+
+router.put("/apply/:id", (req, res) => {
+  Project.findOneAndUpdate(
+    { _id: req.params.id },
+    {
+      $push: { applications: { user: req.body.user, role: req.body.role } }
+    },
+    {
+      new: true
+    }
+  )
+    .populate("contributors")
+    .populate("owner")
+    .then(project => {
+      res.json(project);
+    })
+    .catch(err => res.status(500).json(err));
 });
 
 /*--------------------------------------------------*/
@@ -82,8 +107,9 @@ router.put("/:id", (req, res) => {
       status: req.body.status,
       requiredRoles: req.body.requiredRoles,
       owner: req.user._id,
-      contributors: [],
-      tags: req.body.tags
+      contributors: [req.user._id],
+      tags: req.body.tags,
+      applications: req.body.applications
     },
     { new: true }
   )
