@@ -14,10 +14,6 @@ export default class UsersList extends Component {
       });
     }
 
-    /* if(this.props.city !== ""){
-      console.log(this.props.city)
-    } */
-
     //Check if it is filtering by city
     if (this.props.city !== "") {
       console.log("propscity", this.props.city);
