@@ -1,11 +1,25 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-
 const ProjectCards = props => {
+  let projects = props.projects;
+  let userRole = props.user.role;
+
+  if (props.remote) {
+    projects = projects.filter(project => project.remote === true);
+  }
+
+  if (props.status) {
+    projects = projects.filter(project => project.status === "Open");
+  }
+
+  if (props.role) {
+    //
+  }
+
   return (
     <div>
-      {props.projects.map(project => {
+      {projects.map(project => {
         return (
           <div key={project._id}>
             <h3>{project.title}</h3>

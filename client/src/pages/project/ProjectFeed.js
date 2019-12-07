@@ -7,7 +7,10 @@ import ProjectSearch from "./ProjectSearch";
 export default class Project extends Component {
   state = {
     projects: [],
-    user: this.props.user
+    user: this.props.user,
+    remote: false,
+    status: false,
+    role: false
   };
 
   getProjects() {
@@ -27,22 +30,54 @@ export default class Project extends Component {
     this.getProjects();
   }
 
+  setRemote = () => {
+    this.setState({
+      remote: !this.state.remote
+    });
+    console.log(this.state.remote);
+  };
+
+  setStatus = () => {
+    this.setState({
+      status: !this.state.status
+    });
+    console.log(this.state.status);
+  };
+
+  setRole = () => {
+    this.setState({
+      role: !this.state.role
+    });
+    console.log(this.state.role);
+  };
+
   render() {
     return (
       <div>
         <h1>Project feed</h1>
         <div>
-          {/* <ProjectSearch
+          <ProjectSearch
             projects={this.state.projects}
             user={this.state.user}
-            updateProjects={this.updateProjects}
-          /> */}
+            setRemote={this.setRemote}
+            setStatus={this.setStatus}
+            setRole={this.setRole}
+            remote={this.state.remote}
+            status={this.state.status}
+            role={this.state.role}
+          />
         </div>
         <div>
           <ProjectForm user={this.state.user} />
         </div>
         <div>
-          <ProjectCards projects={this.state.projects} />
+          <ProjectCards
+            remote={this.state.remote}
+            status={this.state.status}
+            role={this.state.role}
+            projects={this.state.projects}
+            user={this.state.user}
+          />
         </div>
       </div>
     );
