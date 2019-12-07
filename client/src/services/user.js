@@ -32,4 +32,19 @@ const logout = () => {
   axios.delete("/api/auth/logout");
 };
 
-export { signup, login, logout };
+const editUserProfile = (_id, userInfos) => {
+  return axios
+    .put(`/api/profiles/${_id}`, userInfos)
+    .then(response => {
+      return response.data;
+    })
+    .catch(err => {
+      if (err.response.status === 404) {
+        this.setState({
+          error: err.response.data.message
+        });
+      }
+    });
+};
+
+export { signup, login, logout, editUserProfile };
