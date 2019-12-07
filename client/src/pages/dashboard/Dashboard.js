@@ -1,23 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
-import BestProjects from "./BestProjects"
-
-
-class OnGoingProjects extends Component {
-
-  render(){
-
-    /* const {user, projecst} = this.props
-
-    const myProjects = projects.filter(value =>{
-      if (value.)
-    }) */
-
-    return(
-      <div>Projects I am working on</div>
-    )
-  }
-}
+import BestProjects from "./BestProjects";
+import MyProjects from "./MyProjects"
 
 
 export default class Dashboard extends Component {
@@ -36,7 +20,7 @@ export default class Dashboard extends Component {
             if (requiredRoles.open) {
               return requiredRoles.name;
             }
-            return false
+            return false;
           });
           if (roles.indexOf(this.props.user.role) >= 0) {
             return value;
@@ -61,14 +45,12 @@ export default class Dashboard extends Component {
     return (
       <div>
         <h1>{this.props.user.username} Dashboard </h1>
-        <div>
-          <OnGoingProjects
-            projects={this.state.projects}
-            user={this.props.user}
-          />
+        <div style={{ textAlign: "center" }}>
+          <h2>Projects I am working on</h2>
+          <MyProjects user={this.props.user} />
         </div>
         <div style={{ textAlign: "center" }}>
-          Projects matching Your Profile
+          <h2>Projects matching Your Profile</h2>
           <BestProjects projects={this.state.projects} user={this.props.user} />
         </div>
       </div>
