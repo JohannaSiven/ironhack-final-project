@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const ProjectCards = props => {
   let projects = props.projects;
-  let userRole = props.user.role;
+  //let userRole = props.user.role;
 
   if (props.remote) {
     projects = projects.filter(project => project.remote === true);
