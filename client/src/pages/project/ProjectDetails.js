@@ -16,6 +16,8 @@ export default class ProjectDetails extends Component {
       this.setState({
         project: response
       });
+      console.log(this.state.project);
+      console.log(this.props.user);
     });
     // this.state.project.applications
   };
@@ -53,6 +55,7 @@ export default class ProjectDetails extends Component {
     if (!project) {
       return <div></div>;
     }
+   
     return (
       <div>
         <h3>{project.title}</h3>
@@ -115,7 +118,7 @@ export default class ProjectDetails extends Component {
                 return (
                   <div key={i}>
                     <span open={role.open}>{role.name}</span>
-                    {role.open && !this.applied() && (
+                    {role.open && !this.applied() && this.props.user._id != project.owner._id && (
                       <button name={role.name} onClick={this.handleApplication}>
                         Apply
                       </button>
