@@ -24,6 +24,7 @@ class RoleSelect extends Component {
         onSelect={this.props.onSelect}
         onRemove={this.props.onRemove}
         displayValue="name"
+       
       />
     );
   }
