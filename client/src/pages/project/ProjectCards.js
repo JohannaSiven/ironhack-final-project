@@ -14,7 +14,12 @@ const ProjectCards = props => {
 
   if (props.role) {
     projects = projects.filter(project =>{
-      let availableRoles = project.requiredRoles.map(value => value.name)
+      let availableRoles = project.requiredRoles.map(value => {
+        if(value.open){
+          return value.name
+        }
+        return false
+        })
       if (availableRoles.includes(props.user.role)) {
         return project
       }
@@ -22,8 +27,6 @@ const ProjectCards = props => {
     })
     //
   }
-  console.log("projects", projects)
-  console.log("user", props.user)
 
   return (
     <div>
