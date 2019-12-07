@@ -1,4 +1,4 @@
-export default keyWords = [
+export let keyWords = [
   "2D Animation",
   "2D CAD Drawing",
   "2D Drawing",
