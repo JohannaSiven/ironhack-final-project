@@ -94,6 +94,9 @@ app.use("/api/projects", projectRoutes);
 const authRoutes = require("./routes/auth");
 app.use("/api/auth", authRoutes);
 
+const chat = require("./routes/chat");
+app.use("/chat", chat);
+
 app.use((req, res) => {
   // If no routes match, send them the React HTML.
   res.sendFile(__dirname + "/client/build/index.html");
