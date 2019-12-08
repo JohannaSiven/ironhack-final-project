@@ -105,11 +105,11 @@ router.put("/:id", (req, res) => {
       description: req.body.description,
       remote: req.body.remote,
       status: req.body.status,
-      requiredRoles: req.body.requiredRoles,
-      owner: req.user._id,
-      contributors: [req.user._id],
-      tags: req.body.tags,
-      applications: req.body.applications
+      //requiredRoles: req.body.requiredRoles,
+      //owner: req.user._id,
+      //contributors: [req.user._id],
+      tags: req.body.tags
+      //applications: req.body.applications
     },
     { new: true }
   )

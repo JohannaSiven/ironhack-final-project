@@ -77,8 +77,6 @@ class NotificationBox extends Component {
   };
 
   render() {
-    console.log(this.state);
-    console.log(this.props.user);
     return (
       <React.Fragment>
         <button onClick={this.showNotification}>

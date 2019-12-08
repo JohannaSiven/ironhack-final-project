@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 export default class UsersList extends Component {
   render() {
@@ -70,7 +71,7 @@ export default class UsersList extends Component {
               </div>
               <div>
                 <p>{value.location}</p>
-                <a href={`/user/${value._id}`}>Check User</a>
+                <Link to={`/user/${value._id}`}>Check User</Link>
               </div>
             </div>
           );
