@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { FaRegEdit } from "react-icons/fa";
 
 export default class UserPhoto extends Component {
   render() {
@@ -6,18 +7,21 @@ export default class UserPhoto extends Component {
     return (
       <>
         <img src={profile.photo} alt={profile.username} />
-        <br />
-        <label htmlFor="image">Select image</label>
-        <input
-          id="image"
-          type="file"
-          name="photo"
-          style={{ display: "none" }}
-          onChange={e => this.props.handleFileUpload(e)}
-        />
-        <button type="submit" disabled={this.props.uploadOn}>
-          Edit Photo
-        </button>
+        <div className="newPhoto">
+          <label htmlFor="image">
+            <FaRegEdit size="20px" color="#2B7A78" />
+          </label>
+          <input
+            id="image"
+            type="file"
+            name="photo"
+            style={{ display: "none" }}
+            onChange={e => this.props.handleFileUpload(e)}
+          />
+          <button type="submit" disabled={this.props.uploadOn}>
+            SAVE
+          </button>
+        </div>
       </>
     );
   }

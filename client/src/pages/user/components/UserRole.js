@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { roles } from "../Keywords";
+import { FaRegEdit } from "react-icons/fa";
 
 export default class UserRole extends Component {
   render() {
@@ -21,13 +22,15 @@ export default class UserRole extends Component {
                 );
               })}
             </select>
-            <button type="submit">Save</button>
+            <button type="submit" onClick={this.props.hideForm}>
+              SAVE
+            </button>
           </>
         ) : profile.role ? (
           <>
-            <span>{profile.role}</span>
+            <h2>{profile.role}</h2>
             <button name="role" onClick={this.props.onClick}>
-              edit
+              <FaRegEdit size="14px" color="#2B7A78" />
             </button>
           </>
         ) : (

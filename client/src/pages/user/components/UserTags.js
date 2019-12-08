@@ -25,7 +25,10 @@ const UserTags = props => {
             onChange={props.onChange}
           />
           <button type="submit" onSubmit={props.onSubmit}>
-            Save
+            ADD
+          </button>
+          <button type="button" onClick={props.hideForm}>
+            SAVE
           </button>
         </>
       ) : profile.tags[0] ? (
@@ -42,7 +45,7 @@ const UserTags = props => {
       ) : (
         <>
           <button name="newTag" onClick={props.onClick}>
-            Add Portfolio
+            ADD Tags
           </button>
         </>
       )}

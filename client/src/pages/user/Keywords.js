@@ -1,4 +1,4 @@
-export const keyWords = [
+export const skills = [
   "Algorithms",
   "Accounting Software",
   "Active Listening",
@@ -175,4 +175,45 @@ export const roles = [
   "Quality Assurance",
   "Software Tester",
   "Other"
+];
+
+export const tags = [
+  "Frontend Developer",
+  "Backend Developer",
+  "Fullstack Developer",
+  "Mobile Developer",
+  "UI/UX Designer",
+  "Project Manager",
+  "Data Analyst",
+  "Quality Assurance",
+  "Software Tester",
+  "Other"
+];
+
+export const portfolios = [
+  {
+    site: "Linkedin",
+    baseUrl: "https://www.linkedin.com/in/",
+    icon: "FaLinkedin"
+  },
+  {
+    site: "Github",
+    baseUrl: "https://www.github.com/",
+    icon: "FaGithub"
+  },
+  {
+    site: "Dribbble",
+    baseUrl: "https://www.dribbble.com/",
+    icon: "FaDribbble"
+  },
+  {
+    site: "Behance",
+    baseUrl: "https://www.behance.net/",
+    icon: "FaBehance"
+  },
+  {
+    site: "Medium",
+    baseUrl: "https://www.medium.com/",
+    icon: "FaMedium"
+  }
 ];

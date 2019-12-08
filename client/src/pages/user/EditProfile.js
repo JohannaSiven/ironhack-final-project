@@ -3,6 +3,9 @@ import React, { Component } from "react";
 import { handleUpload } from "../../services/cloudinary";
 import { editUserProfile } from "../../services/user";
 
+import { FaMapMarkerAlt } from "react-icons/fa";
+import { Container } from "./styles";
+
 import UserPhoto from "./components/UserPhoto";
 import UserDescription from "./components/UserDescription";
 import UserRole from "./components/UserRole";
@@ -22,7 +25,6 @@ export default class EditProfile extends Component {
 
     showForm: "",
     newSkill: "",
-    newPortfolio: "",
     newTag: "",
     uploadOn: false
   };
@@ -33,11 +35,16 @@ export default class EditProfile extends Component {
     });
   };
 
+  handlePortfolioChange = newPort => {
+    this.setState({
+      portfolio: newPort
+    });
+  };
+
   handleRemove = elem => {
     this.setState(
       {
         skills: this.state.skills.filter(s => s !== elem),
-        portfolio: this.state.portfolio.filter(p => p !== elem),
         tags: this.state.tags.filter(t => t !== elem)
       },
       () => this.uploadProfile()
@@ -54,16 +61,6 @@ export default class EditProfile extends Component {
         () => this.uploadProfile()
       );
     }
-    if (this.state.newPortfolio) {
-      this.setState(
-        {
-          portfolio: [...this.state.portfolio, this.state.newPortfolio],
-          newPortfolio: ""
-        },
-        () => this.uploadProfile()
-      );
-    }
-
     if (this.state.newTag) {
       this.setState(
         {
@@ -76,7 +73,6 @@ export default class EditProfile extends Component {
   };
 
   handleFileUpload = e => {
-    // console.log("The file to be uploaded is: ", e.target.files[0]);
     const uploadData = new FormData();
     uploadData.append("imageUrl", e.target.files[0]);
 
@@ -84,18 +80,14 @@ export default class EditProfile extends Component {
 
     handleUpload(uploadData)
       .then(response => {
-        // console.log("response is: ", response);
         this.setState({ photo: response.secure_url, uploadOn: false });
       })
-      .catch(err => {
-        console.log("Error while uploading the file: ", err);
-      });
+      .catch(err => console.log("Error while uploading the file: ", err));
   };
 
   uploadProfile = () => {
     this.changeState();
-
-    // if (this.state.uploadOn) return;
+    if (this.state.uploadOn) return;
 
     const { _id } = this.props.profileUser;
 
@@ -112,13 +104,10 @@ export default class EditProfile extends Component {
     editUserProfile(_id, userInfos).then(response => {
       this.props.setProfileUser(response);
     });
-    this.setState({
-      showForm: ""
-    });
   };
 
   handleSubmit = event => {
-    event.preventDefault();
+    if (event) event.preventDefault();
     this.uploadProfile();
   };
 
@@ -129,90 +118,117 @@ export default class EditProfile extends Component {
     });
   };
 
+  hideForm = () => {
+    setTimeout(() => {
+      this.setState({
+        showForm: ""
+      });
+    }, 200);
+  };
+
   render() {
     const profile = this.props.profileUser;
     return (
-      <div>
+      <Container>
+        <div className="bg-header" />
         <form onSubmit={this.handleSubmit}>
-          {/* ------------------ PHOTO ------------------ */}
-          <UserPhoto
-            profile={this.props.profileUser}
-            uploadOn={this.state.uploadOn}
-            handleFileUpload={this.handleFileUpload}
-          />
-          <br />
+          <div className="container">
+            {/* ------------------ PHOTO ------------------ */}
+            <div className="userPhoto">
+              <UserPhoto
+                profile={this.props.profileUser}
+                uploadOn={this.state.uploadOn}
+                handleFileUpload={this.handleFileUpload}
+              />
+            </div>
 
-          {/* ------------------ USERNAME ------------------ */}
-          <h1>{profile.username}</h1>
-          <br />
+            {/* ------------------ USERNAME ------------------ */}
+            <div className="userMain">
+              <div className="userName">
+                <h1>{profile.username}</h1>
+                {/* ------------------ LOCATION ------------------ */}
+                <div>
+                  <FaMapMarkerAlt size="14px" color="#45A29E" />
+                  <UserLocation
+                    onChange={this.handleChange}
+                    value={this.state.location}
+                    onClick={this.toggleEdit}
+                    profile={this.props.profileUser}
+                    showForm={this.state.showForm}
+                    hideForm={this.hideForm}
+                  />
+                </div>
+              </div>
 
-          {/* ------------------ DESCRIPTION ------------------ */}
-          <UserDescription
-            onChange={this.handleChange}
-            value={this.state.description}
-            onClick={this.toggleEdit}
-            profile={this.props.profileUser}
-            showForm={this.state.showForm}
-          />
-          <br />
+              <div className="userInfos">
+                {/* ------------------ ROLE ------------------ */}
+                <UserRole
+                  onChange={this.handleChange}
+                  value={this.state.role}
+                  onClick={this.toggleEdit}
+                  profile={this.props.profileUser}
+                  showForm={this.state.showForm}
+                  hideForm={this.hideForm}
+                />
 
-          {/* ------------------ ROLE ------------------ */}
-          <UserRole
-            onChange={this.handleChange}
-            value={this.state.role}
-            onClick={this.toggleEdit}
-            profile={this.props.profileUser}
-            showForm={this.state.showForm}
-          />
-          <br />
+                {/* ------------------ PORTFOLIO ------------------ */}
+                <UserPortfolio
+                  onChange={this.handlePortfolioChange}
+                  onClick={this.toggleEdit}
+                  profile={this.props.profileUser}
+                  showForm={this.state.showForm}
+                  hideForm={this.hideForm}
+                />
 
-          {/* ------------------ LOCATION ------------------ */}
-          <UserLocation
-            onChange={this.handleChange}
-            value={this.state.location}
-            onClick={this.toggleEdit}
-            profile={this.props.profileUser}
-            showForm={this.state.showForm}
-          />
-          <br />
+                <div className="description">
+                  <h4>Description</h4>
+                  {/* ------------------ DESCRIPTION ------------------ */}
+                  <UserDescription
+                    onChange={this.handleChange}
+                    value={this.state.description}
+                    onClick={this.toggleEdit}
+                    profile={this.props.profileUser}
+                    showForm={this.state.showForm}
+                    hideForm={this.hideForm}
+                  />
+                </div>
 
-          {/* ------------------ SKILLS ------------------ */}
-          <UserSkills
-            onChange={this.handleChange}
-            onClick={this.toggleEdit}
-            onSubmit={this.handleSubmit}
-            profile={this.props.profileUser}
-            value={this.state.newSkill}
-            showForm={this.state.showForm}
-            handleRemove={this.handleRemove}
-          />
-          <br />
+                <div className="lists">
+                  <div className="skills">
+                    <h4>Skills</h4>
 
-          {/* ------------------ PORTFOLIO ------------------ */}
-          <UserPortfolio
-            onChange={this.handleChange}
-            onClick={this.toggleEdit}
-            onSubmit={this.handleSubmit}
-            profile={this.props.profileUser}
-            value={this.state.newPortfolio}
-            showForm={this.state.showForm}
-            handleRemove={this.handleRemove}
-          />
-          <br />
-
-          {/* ------------------ TAGS ------------------ */}
-          <UserTags
-            onChange={this.handleChange}
-            onClick={this.toggleEdit}
-            onSubmit={this.handleSubmit}
-            profile={this.props.profileUser}
-            value={this.state.newTag}
-            showForm={this.state.showForm}
-            handleRemove={this.handleRemove}
-          />
-          <br />
+                    {/* ------------------ SKILLS ------------------ */}
+                    <UserSkills
+                      onChange={this.handleChange}
+                      onClick={this.toggleEdit}
+                      onSubmit={this.handleSubmit}
+                      profile={this.props.profileUser}
+                      value={this.state.newSkill}
+                      showForm={this.state.showForm}
+                      handleRemove={this.handleRemove}
+                      hideForm={this.hideForm}
+                    />
+                  </div>
+                  <div className="tags">
+                    <h4>Tags</h4>
+                    {/* ------------------ TAGS ------------------ */}
+                    <UserTags
+                      onChange={this.handleChange}
+                      onClick={this.toggleEdit}
+                      onSubmit={this.handleSubmit}
+                      profile={this.props.profileUser}
+                      value={this.state.newTag}
+                      showForm={this.state.showForm}
+                      handleRemove={this.handleRemove}
+                      hideForm={this.hideForm}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </form>
-      </div>
+      </Container>
     );
   }
 }

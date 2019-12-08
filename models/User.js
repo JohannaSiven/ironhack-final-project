@@ -36,7 +36,41 @@ const userSchema = new Schema(
       default: "Other"
     },
     skills: [],
-    portfolio: [],
+    portfolio: {
+      type: [],
+      default: [
+        {
+          site: "linkedin",
+          baseUrl: "linkedin.com/in/",
+          icon: "FaLinkedin",
+          url: ""
+        },
+        {
+          site: "github",
+          baseUrl: "github.com/",
+          icon: "FaGithub",
+          url: ""
+        },
+        {
+          site: "dribbble",
+          baseUrl: "dribbble.com/",
+          icon: "FaDribbble",
+          url: ""
+        },
+        {
+          site: "behance",
+          baseUrl: "behance.net/",
+          icon: "FaBehance",
+          url: ""
+        },
+        {
+          site: "medium",
+          baseUrl: "medium.com/",
+          icon: "FaMedium",
+          url: "qualquer coisa"
+        }
+      ]
+    },
     tags: []
   },
   {

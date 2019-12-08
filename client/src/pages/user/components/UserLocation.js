@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { FaRegEdit } from "react-icons/fa";
 
 export default class UserLocation extends Component {
   render() {
@@ -13,13 +14,15 @@ export default class UserLocation extends Component {
               value={this.props.value}
               onChange={this.props.onChange}
             />
-            <button type="submit">Save</button>
+            <button type="submit" onClick={this.props.hideForm}>
+              Save
+            </button>
           </>
         ) : profile.location ? (
           <>
-            <span>{profile.location}</span>
             <button name="location" onClick={this.props.onClick}>
-              edit
+              {profile.location}
+              <FaRegEdit size="14px" color="#2B7A78" />
             </button>
           </>
         ) : (
