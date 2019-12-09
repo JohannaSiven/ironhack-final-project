@@ -1,8 +1,13 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { logout } from "../../services/user";
+import NotificationBox from "./Notifications"
 
 import { Nav } from "./styles";
+
+
+
+
 
 export default class Navbar extends Component {
   handleLogout = () => {
@@ -23,10 +28,11 @@ export default class Navbar extends Component {
             <Link to={`/user/${this.props.user._id}`}>Profile</Link>
             <Link to="/projects">Projects</Link>
             <Link to="/users">Users</Link>
-
+            <NotificationBox user={this.props.user} />
             <Link to="/" onClick={this.handleLogout}>
               Logout
             </Link>
+           
           </>
         ) : (
           <>
