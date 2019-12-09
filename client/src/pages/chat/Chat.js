@@ -9,7 +9,8 @@ export default class Chat extends Component {
   };
 
   getFeed = () =>{
-    Axios.post("/api/chat/").then(response =>{
+    Axios.post("/api/chat/").then(response =>
+      {
       this.setState({
         feed: response.data
       })
