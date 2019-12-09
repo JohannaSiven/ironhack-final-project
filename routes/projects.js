@@ -98,29 +98,30 @@ router.put("/apply/:id", (req, res) => {
 // PROJECT FORM
 // PUT /api/projects/:id
 
-// router.put("/:id", (req, res) => {
-//   Project.findByIdAndUpdate(
-//     req.params.id,
-//     {
-//       title: req.body.title,
-//       description: req.body.description,
-//       remote: req.body.remote,
-//       status: req.body.status,
-//       requiredRoles: req.body.requiredRoles,
-//       owner: req.user._id,
-//       contributors: [req.user._id],
-//       tags: req.body.tags,
-//       applications: req.body.applications
-//     },
-//     { new: true }
-//   )
-//     .then(project => {
-//       res.json(project);
-//     })
-//     .catch(err => {
-//       res.status(500).json(err);
-//     });
-// });
+router.put("/:id", (req, res) => {
+  Project.findByIdAndUpdate(
+    req.params.id,
+    {
+      title: req.body.title,
+      description: req.body.description,
+      remote: req.body.remote,
+      status: req.body.status,
+      requiredRoles: req.body.requiredRoles,
+      owner: req.user._id,
+      contributors: [req.user._id],
+      tags: req.body.tags,
+      applications: req.body.applications
+    },
+    { new: true }
+  ).populate("owner")
+    .populate("contributors")
+    .then(project => {
+      res.json(project);
+    })
+    .catch(err => {
+      res.status(500).json(err);
+    });
+});
 
 router.post("/applications/reject", (req, res) => {
   const { applicant, project } = req.body;

@@ -10,6 +10,21 @@ import Profile from "./pages/user/Profile";
 import Dashboard from "./pages/dashboard/Dashboard";
 import UsersFeed from "./pages/feed/UsersFeed";
 
+class Chat extends Component {
+  render() {
+    return(
+      <div> 
+        <div>
+        
+        </div>
+        <form>
+          <label htmlFor="text">Message</label>
+          <input type="text" name="text" id="text"/>
+        </form>
+      </div>    )
+  }
+}
+
 class App extends Component {
   state = {
     user: this.props.user
@@ -26,6 +41,7 @@ class App extends Component {
       <div>
         <Navbar user={this.state.user} clearUser={this.setUser} />
         <Route exact path="/" component={Home} />
+        <Route exact path="/chat" component={Chat} />
         <Route
           exact
           path="/login"

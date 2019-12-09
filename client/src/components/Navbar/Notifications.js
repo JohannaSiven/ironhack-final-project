@@ -51,10 +51,13 @@ class NotificationBox extends Component {
         return false;
       });
 
+
       let myApplications = response.data.filter(project => {
-        let applicants = project.applications.map(value => value.user);
-        if (applicants.includes(this.props.user._id)) {
-          return project;
+        if (project.applications) {
+          let applicants = project.applications.map(value => value.user);
+          if (applicants.includes(this.props.user._id)) {
+            return project;
+          }
         }
         return false;
       });
@@ -77,8 +80,6 @@ class NotificationBox extends Component {
   };
 
   render() {
-    console.log(this.state);
-    console.log(this.props.user);
     return (
       <React.Fragment>
         <button onClick={this.showNotification}>
