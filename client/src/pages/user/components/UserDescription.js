@@ -7,13 +7,15 @@ export default class UserDescription extends Component {
       <>
         {this.props.showForm === "description" ? (
           <>
-            <input
+            <textarea
               type="text"
               name="description"
               value={this.props.value}
               onChange={this.props.onChange}
             />
-            <button type="submit">Save</button>
+            <button type="submit" onClick={this.props.hideForm}>
+              Save
+            </button>
           </>
         ) : profile.description ? (
           <>

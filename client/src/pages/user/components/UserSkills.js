@@ -1,4 +1,5 @@
 import React from "react";
+import { skills } from "../Keywords";
 
 const UserSkills = props => {
   const { profile } = props;
@@ -20,14 +21,22 @@ const UserSkills = props => {
               );
             })}
           </ul>
-          <input
-            type="text"
+          <select
             name="newSkill"
-            value={props.newSkill}
             onChange={props.onChange}
-          />
-          <button type="submit" onSubmit={props.onSubmit}>
-            Save
+            // defaultValue={profile.skills}
+          >
+            {skills.map(skill => {
+              return (
+                <option value={skill} key={skill}>
+                  {skill}
+                </option>
+              );
+            })}
+          </select>
+          <button type="submit">ADD</button>
+          <button type="button" onClick={props.hideForm}>
+            SAVE
           </button>
         </>
       ) : profile.skills[0] ? (
@@ -44,7 +53,7 @@ const UserSkills = props => {
       ) : (
         <>
           <button name="newSkill" onClick={props.onClick}>
-            Add Skills
+            ADD Skills
           </button>
         </>
       )}

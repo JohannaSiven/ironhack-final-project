@@ -105,22 +105,16 @@ export default class ProjectDetails extends Component {
   }
 
   render() {
-    const { project } = this.state;
-    if (!project) {
+    if (!this.state.project) {
       return <div></div>;
     }
-
-    console.log(project);
+    const { project } = this.state;
     return (
       <div>
         <h3>{project.title}</h3>
         <p>{project.created_at}</p>
         {/* ------------------ REMOTE ------------------ */}
-        {project.remote ? (
-          <span remote={project.remote.toString()}>Remote</span>
-        ) : (
-          <span remote={project.remote.toString()}>Local</span>
-        )}
+        {project.remote ? <span>Remote</span> : <span>Local</span>}
 
         {/* ------------------ STATUS ------------------ */}
         <h4>Status: </h4>

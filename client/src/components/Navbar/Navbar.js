@@ -1,13 +1,11 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { logout } from "../../services/user";
-import NotificationBox from "./Notifications"
+import NotificationBox from "./Notifications";
+
+import logo from "../../img/collabrains-02.svg";
 
 import { Nav } from "./styles";
-
-
-
-
 
 export default class Navbar extends Component {
   handleLogout = () => {
@@ -21,25 +19,43 @@ export default class Navbar extends Component {
     //console.log(this.props.user);
     return (
       <Nav active>
-        {this.props.user ? (
-          <>
-            <Link to="/">Home</Link>
-            <Link to="/dashboard">Dashboard</Link>
-            <Link to={`/user/${this.props.user._id}`}>Profile</Link>
-            <Link to="/projects">Projects</Link>
-            <Link to="/users">Users</Link>
-            <NotificationBox user={this.props.user} />
-            <Link to="/" onClick={this.handleLogout}>
-              Logout
-            </Link>
-           
-          </>
-        ) : (
-          <>
-            <Link to="/signup">Signup</Link>
-            <Link to="/login">Login</Link>
-          </>
-        )}
+        <Link className="navLogo" to="/">
+          <img src={logo} alt="Collabrains" />
+        </Link>
+        <div className="navPages">
+          {this.props.user ? (
+            <>
+              <Link className="cool-link" to="/">
+                Home
+              </Link>
+              <Link className="cool-link" to="/dashboard">
+                Dashboard
+              </Link>
+              <Link className="cool-link" to={`/user/${this.props.user._id}`}>
+                Profile
+              </Link>
+              <Link className="cool-link" to="/projects">
+                Projects
+              </Link>
+              <Link className="cool-link" to="/users">
+                Users
+              </Link>
+              <NotificationBox user={this.props.user} />
+              <Link className="cool-link" to="/" onClick={this.handleLogout}>
+                Logout
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link className="cool-link" to="/signup">
+                Signup
+              </Link>
+              <Link className="cool-link" to="/login">
+                Login
+              </Link>
+            </>
+          )}
+        </div>
       </Nav>
     );
   }
