@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-
+import axios from "axios";
 import { projectInfos, addApplication } from "../../services/project";
 
 export default class ProjectDetails extends Component {
@@ -37,6 +37,60 @@ export default class ProjectDetails extends Component {
     }
   };
 
+  addContributor = (applicant, project) => {
+    axios
+      .post(`/api/projects/applications/accept`, {
+        applicant,
+        project
+      })
+      .then(response => {
+        console.log("RESULT", response.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  removeApplicant = (applicant, project) => {
+    axios
+      .post(`/api/projects/applications/reject`, {
+        applicant,
+        project
+      })
+      .then(response => {
+        console.log(response.data);
+        console.log(response.data.applications);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  updateRoles = (project, role) => {
+    axios
+      .post(`/api/projects/applications/roleUpdate`, {
+        project,
+        role
+      })
+      .then(response => {
+        console.log(response.data);
+        console.log(response.data.applications);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  accepted = event => {
+    this.addContributor(event.target.id, this.state.project._id);
+    this.removeApplicant(event.target.id, this.state.project._id);
+    this.updateRoles(this.state.project._id, event.target.name);
+  };
+
+  rejected = event => {
+    this.removeApplicant(event.target.id, this.state.project._id);
+  };
+
   componentDidMount() {
     const { projectId } = this.props.match.params;
     projectInfos(projectId)
@@ -55,7 +109,8 @@ export default class ProjectDetails extends Component {
     if (!project) {
       return <div></div>;
     }
-   
+
+    console.log(project);
     return (
       <div>
         <h3>{project.title}</h3>
@@ -118,11 +173,41 @@ export default class ProjectDetails extends Component {
                 return (
                   <div key={i}>
                     <span open={role.open}>{role.name}</span>
-                    {role.open && !this.applied() && this.props.user._id != project.owner._id && (
+                    {role.open && this.props.user._id !== project.owner._id && (
                       <button name={role.name} onClick={this.handleApplication}>
                         Apply
                       </button>
                     )}
+                    {this.props.user._id === project.owner._id &&
+                      project.applications.map(applicant => {
+                        return (
+                          <div key={applicant.user}>
+                            {applicant.role === role.name && (
+                              <>
+                                <Link to={`/user/${applicant.user}`}>
+                                  see profile
+                                </Link>
+                                <button
+                                  type="button"
+                                  id={applicant.user}
+                                  name={role.name}
+                                  onClick={this.accepted}
+                                >
+                                  Accept
+                                </button>
+                                <button
+                                  type="button"
+                                  id={applicant.user}
+                                  name={role.name}
+                                  onClick={this.rejected}
+                                >
+                                  Reject
+                                </button>
+                              </>
+                            )}
+                          </div>
+                        );
+                      })}
                     <br />
                   </div>
                 );

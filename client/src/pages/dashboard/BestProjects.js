@@ -32,7 +32,7 @@ export default class BestProjects extends Component {
           return (
             <div key={value._id}>
               <h3>{value.title}</h3>
-              <h4>{value.description}</h4>
+              <p>{value.description}</p>
               <h3>Tags</h3>
               {value.tags.map((value, index) => {
                 return <p key={index}>{value}</p>;

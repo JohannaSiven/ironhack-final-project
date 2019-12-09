@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
+mongoose.set("debug", true);
 
 const User = require("../models/User");
 const Project = require("../models/Project");
@@ -97,28 +98,90 @@ router.put("/apply/:id", (req, res) => {
 // PROJECT FORM
 // PUT /api/projects/:id
 
-router.put("/:id", (req, res) => {
+// router.put("/:id", (req, res) => {
+//   Project.findByIdAndUpdate(
+//     req.params.id,
+//     {
+//       title: req.body.title,
+//       description: req.body.description,
+//       remote: req.body.remote,
+//       status: req.body.status,
+//       requiredRoles: req.body.requiredRoles,
+//       owner: req.user._id,
+//       contributors: [req.user._id],
+//       tags: req.body.tags,
+//       applications: req.body.applications
+//     },
+//     { new: true }
+//   )
+//     .then(project => {
+//       res.json(project);
+//     })
+//     .catch(err => {
+//       res.status(500).json(err);
+//     });
+// });
+
+router.post("/applications/reject", (req, res) => {
+  const { applicant, project } = req.body;
+
   Project.findByIdAndUpdate(
-    req.params.id,
+    { _id: project },
     {
-      title: req.body.title,
-      description: req.body.description,
-      remote: req.body.remote,
-      status: req.body.status,
-      requiredRoles: req.body.requiredRoles,
-      owner: req.user._id,
-      contributors: [req.user._id],
-      tags: req.body.tags,
-      applications: req.body.applications
+      $pull: {
+        applications: {
+          user: applicant
+        }
+      }
     },
     { new: true }
   )
     .then(project => {
       res.json(project);
     })
-    .catch(err => {
-      res.status(500).json(err);
-    });
+    .catch(err => res.status(500).json(err));
+});
+
+router.post("/applications/accept", (req, res) => {
+  const { applicant, project } = req.body;
+
+  Project.findByIdAndUpdate(
+    { _id: project },
+    {
+      $push: {
+        contributors: applicant
+      }
+    },
+    { new: true }
+  )
+    .then(project => {
+      res.json(project);
+    })
+    .catch(err => res.status(500).json(err));
+});
+
+router.post("/applications/roleUpdate", (req, res) => {
+  const { project, role } = req.body;
+  console.log("project:", project, "role:", role);
+
+  Project.findById(project)
+    .then(specific => {
+      const updatedRequiredRoles = specific.requiredRoles.map(el => {
+        if (el.name === role) {
+          el.open = false;
+          return el;
+        }
+        return el;
+      });
+      Project.findByIdAndUpdate(
+        project,
+        { requiredRoles: updatedRequiredRoles },
+        { new: true }
+      ).then(result => {
+        res.json(result);
+      });
+    })
+    .catch(err => res.status(500).json(err));
 });
 
 /*--------------------------------------------------*/
