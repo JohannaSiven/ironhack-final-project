@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
-// import { FaLinkedin } from "react-icons/fa";
+// import { FaLinkedin } from "react-icons/fa/";
 // import { FaGithub } from "react-icons/fa";
 // import { FaDribbble } from "react-icons/fa";
 // import { FaBehance } from "react-icons/fa";
@@ -14,12 +14,11 @@ export default class UserPortfolio extends Component {
     github: this.props.profile.portfolio[1].url,
     dribbble: this.props.profile.portfolio[2].url,
     behance: this.props.profile.portfolio[3].url,
-    medium: this.props.profile.portfolio[4].url,
-    newPort: this.props.profile.portfolio
+    medium: this.props.profile.portfolio[4].url
   };
 
   portfolioNewState = () => {
-    this.props.onChange(this.state.newPort);
+    this.props.onChange(this.state.portfolio);
     this.props.hideForm();
   };
 
@@ -34,33 +33,9 @@ export default class UserPortfolio extends Component {
     });
     this.setState({
       [event.target.name]: event.target.value,
-      newPort: newPort
+      portfolio: newPort
     });
   };
-
-  // checkPortfolio = () => {
-  //   if (!this.props.profile.portfolio) {
-  //     return (
-  //       <button name="newPortfolio" onClick={this.props.onClick}>
-  //         Add Portfolio
-  //       </button>
-  //     );
-  //   } else {
-  //     return this.props.profile.portfolio.map(userPort => {
-  //       portfolios.map(port => {
-  //         // console.log(port.site, "ok", userPort.site);
-  //         if (port.site === userPort.site) {
-  //           return (
-  //             <Link key={port.site} to={`${port.baseUrl}${userPort.url}`}>
-  //               {port.site}
-  //             </Link>
-  //           );
-  //         }
-  //       });
-  //     });
-  //   }
-  //   // console.log(this.props.profile.portfolio);
-  // };
 
   render() {
     if (!this.state.portfolio) return <div></div>;
@@ -91,9 +66,13 @@ export default class UserPortfolio extends Component {
             {this.state.portfolio.map(userPort => {
               return (
                 userPort.url && (
-                  <Link key={userPort.site} to={`https://www.${userPort.url}`}>
+                  <a
+                    key={userPort.site}
+                    href={`https://www.${userPort.baseUrl}${userPort.url}`}
+                    target="_blank"
+                  >
                     {userPort.site}
-                  </Link>
+                  </a>
                 )
               );
             })}
@@ -106,9 +85,3 @@ export default class UserPortfolio extends Component {
     );
   }
 }
-
-// <>
-//   <button name="newPortfolio" onClick={this.props.onClick}>
-//     Add Portfolio
-//   </button>
-// </>

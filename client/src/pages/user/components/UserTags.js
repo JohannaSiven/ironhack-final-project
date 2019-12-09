@@ -1,4 +1,5 @@
 import React from "react";
+import { tags } from "../Keywords";
 
 const UserTags = props => {
   const { profile } = props;
@@ -18,15 +19,16 @@ const UserTags = props => {
               );
             })}
           </ul>
-          <input
-            type="text"
-            name="newTag"
-            value={props.value}
-            onChange={props.onChange}
-          />
-          <button type="submit" onSubmit={props.onSubmit}>
-            ADD
-          </button>
+          <select name="newTag" onChange={props.onChange}>
+            {tags.map(tag => {
+              return (
+                <option value={tag} key={tag}>
+                  {tag}
+                </option>
+              );
+            })}
+          </select>
+          <button type="submit">ADD</button>
           <button type="button" onClick={props.hideForm}>
             SAVE
           </button>
