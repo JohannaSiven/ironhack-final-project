@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const chat = new mongoose.Schema({
+const chatSchema = new mongoose.Schema({
   users: [String],
   messages: [
     {
@@ -13,7 +13,7 @@ const chat = new mongoose.Schema({
   updated_at: { type: Date, default: Date.now }
 });
 
-const message = new mongoose.Schema({
+const messageSchema = new mongoose.Schema({
   chat: [
     {
       type: Schema.Types.ObjectId,
