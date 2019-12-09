@@ -4,7 +4,7 @@ import axios from "axios";
 import UsersSearch from "./UsersSearch";
 import RoleSelect from "../project/RoleSelect";
 
-export default class UsersFeed extends Component {
+export default class extends Component {
   state = {
     users: [],
     query: "",
@@ -65,6 +65,7 @@ export default class UsersFeed extends Component {
           roles={this.state.roles}
           query={this.state.query}
           users={this.state.users}
+          user={this.props.user}
         />
       </div>
     );

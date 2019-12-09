@@ -8,7 +8,7 @@ export default class Profile extends Component {
   state = {
     profileUser: "",
     error: "",
-    owenerProfile: false
+    ownerProfile: false
   };
 
   getUser = () => {
@@ -19,7 +19,7 @@ export default class Profile extends Component {
       .then(response => {
         this.setState({
           profileUser: response.data,
-          owenerProfile: userId === this.props.user._id
+          ownerProfile: userId === this.props.user._id
         });
       })
       .catch(err => {
@@ -42,13 +42,14 @@ export default class Profile extends Component {
   }
 
   render() {
+    
     if (this.state.error) {
       return <p>{this.state.error}</p>;
     }
     if (!this.state.profileUser) {
       return <div></div>;
     }
-    if (this.state.owenerProfile) {
+    if (this.state.ownerProfile) {
       return (
         <EditProfile
           profileUser={this.state.profileUser}
@@ -57,7 +58,12 @@ export default class Profile extends Component {
         />
       );
     } else {
-      return <UserProfile profileUser={this.state.profileUser} />;
+      return (
+        <UserProfile
+          user={this.props.user._id}
+          profileUser={this.state.profileUser}
+        />
+      );
     }
   }
 }
