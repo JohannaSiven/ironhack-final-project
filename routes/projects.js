@@ -113,6 +113,8 @@ router.put("/:id", (req, res) => {
     },
     { new: true }
   )
+    .populate("owner")
+    .populate("contributors")
     .then(project => {
       res.json(project);
     })

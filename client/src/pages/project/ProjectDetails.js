@@ -125,7 +125,7 @@ export default class ProjectDetails extends Component {
     );
     if (result) {
       axios
-        .delete(`/api/projects/${this.props.match.params.projectId}`)
+        .delete(`/api/projects/${this.props.match.params.projectId}`).populate("owner").populate("contributors")
         .then(response => {
           console.log("delete response", response);
           this.props.history.push("/projects");
