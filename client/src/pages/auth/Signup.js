@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import { signup } from "../../services/user";
 import { Form, Alert } from "./styles";
+import { roles } from "../user/Keywords";
 
 class Signup extends Component {
   state = {
     username: "",
     password: "",
-    error: ""
+    error: "",
+    role: "Other"
   };
 
   handleChange = event => {
@@ -17,17 +19,20 @@ class Signup extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-
-    signup(this.state.username, this.state.password).then(data => {
-      if (data.message) {
-        this.setState({
-          error: data.message
-        });
-      } else {
-        this.props.setUser(data);
-        this.props.history.push("/user/" + data._id);
+    console.log('MY ROLE:', this.state.role)
+    signup(this.state.username, this.state.password, this.state.role).then(
+      data => {
+        if (data.message) {
+          this.setState({
+            error: data.message
+          });
+        } else {
+          console.log("data frontend", data);
+          this.props.setUser(data);
+          this.props.history.push("/user/" + data._id);
+        }
       }
-    });
+    );
   };
 
   render() {
@@ -53,6 +58,23 @@ class Signup extends Component {
               value={this.state.password}
               onChange={this.handleChange}
             />
+          </div>
+          <div>
+            <label htmlFor="role">Select your role: </label>
+            <select
+              id="role"
+              name="role"
+              onChange={this.handleChange}
+              defaultValue="Other"
+            >
+              {roles.map(role => {
+                return (
+                  <option value={role} key={role}>
+                    {role}
+                  </option>
+                );
+              })}
+            </select>
           </div>
           {this.state.error && <Alert>{this.state.error}</Alert>}
           <button type="submit">Signup</button>

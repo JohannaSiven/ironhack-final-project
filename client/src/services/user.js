@@ -14,11 +14,12 @@ const login = (username, password) => {
     });
 };
 
-const signup = (username, password) => {
+const signup = (username, password, role) => {
   return axios
     .post("/api/auth/signup", {
       username: username,
-      password: password
+      password: password,
+      role: role
     })
     .then(response => {
       return response.data;

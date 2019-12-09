@@ -13,7 +13,8 @@ export default class ProjectDetails extends Component {
     requiredRoles: [],
     tags: [],
     remote: true,
-    status: "Open"
+    status: "Open",
+    error: ""
   };
 
   handleApplication = event => {
@@ -114,6 +115,7 @@ export default class ProjectDetails extends Component {
         });
       })
       .catch(err => {
+        console.log(err)
         if (err.response.status === 404) {
           this.setState({
             error: err.response.data.message

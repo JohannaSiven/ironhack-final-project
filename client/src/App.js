@@ -9,21 +9,29 @@ import ProjectDetails from "./pages/project/ProjectDetails";
 import Profile from "./pages/user/Profile";
 import Dashboard from "./pages/dashboard/Dashboard";
 import UsersFeed from "./pages/feed/UsersFeed";
+import Axios from "axios";
+import Chat from "./pages/chat/Chat"
 
-class Chat extends Component {
+/* class Chat extends Component {
+
+  submitForm = () => {
+    Axios.post("/api/chat/postmessage")
+  }
+
   render() {
     return(
       <div> 
         <div>
         
         </div>
-        <form>
+        <form onSubmit={this.submitForm}>
           <label htmlFor="text">Message</label>
           <input type="text" name="text" id="text"/>
+          <button type="submit"></button>
         </form>
       </div>    )
   }
-}
+} */
 
 class App extends Component {
   state = {
@@ -41,7 +49,11 @@ class App extends Component {
       <div>
         <Navbar user={this.state.user} clearUser={this.setUser} />
         <Route exact path="/" component={Home} />
-        <Route exact path="/chat" component={Chat} />
+        <Route
+          exact
+          path="/chat"
+          render={props => <Chat {...props} user={this.state.user} />}
+        />
         <Route
           exact
           path="/login"
