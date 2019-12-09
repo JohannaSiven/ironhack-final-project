@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const chatSchema = new mongoose.Schema({
-  users: [String],
+  users: [],
   messages: [
     {
       type: Schema.Types.ObjectId,
@@ -13,19 +13,21 @@ const chatSchema = new mongoose.Schema({
   updated_at: { type: Date, default: Date.now }
 });
 
-const messageSchema = new mongoose.Schema({
-  chat: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "chat"
-    }
-  ],
-  user: String,
-  message_body: String,
-  created_at: { type: Date, default: Date.now }
-});
+// const messageSchema = new mongoose.Schema({
+//   chat: {
+//     type: Schema.Types.ObjectId,
+//     ref: "Chat"
+//   },
+//   sender: {
+//     type: Schema.Types.ObjectId,
+//     ref: "User"
+//   },
+//   message_body: String,
+//   message_status: { type: Boolean, default: false },
+//   created_at: { type: Date, default: Date.now }
+// });
 
-const Chat = mongoose.model("Chat", chatSchema);
-const Message = mongoose.model("Message", messageSchema);
+module.exports = mongoose.model("Chat", chatSchema);
+//const Message = mongoose.model("Message", messageSchema);
 
-module.exports = { Chat, Message };
+// { Chat, Message };

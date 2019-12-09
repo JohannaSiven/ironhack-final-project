@@ -90,7 +90,7 @@ class App extends Component {
             />
           )}
         />
-        <Route exact path="/users" component={UsersFeed} />
+        <Route exact path="/users" component={UsersFeed} user={this.state.user} />
       </div>
     );
   }

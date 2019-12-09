@@ -9,7 +9,7 @@ export default class Chat extends Component {
   };
 
   getFeed = () =>{
-    Axios.post("/api/chat/").then(response =>
+    Axios.post("/api/chat/").then(response => 
       {
       this.setState({
         feed: response.data
@@ -34,11 +34,11 @@ export default class Chat extends Component {
   componentDidMount(){
     console.log("this.props", this.props);
     this.getFeed()
-   
+    
   }
 
   render() {
-     
+
     return (
       <div>
         <ChatArea feed={this.state.feed} user={this.props.user}/>
