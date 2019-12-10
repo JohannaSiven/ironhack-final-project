@@ -3,15 +3,35 @@ const router = express.Router();
 const Message = require("../models/Message");
 const Chat = require("../models/Chat");
 
-/*-------------------------------------------------*/
-//GET /api/chat --> all chats
 
-router.get("/", (req, res) => {
-  const { activeUser, profileUser } = req.params;
-  console.log(req.params);
-  Chat.find({})
+
+/*-------------------------------------------------*/
+//GET /api/chat/inbox --> all chats
+
+router.post("/inbox", (req, res) => {
+  const { activeUser } = req.body;
+  console.log("server received:", activeUser._id);
+  Chat.find({ users: { $in: [activeUser._id] } })
+    .populate("messages")
+    .then(chats => {
+      console.log("server found:", chats);
+      res.send(chats);
+    })
+    .catch(err => {
+      res.status(500).json(err);
+    });
+});
+
+/*-------------------------------------------------*/
+//GET /api/chat/inbox/:id --> one convo
+
+router.post("/inbox/:id", (req, res) => {
+  console.log("server received chatId:", req.params.id);
+  Chat.findById({ _id: req.params.id })
+    .populate("messages")
     .then(chat => {
-      res.json(chat);
+      console.log("server found:", chat);
+      res.send(chat);
     })
     .catch(err => {
       res.status(500).json(err);
@@ -23,7 +43,7 @@ router.get("/", (req, res) => {
 
 router.post("/new", (req, res) => {
   const { sender, message_body, chatId } = req.body;
-  console.log("server received: ", sender, message_body, chatId);
+  console.log("server received: sender: ",sender, "message: ", message_body, "chatId: ",chatId);
   Message.create({
     sender: sender,
     message_body: message_body
@@ -39,6 +59,7 @@ router.post("/new", (req, res) => {
         }
       )
         .populate("messages")
+        .populate("sender")
         .then(message => {
           res.send(message);
         })

@@ -76,6 +76,7 @@ export default class UserPortfolio extends Component {
                     key={userPort.site}
                     href={`https://www.${userPort.baseUrl}${userPort.url}`}
                     target="_blank"
+                    rel="noopener noreferrer"
                   >
                     {userPort.site}
                   </a>

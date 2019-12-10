@@ -31,7 +31,7 @@ export default class Navbar extends Component {
               <Link className="cool-link" to="/dashboard">
                 Dashboard
               </Link>
-              <Link className="cool-link" to={`/user/${this.props.user._id}`}>
+              <Link className="cool-link" to={`/user/${this.props.user._id}`} user={this.props.user} >
                 Profile
               </Link>
               <Link className="cool-link" to="/projects">
@@ -41,6 +41,14 @@ export default class Navbar extends Component {
                 Users
               </Link>
               <NotificationBox className="cool-link" user={this.props.user} />
+              <Link className="cool-link" to={{
+                  pathname: "/inbox",
+                  state: {
+                    activeUser: this.props.user,
+                    fromProfile: false
+                  }
+                }}
+              >Inbox</Link>
               <Link className="cool-link" to="/" onClick={this.handleLogout}>
                 Logout
               </Link>
