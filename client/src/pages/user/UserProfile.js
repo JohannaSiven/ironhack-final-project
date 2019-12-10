@@ -4,21 +4,35 @@ import { Link } from "react-router-dom";
 import { FaMapMarkerAlt } from "react-icons/fa";
 
 import { Container } from "./styles";
+import axios from "axios";
 
 export default class UserProfile extends Component {
   render() {
     const profile = this.props.profileUser;
-
+    console.log("active", this.props.user);
     return (
-      <Container>
+      <Container className="main">
         <div className="bg-header" />
         <div className="container">
           <div className="userPhoto">
             <img src={profile.photo} alt={profile.username} />
           </div>
-          <div>
+          <div className="flex1">
             <div className="userName">
               <h1>{profile.username}</h1>
+
+              <Link
+                to={{
+                  pathname: "/chat",
+                  state: {
+                    profileUser: profile._id,
+                    activeUser: this.props.user
+                  }
+                }}
+              >
+                Contact {profile.username}
+              </Link>
+
               <h3>
                 <FaMapMarkerAlt size="14px" />
                 {profile.location}

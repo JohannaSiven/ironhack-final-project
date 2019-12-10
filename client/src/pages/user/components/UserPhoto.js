@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import { FaRegEdit } from "react-icons/fa";
+
+import { FaPen } from "react-icons/fa";
+import { FaCheck } from "react-icons/fa";
 
 export default class UserPhoto extends Component {
   render() {
@@ -8,8 +10,8 @@ export default class UserPhoto extends Component {
       <>
         <img src={profile.photo} alt={profile.username} />
         <div className="newPhoto">
-          <label htmlFor="image">
-            <FaRegEdit size="20px" color="#2B7A78" />
+          <label htmlFor="image" className="editButton">
+            <FaPen />
           </label>
           <input
             id="image"
@@ -18,9 +20,15 @@ export default class UserPhoto extends Component {
             style={{ display: "none" }}
             onChange={e => this.props.handleFileUpload(e)}
           />
-          <button type="submit" disabled={this.props.uploadOn}>
-            SAVE
-          </button>
+          {!this.props.uploadOn && (
+            <button
+              className="saveButton"
+              type="submit"
+              disabled={this.props.uploadOn}
+            >
+              <FaCheck />
+            </button>
+          )}
         </div>
       </>
     );

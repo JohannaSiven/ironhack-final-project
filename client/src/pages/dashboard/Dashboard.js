@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import BestProjects from "./BestProjects";
-import MyProjects from "./MyProjects"
-
+import ProjectForm from "../project/ProjectForm";
+import MyProjects from "./MyProjects";
 
 export default class Dashboard extends Component {
   state = {
@@ -43,7 +43,9 @@ export default class Dashboard extends Component {
 
   render() {
     return (
-      <div>
+      <div className="main">
+        <div className="bg-header" />
+
         <h1>{this.props.user.username} Dashboard </h1>
         <div style={{ textAlign: "center" }}>
           <h2>Projects I am working on</h2>
@@ -52,6 +54,9 @@ export default class Dashboard extends Component {
         <div style={{ textAlign: "center" }}>
           <h2>Projects matching Your Profile</h2>
           <BestProjects projects={this.state.projects} user={this.props.user} />
+        </div>
+        <div>
+          <ProjectForm user={this.state.user} />
         </div>
       </div>
     );
