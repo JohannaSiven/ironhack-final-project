@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, Redirect } from "react-router-dom";
+import { Route, Redirect, Switch } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./pages/home/Home";
 import Login from "./pages/auth/Login";
@@ -9,8 +9,8 @@ import ProjectDetails from "./pages/project/ProjectDetails";
 import Profile from "./pages/user/Profile";
 import Dashboard from "./pages/dashboard/Dashboard";
 import UsersFeed from "./pages/feed/UsersFeed";
-import Axios from "axios";
-import Chat from "./pages/chat/Chat";
+import Inbox from "./pages/chat/Inbox";
+import InboxChat from "./pages/chat/InboxChat";
 
 class App extends Component {
   state = {
@@ -28,17 +28,6 @@ class App extends Component {
       <div>
         <Navbar user={this.state.user} clearUser={this.setUser} />
         <Route exact path="/" component={Home} />
-        <Route
-          exact
-          path="/chat"
-          render={props => {
-            if (this.state.user) {
-              return <Chat {...props} user={this.state.user} />;
-            } else {
-              return <Redirect to="/" />;
-            }
-          }}
-        />
         <Route
           exact
           path="/login"
@@ -87,11 +76,13 @@ class App extends Component {
           path="/dashboard"
           render={props => {
             if (this.state.user) {
-              return <Dashboard
-                {...props}
-                projects={ProjectFeed}
-                user={this.state.user}
-              />;
+              return (
+                <Dashboard
+                  {...props}
+                  projects={ProjectFeed}
+                  user={this.state.user}
+                />
+              );
             } else {
               return <Redirect to="/" />;
             }
@@ -108,6 +99,30 @@ class App extends Component {
             }
           }}
         />
+        <Switch>
+          <Route
+            exact
+            path="/inbox"
+            render={props => {
+              if (this.state.user) {
+                return <Inbox {...props} user={this.state.user} />;
+              } else {
+                return <Redirect to="/" />;
+              }
+            }}
+          />
+          <Route
+            exact
+            path="/inbox/:id"
+            render={props => {
+              if (this.state.user) {
+                return <InboxChat {...props} user={this.state.user} />;
+              } else {
+                return <Redirect to="/" />;
+              }
+            }}
+          />
+        </Switch>
       </div>
     );
   }

@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import { Container } from "./styles";
 
-import img1 from "../../img/user-01.png";
+//import img1 from "../../img/user-01.png";
 import img2 from "../../img/user-02.png";
 import img3 from "../../img/user-03.png";
 import img4 from "../../img/user-04.png";
 import img5 from "../../img/user-05.png";
-import img6 from "../../img/user-06.png";
-import img7 from "../../img/user-07.png";
-import img8 from "../../img/user-08.png";
+//import img6 from "../../img/user-06.png";
+//import img7 from "../../img/user-07.png";
+//import img8 from "../../img/user-08.png";
 export default class Home extends Component {
   state = {
     width: 0,

@@ -1,8 +1,8 @@
 import styled from "styled-components";
 const darkGreen = "#17252A";
 const mediumGreen = "#2B7A78";
-const green = "#3AAFA9";
-const lightGreen = "#DEF2F1";
+//const green = "#3AAFA9";
+//const lightGreen = "#DEF2F1";
 const white = "#FFF";
 
 // const darkGray = "#0B0C10";
