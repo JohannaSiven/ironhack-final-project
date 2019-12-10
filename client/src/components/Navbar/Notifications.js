@@ -27,7 +27,7 @@ class NotificationBox extends Component {
     };
   }
 
-  myUl = (id) => {
+  myUl = id => {
     console.log("heey");
     if (document.getElementById(id).style.display === "") {
       document.getElementById(id).style.display = "none";
@@ -50,7 +50,6 @@ class NotificationBox extends Component {
         }
         return false;
       });
-
 
       let myApplications = response.data.filter(project => {
         if (project.applications) {
@@ -82,7 +81,10 @@ class NotificationBox extends Component {
   render() {
     return (
       <React.Fragment>
-        <button onClick={this.showNotification}>
+        <button
+          onClick={this.showNotification}
+          className="cool-link notificationButton"
+        >
           <FontAwesomeIcon color="white" icon={faBell} />
         </button>
         <Container top={this.state.top}>

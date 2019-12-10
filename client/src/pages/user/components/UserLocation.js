@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { FaRegEdit } from "react-icons/fa";
 
+import { FaPen } from "react-icons/fa";
+import { FaCheck } from "react-icons/fa";
 export default class UserLocation extends Component {
   render() {
     const { profile } = this.props;
@@ -14,21 +15,33 @@ export default class UserLocation extends Component {
               value={this.props.value}
               onChange={this.props.onChange}
             />
-            <button type="submit" onClick={this.props.hideForm}>
-              Save
+            <button
+              className="saveButton"
+              type="submit"
+              onClick={this.props.hideForm}
+            >
+              <FaCheck />
             </button>
           </>
         ) : profile.location ? (
           <>
-            <button name="location" onClick={this.props.onClick}>
-              {profile.location}
-              <FaRegEdit size="14px" color="#2B7A78" />
+            <h3 className="inline">{profile.location}</h3>
+            <button
+              className="editButton location"
+              name="location"
+              onClick={this.props.onClick}
+            >
+              <FaPen />
             </button>
           </>
         ) : (
           <>
-            <button name="location" onClick={this.props.onClick}>
-              Add location
+            <button
+              className="editButton location"
+              name="location"
+              onClick={this.props.onClick}
+            >
+              ADD LOCATION
             </button>
           </>
         )}

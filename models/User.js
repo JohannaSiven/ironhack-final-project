@@ -67,7 +67,7 @@ const userSchema = new Schema(
           site: "medium",
           baseUrl: "medium.com/",
           icon: "FaMedium",
-          url: "qualquer coisa"
+          url: ""
         }
       ]
     },

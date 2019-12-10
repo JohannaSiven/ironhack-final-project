@@ -40,7 +40,7 @@ export default class Navbar extends Component {
               <Link className="cool-link" to="/users">
                 Users
               </Link>
-              <NotificationBox user={this.props.user} />
+              <NotificationBox className="cool-link" user={this.props.user} />
               <Link className="cool-link" to="/" onClick={this.handleLogout}>
                 Logout
               </Link>
