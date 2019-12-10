@@ -20,10 +20,11 @@ export default class UsersList extends Component {
       console.log("propscity", this.props.city);
       users = users.filter(value => {
         if (value.location) {
-          return value.location.toLowerCase().includes(this.props.city.toLowerCase());
-        }
-        else{
-          return false
+          return value.location
+            .toLowerCase()
+            .includes(this.props.city.toLowerCase());
+        } else {
+          return false;
         }
       });
     }
@@ -40,43 +41,43 @@ export default class UsersList extends Component {
     }
 
     return (
-      <div>
+      <>
         {users.map(value => {
           return (
-            <div
+            <Link
+              to={`/user/${value._id}`}
               key={value._id}
-              style={{
-                display: "flex",
-                justifyContent: "space-around",
-                alignItems: "center"
-              }}
+              className="userCard"
             >
-              <div>
-                <img height="80px" src={value.photo} alt="" />
+              <div className="userHeader">
+                <div className="userPhoto">
+                  <img src={value.photo} alt={value.username} />
+                </div>
+                <div className="userInfos">
+                  <h2>{value.username}</h2>
+                  <h4>{value.role}</h4>
+                  <p>{value.location}</p>
+                </div>
               </div>
-              <div>
-                <h3>{value.username}</h3>
-                <p>{value.role}</p>
-              </div>
-              <div>
-                <ul>
+              <div className="userSkills">
+                <h4>SKILLS</h4>
+                <div className="flexRow">
                   {value.skills.map((skill, index) => {
                     return (
-                      <li key={index} style={{ paddingRight: "5px" }}>
-                        {skill}
-                      </li>
+                      <p key={index} style={{ paddingRight: "5px" }}>
+                        | {skill}
+                      </p>
                     );
                   })}
-                </ul>
+                </div>
               </div>
               <div>
-                <p>{value.location}</p>
-                <Link to={`/user/${value._id}`}>Check User</Link>
+                <p className="editButton">SEE PROFILE</p>
               </div>
-            </div>
+            </Link>
           );
         })}
-      </div>
+      </>
     );
   }
 }

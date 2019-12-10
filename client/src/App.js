@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import { Route, Redirect } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./pages/home/Home";
-import Login from "./pages/auth/Login";
-import Signup from "./pages/auth/Signup";
+import Auth from "./pages/auth/Auth";
 import ProjectFeed from "./pages/project/ProjectFeed";
 import ProjectDetails from "./pages/project/ProjectDetails";
 import Profile from "./pages/user/Profile";
@@ -41,13 +40,8 @@ class App extends Component {
         />
         <Route
           exact
-          path="/login"
-          render={props => <Login {...props} setUser={this.setUser} />}
-        />
-        <Route
-          exact
-          path="/signup"
-          render={props => <Signup {...props} setUser={this.setUser} />}
+          path="/auth"
+          render={props => <Auth {...props} setUser={this.setUser} />}
         />
         <Route
           exact
@@ -87,11 +81,13 @@ class App extends Component {
           path="/dashboard"
           render={props => {
             if (this.state.user) {
-              return <Dashboard
-                {...props}
-                projects={ProjectFeed}
-                user={this.state.user}
-              />;
+              return (
+                <Dashboard
+                  {...props}
+                  projects={ProjectFeed}
+                  user={this.state.user}
+                />
+              );
             } else {
               return <Redirect to="/" />;
             }

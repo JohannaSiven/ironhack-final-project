@@ -32,8 +32,8 @@ const ProjectCards = props => {
     <div>
       {projects.map(project => {
         return (
-          <div className="cardLink">
-            <Link key={project._id} to={`/projects/${project._id}`}>
+          <div className="cardLink" key={project._id}>
+            <Link to={`/projects/${project._id}`}>
               <div className="gridCard">
                 <div>
                   <h2>{project.title}</h2>

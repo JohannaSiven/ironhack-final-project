@@ -19,7 +19,7 @@ class Signup extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    console.log('MY ROLE:', this.state.role)
+    console.log("MY ROLE:", this.state.role);
     signup(this.state.username, this.state.password, this.state.role).then(
       data => {
         if (data.message) {
@@ -28,8 +28,8 @@ class Signup extends Component {
           });
         } else {
           console.log("data frontend", data);
-          this.props.setUser(data);
-          this.props.history.push("/user/" + data._id);
+          this.props.props.setUser(data);
+          this.props.props.history.push("/user/" + data._id);
         }
       }
     );
@@ -37,8 +37,8 @@ class Signup extends Component {
 
   render() {
     return (
-      <div>
-        <Form onSubmit={this.handleSubmit}>
+      <div className="authContainer signup">
+        <form onSubmit={this.handleSubmit}>
           <div>
             <label htmlFor="username">Username: </label>
             <input
@@ -78,7 +78,7 @@ class Signup extends Component {
           </div>
           {this.state.error && <Alert>{this.state.error}</Alert>}
           <button type="submit">Signup</button>
-        </Form>
+        </form>
         <a href="http://localhost:5555/api/auth/linkedin">
           <img
             src="https://content.linkedin.com/content/dam/developer/global/en_US/site/img/signin-button.png"

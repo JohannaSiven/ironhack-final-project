@@ -230,7 +230,7 @@ export default class ProjectDetails extends Component {
             {this.state.editForm && (
               <div className="projectForm">
                 <form onSubmit={this.handleSubmit}>
-                  <label htmlFor="title">Project title: </label>
+                  <label htmlFor="title">Project title</label>
                   <input
                     type="text"
                     name="title"
@@ -239,7 +239,7 @@ export default class ProjectDetails extends Component {
                     onChange={this.handleChange}
                   />
                   <br />
-                  <label htmlFor="description">Description: </label>
+                  <label htmlFor="description">Description</label>
                   <input
                     type="text"
                     name="description"
@@ -248,7 +248,7 @@ export default class ProjectDetails extends Component {
                     onChange={this.handleChange}
                   />
                   <br />
-                  <label htmlFor="tags">Attach keywords that apply </label>
+                  <label htmlFor="tags">Attach keywords that apply</label>
                   <input
                     type="text"
                     name="tags"
@@ -317,12 +317,12 @@ export default class ProjectDetails extends Component {
                 <div className="projectMain">
                   <div className="grid verticalLine">
                     <div className="grid3">
-                      <div>
+                      <div className="projectDescription">
                         <h4>ABOUT</h4>
                         <p>{project.description}</p>
                       </div>
                       {/* ------------------ STATUS ------------------ */}
-                      <div className="verticalLine">
+                      <div className="verticalLine status">
                         <h4>STATUS</h4>
                         <p>{project.status}</p>
                       </div>
@@ -349,10 +349,14 @@ export default class ProjectDetails extends Component {
                     <div className="grid2">
                       {/* ------------------ TAGS ------------------ */}
                       {project.tags && (
-                        <div className="verticalLine">
+                        <div className="verticalLine keywords">
                           <h4>KEYWORDS</h4>
                           {project.tags.map((tag, i) => {
-                            return <p key={i}>{tag}</p>;
+                            return (
+                              <ul key={i}>
+                                <li>{tag}</li>
+                              </ul>
+                            );
                           })}
                         </div>
                       )}

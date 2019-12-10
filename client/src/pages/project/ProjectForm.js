@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import axios from "axios";
 import RoleSelect from "./RoleSelect";
+import { FaTrashAlt } from "react-icons/fa";
+
+import { Form } from "./styles";
+import { tags } from "../user/Keywords";
 
 class ProjectForm extends Component {
   state = {
@@ -18,10 +22,23 @@ class ProjectForm extends Component {
     });
   };
 
+  handleSelect = event => {
+    this.setState({
+      tags: [...this.state.tags, event.target.value],
+      newTag: ""
+    });
+  };
+
   handleCheckBox = event => {
     console.log(event.target.name, event.target.checked);
     this.setState({
       [event.target.name]: event.target.checked
+    });
+  };
+
+  handleRemove = elem => {
+    this.setState({
+      tags: this.state.tags.filter(t => t !== elem)
     });
   };
 
@@ -67,9 +84,13 @@ class ProjectForm extends Component {
   };
 
   render() {
+    console.log(this.state);
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label htmlFor="title">Project title: </label>
+      <Form onSubmit={this.handleSubmit}>
+        <h2>CREATE NEW PROJECT</h2>
+        <label htmlFor="title" className="label">
+          PROJECT TITLE
+        </label>
         <input
           type="text"
           name="title"
@@ -78,8 +99,10 @@ class ProjectForm extends Component {
           onChange={this.handleChange}
         />
         <br />
-        <label htmlFor="description">Description: </label>
-        <input
+        <label htmlFor="description" className="label">
+          Description
+        </label>
+        <textarea
           type="text"
           name="description"
           id="description"
@@ -87,17 +110,37 @@ class ProjectForm extends Component {
           onChange={this.handleChange}
         />
         <br />
-        <label htmlFor="tags">Attach keywords that apply </label>
-        <input
-          type="text"
-          name="tags"
-          id="tags"
-          value={this.state.tags}
-          onChange={this.handleChange}
-        />
+        <label htmlFor="tags" className="label">
+          keywords
+        </label>
+        <ul>
+          {this.state.tags &&
+            this.state.tags.map((tag, i) => {
+              return (
+                <li key={i}>
+                  <button
+                    className="deleteButton"
+                    type="button"
+                    onClick={() => this.handleRemove(tag)}
+                  >
+                    <FaTrashAlt color="red" /> {tag}
+                  </button>
+                </li>
+              );
+            })}
+        </ul>
+        <select name="tags" id="tags" onChange={this.handleSelect}>
+          {tags.map(tag => {
+            return (
+              <option value={tag} key={tag}>
+                {tag}
+              </option>
+            );
+          })}
+        </select>
         <br />
-        <label htmlFor="remote">
-          People can join the project group remotely from any location
+        <label htmlFor="remote" className="label">
+          REMOTE
         </label>
         <input
           type="checkbox"
@@ -107,11 +150,19 @@ class ProjectForm extends Component {
           onChange={this.handleCheckBox}
         />
         <br />
-        <label htmlFor="requiredRoles">Choose which roles are required: </label>
-        <RoleSelect onSelect={this.onSelect} onRemove={this.onRemove} />
+        <label htmlFor="requiredRoles" className="label">
+          REQUIRED ROLES{" "}
+        </label>
+        <RoleSelect
+          className="select"
+          onSelect={this.onSelect}
+          onRemove={this.onRemove}
+        />
 
-        <button type="submit">Submit new project</button>
-      </form>
+        <button type="submit" className="editButton createButton">
+          Submit new project
+        </button>
+      </Form>
     );
   }
 }

@@ -13,21 +13,8 @@ const otherGreen = "#45A29E";
 // const gray = "#C5C6C7";
 
 export const Container = styled.div`
-  /* padding: 2vh 5vw 5vh;
-  height: 100%; */
-
   input {
-    /* background-color: red; */
-    /* background-color: ${white}; */
-    /* border: none; */
     border-bottom: 1px solid ${mediumGreen};
-
-    /* width: fit-content !important; */
-    /* width: fit-content;
-    /* -ms-box-sizing: content-box;
-    /* -moz-box-sizing: content-box;
-    /* -webkit-box-sizing: content-box; */
-    /* box-sizing: content-box !important; */
   }
 
   .container {
@@ -97,7 +84,7 @@ export const Container = styled.div`
       a:hover {
         border: 1px solid ${mediumGreen};
         background-color: ${lightGreen};
-        color: ${mediumGreen}
+        color: ${mediumGreen};
       }
       .description {
         border-top: 1px solid ${mediumGray};
@@ -129,8 +116,8 @@ export const Container = styled.div`
     .container {
       .userPhoto {
         img {
-        max-width: 200px;
-        max-height: 200px;
+          max-width: 200px;
+          max-height: 200px;
         }
       }
       .userName {
@@ -161,8 +148,8 @@ export const Container = styled.div`
         max-width: 250px;
         height: 300px;
         img {
-        width: 100%;
-        height: auto;
+          width: 100%;
+          height: auto;
         }
       }
     }

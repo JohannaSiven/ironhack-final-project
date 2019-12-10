@@ -140,12 +140,17 @@ export const ProjectContainer = styled.div`
     }
   }
   .projectMain {
-    p {
+    .projectDescription {
+      margin-right: 2vh;
+    }
+    p,
+    li {
       line-height: 1.4rem;
       display: inline-block;
       color: ${mediumGreen};
     }
-    p:last-child {
+    p:last-child,
+    ul:last-child {
       margin-bottom: 4vh;
     }
     h4 {
@@ -207,7 +212,7 @@ export const ProjectContainer = styled.div`
       grid-template-columns: 3fr 1fr;
     }
   }
-  @media screen and (min-width: 0px) and (max-width: 450px) {
+  @media screen and (min-width: 0px) and (max-width: 550px) {
     .contributors {
       padding-top: 4vh;
     }
@@ -219,9 +224,66 @@ export const ProjectContainer = styled.div`
       padding: 0;
       border: 0;
     }
+    .status {
+      padding: 0;
+      border: 0;
+    }
     .grid2 {
       display: flex;
       flex-direction: column;
     }
+    .grid3 {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+`;
+
+export const Form = styled.form`
+  background-color: ${white};
+  border-radius: 10px;
+  padding: 2vh 2vw;
+  margin: 5vh 0;
+  h2 {
+    font-weight: 100;
+    color: ${darkGreen};
+    font-size: 1.2rem;
+    margin-bottom: 1vh;
+  }
+  .label {
+    font-size: 0.9rem;
+    margin-right: 10px;
+    color: ${mediumGreen};
+    text-transform: uppercase;
+  }
+  input {
+    margin: 1vh 0;
+    padding: 5px;
+    width: 30vw;
+    color: ${mediumGray};
+    border: none;
+    border-bottom: 1px solid ${mediumGreen};
+  }
+  select {
+    padding: 5px;
+    margin: 1vh 0;
+  }
+  #remote {
+    padding: 5px;
+    margin: 1vh 0 2vh;
+    width: 15px;
+    height: 15px;
+  }
+  textarea {
+    padding: 10px;
+    margin: 1vh 0;
+    color: ${mediumGray};
+    border: 1px solid ${mediumGreen};
+  }
+  .createButton {
+    margin-top: 2vh;
+    padding: 10px 25px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
   }
 `;
