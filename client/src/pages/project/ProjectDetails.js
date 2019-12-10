@@ -53,6 +53,7 @@ export default class ProjectDetails extends Component {
         project
       })
       .then(response => {
+        /* this.props.history.push(`/projects/${this.state.project._id}`); */
         console.log("RESULT", response.data);
       })
       .catch(err => {
@@ -84,6 +85,9 @@ export default class ProjectDetails extends Component {
       .then(response => {
         console.log(response.data);
         console.log(response.data.applications);
+        console.log("history", this.props.history);
+        console.log("history id", this.state.project._id);
+        this.getInitialData(this.props.match.params.projectId);
       })
       .catch(err => {
         console.log(err);
@@ -91,17 +95,28 @@ export default class ProjectDetails extends Component {
   };
 
   accepted = event => {
+      let result = window.confirm(
+      "Are you sure you want to accept this applicant?"
+    );
+    if (result) {
     this.addContributor(event.target.id, this.state.project._id);
     this.removeApplicant(event.target.id, this.state.project._id);
     this.updateRoles(this.state.project._id, event.target.name);
+
+     }
   };
 
   rejected = event => {
+    let result = window.confirm(
+      "Are you sure you want to remove this applicant?"
+    );
+    if (result) {
     this.removeApplicant(event.target.id, this.state.project._id);
+    this.getInitialData(this.props.match.params.projectId);
+    }
   };
 
-  componentDidMount() {
-    const { projectId } = this.props.match.params;
+  getInitialData = projectId => {
     projectInfos(projectId)
       .then(response => {
         this.setState({
@@ -115,13 +130,18 @@ export default class ProjectDetails extends Component {
         });
       })
       .catch(err => {
-        console.log(err)
+        console.log(err);
         if (err.response.status === 404) {
           this.setState({
             error: err.response.data.message
           });
         }
       });
+  };
+
+  componentDidMount() {
+    const { projectId } = this.props.match.params;
+    this.getInitialData(projectId);
   }
 
   /* ----------------------------- Editing options ---------------------------- */
@@ -148,15 +168,15 @@ export default class ProjectDetails extends Component {
         // requiredRoles: this.state.requiredRoles,
         tags: this.state.tags,
         remote: this.state.remote,
-        status: this.state.status,
+        status: this.state.status
       })
       .then(response => {
-        console.log("RESPONSAA", response)
+        console.log("RESPONSAA", response);
         this.setState({
           project: response.data,
           editForm: false,
-          showProjectDetails: true,
-        })
+          showProjectDetails: true
+        });
         /* this.props.history.push(
           `/projects/${this.props.match.params.projectId}`
         ); */
@@ -181,7 +201,7 @@ export default class ProjectDetails extends Component {
     );
     if (result) {
       axios
-        .delete(`/api/projects/${this.props.match.params.projectId}`).populate("owner").populate("contributors")
+        .delete(`/api/projects/${this.props.match.params.projectId}`)
         .then(response => {
           console.log("delete response", response);
           this.props.history.push("/projects");
@@ -193,6 +213,7 @@ export default class ProjectDetails extends Component {
   };
 
   render() {
+    console.log(this.props);
     if (!this.state.project) {
       return <div></div>;
     }

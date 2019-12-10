@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./pages/home/Home";
 import Login from "./pages/auth/Login";
@@ -10,28 +10,7 @@ import Profile from "./pages/user/Profile";
 import Dashboard from "./pages/dashboard/Dashboard";
 import UsersFeed from "./pages/feed/UsersFeed";
 import Axios from "axios";
-import Chat from "./pages/chat/Chat"
-
-/* class Chat extends Component {
-
-  submitForm = () => {
-    Axios.post("/api/chat/postmessage")
-  }
-
-  render() {
-    return(
-      <div> 
-        <div>
-        
-        </div>
-        <form onSubmit={this.submitForm}>
-          <label htmlFor="text">Message</label>
-          <input type="text" name="text" id="text"/>
-          <button type="submit"></button>
-        </form>
-      </div>    )
-  }
-} */
+import Chat from "./pages/chat/Chat";
 
 class App extends Component {
   state = {
@@ -52,7 +31,13 @@ class App extends Component {
         <Route
           exact
           path="/chat"
-          render={props => <Chat {...props} user={this.state.user} />}
+          render={props => {
+            if (this.state.user) {
+              return <Chat {...props} user={this.state.user} />;
+            } else {
+              return <Redirect to="/" />;
+            }
+          }}
         />
         <Route
           exact
@@ -67,30 +52,62 @@ class App extends Component {
         <Route
           exact
           path="/user/:userId"
-          render={props => <Profile {...props} user={this.state.user} />}
+          render={props => {
+            if (this.state.user) {
+              return <Profile {...props} user={this.state.user} />;
+            } else {
+              return <Redirect to="/" />;
+            }
+          }}
         />
         <Route
           exact
           path="/projects"
-          render={props => <ProjectFeed {...props} user={this.state.user} />}
+          render={props => {
+            if (this.state.user) {
+              return <ProjectFeed {...props} user={this.state.user} />;
+            } else {
+              return <Redirect to="/" />;
+            }
+          }}
         />
         <Route
           exact
           path="/projects/:projectId"
-          render={props => <ProjectDetails {...props} user={this.state.user} />}
+          render={props => {
+            if (this.state.user) {
+              return <ProjectDetails {...props} user={this.state.user} />;
+            } else {
+              return <Redirect to="/" />;
+            }
+          }}
         />
         <Route
           exact
           path="/dashboard"
-          render={props => (
-            <Dashboard
-              {...props}
-              projects={ProjectFeed}
-              user={this.state.user}
-            />
-          )}
+          render={props => {
+            if (this.state.user) {
+              return <Dashboard
+                {...props}
+                projects={ProjectFeed}
+                user={this.state.user}
+              />;
+            } else {
+              return <Redirect to="/" />;
+            }
+          }}
         />
-        <Route exact path="/users" component={UsersFeed} />
+        <Route
+          exact
+          path="/users"
+          render={props => {
+            if (this.state.user) {
+              return <UsersFeed />;
+            } else {
+              return <Redirect to="/" />;
+            }
+          }}
+        />
       </div>
     );
   }
