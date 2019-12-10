@@ -77,7 +77,7 @@ class NotificationBox extends Component {
         top: -100
       });
     }
-  };
+  }
 
   render() {
     return (
