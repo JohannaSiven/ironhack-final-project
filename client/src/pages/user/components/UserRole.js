@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { roles } from "../Keywords";
-import { FaRegEdit } from "react-icons/fa";
+
+import { FaPen } from "react-icons/fa";
+import { FaCheck } from "react-icons/fa";
 
 export default class UserRole extends Component {
   render() {
@@ -22,21 +24,33 @@ export default class UserRole extends Component {
                 );
               })}
             </select>
-            <button type="submit" onClick={this.props.hideForm}>
-              SAVE
+            <button
+              className="saveButton"
+              type="submit"
+              onClick={this.props.hideForm}
+            >
+              <FaCheck />
             </button>
           </>
         ) : profile.role ? (
           <>
-            <h2>{profile.role}</h2>
-            <button name="role" onClick={this.props.onClick}>
-              <FaRegEdit size="14px" color="#2B7A78" />
+            <h2 className="inline">{profile.role}</h2>
+            <button
+              className="editButton"
+              name="role"
+              onClick={this.props.onClick}
+            >
+              <FaPen />
             </button>
           </>
         ) : (
           <>
-            <button name="role" onClick={this.props.onClick}>
-              Add Role
+            <button
+              className="editButton"
+              name="role"
+              onClick={this.props.onClick}
+            >
+              ADD ROLE
             </button>
           </>
         )}

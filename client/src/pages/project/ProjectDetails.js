@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { projectInfos, addApplication } from "../../services/project";
+import { ProjectContainer } from "./styles";
+
+import { FaCheck } from "react-icons/fa";
+import { FaTimes } from "react-icons/fa";
 
 export default class ProjectDetails extends Component {
   state = {
@@ -95,15 +99,14 @@ export default class ProjectDetails extends Component {
   };
 
   accepted = event => {
-      let result = window.confirm(
+    let result = window.confirm(
       "Are you sure you want to accept this applicant?"
     );
     if (result) {
-    this.addContributor(event.target.id, this.state.project._id);
-    this.removeApplicant(event.target.id, this.state.project._id);
-    this.updateRoles(this.state.project._id, event.target.name);
-
-     }
+      this.addContributor(event.target.id, this.state.project._id);
+      this.removeApplicant(event.target.id, this.state.project._id);
+      this.updateRoles(this.state.project._id, event.target.name);
+    }
   };
 
   rejected = event => {
@@ -111,8 +114,8 @@ export default class ProjectDetails extends Component {
       "Are you sure you want to remove this applicant?"
     );
     if (result) {
-    this.removeApplicant(event.target.id, this.state.project._id);
-    this.getInitialData(this.props.match.params.projectId);
+      this.removeApplicant(event.target.id, this.state.project._id);
+      this.getInitialData(this.props.match.params.projectId);
     }
   };
 
@@ -219,199 +222,232 @@ export default class ProjectDetails extends Component {
     }
     const { project } = this.state;
     return (
-      <div>
-        {/* check if user is project owner */}
-        {this.props.user._id === project.owner._id && (
-          <p>
-            <button onClick={this.showEditForm}>Edit Project</button>
-          </p>
-        )}
-
-        {/* Show edit Form */}
-        {this.state.editForm && (
-          <form onSubmit={this.handleSubmit}>
-            <label htmlFor="title">Project title: </label>
-            <input
-              type="text"
-              name="title"
-              id="title"
-              value={this.state.title}
-              onChange={this.handleChange}
-            />
-            <br />
-            <label htmlFor="description">Description: </label>
-            <input
-              type="text"
-              name="description"
-              id="description"
-              value={this.state.description}
-              onChange={this.handleChange}
-            />
-            <br />
-            <label htmlFor="tags">Attach keywords that apply </label>
-            <input
-              type="text"
-              name="tags"
-              id="tags"
-              value={this.state.tags}
-              onChange={this.handleChange}
-            />
-            <br />
-            <label htmlFor="remote">
-              People can join the project group remotely
-            </label>
-            <input
-              type="checkbox"
-              name="remote"
-              id="remote"
-              checked={this.state.remote}
-              onChange={this.handleCheckBox}
-            />
-            <br />
-            <label htmlFor="status">Status</label>
-            <select
-              name="status"
-              onChange={this.handleChange}
-              value={this.state.status}
-              id="status"
-            >
-              <option value="Open">Open</option>
-              <option value="In progress">In Progress</option>
-              <option value="Completed">Completed</option>
-            </select>
-            {/* <label htmlFor="requiredRoles">
+      <ProjectContainer>
+        <div className="main">
+          <div className="bg-header" />
+          <div className="container">
+            {/* Show edit Form */}
+            {this.state.editForm && (
+              <div className="projectForm">
+                <form onSubmit={this.handleSubmit}>
+                  <label htmlFor="title">Project title: </label>
+                  <input
+                    type="text"
+                    name="title"
+                    id="title"
+                    value={this.state.title}
+                    onChange={this.handleChange}
+                  />
+                  <br />
+                  <label htmlFor="description">Description: </label>
+                  <input
+                    type="text"
+                    name="description"
+                    id="description"
+                    value={this.state.description}
+                    onChange={this.handleChange}
+                  />
+                  <br />
+                  <label htmlFor="tags">Attach keywords that apply </label>
+                  <input
+                    type="text"
+                    name="tags"
+                    id="tags"
+                    value={this.state.tags}
+                    onChange={this.handleChange}
+                  />
+                  <br />
+                  <label htmlFor="remote">
+                    People can join the project group remotely
+                  </label>
+                  <input
+                    type="checkbox"
+                    name="remote"
+                    id="remote"
+                    checked={this.state.remote}
+                    onChange={this.handleCheckBox}
+                  />
+                  <br />
+                  <label htmlFor="status">Status</label>
+                  <select
+                    name="status"
+                    onChange={this.handleChange}
+                    value={this.state.status}
+                    id="status"
+                  >
+                    <option value="Open">Open</option>
+                    <option value="In progress">In Progress</option>
+                    <option value="Completed">Completed</option>
+                  </select>
+                  {/* <label htmlFor="requiredRoles">
               Choose which roles are required:{" "}
             </label> */}
-            {/* <RoleSelect onSelect={this.onSelect} onRemove={this.onRemove} /> */}
+                  {/* <RoleSelect onSelect={this.onSelect} onRemove={this.onRemove} /> */}
 
-            <button type="submit">Save Changes</button>
-            <button onClick={this.deleteProject}>Delete Project</button>
-          </form>
-        )}
-
-        {/* -------------- Project details -------------- */}
-
-        {this.state.showProjectDetails && (
-          <div>
-            <h3>{project.title}</h3>
-            <p>{project.created_at.slice(0, 10)}</p>
-
-            {/* ------------------ REMOTE ------------------ */}
-            {project.remote ? (
-              <span remote={project.remote.toString()}>Remote</span>
-            ) : (
-              <span remote={project.remote.toString()}>Local</span>
+                  <button type="submit">Save Changes</button>
+                  <button onClick={this.deleteProject}>Delete Project</button>
+                </form>
+              </div>
             )}
 
-            {/* ------------------ STATUS ------------------ */}
-            <h4>Status: </h4>
-            <p>{project.status}</p>
+            {/* -------------- Project details -------------- */}
 
-            {/* ------------------ ABOUT ------------------ */}
-            <h4>About: </h4>
-            <p>{project.description}</p>
+            {this.state.showProjectDetails && (
+              <div>
+                <div className="projectHeader">
+                  <h1>{project.title}</h1>
+                  {/* check if user is project owner */}
+                  {this.props.user._id === project.owner._id && (
+                    <button className="editButton" onClick={this.showEditForm}>
+                      EDIT PROJECT
+                    </button>
+                  )}
+                </div>
+                <div className="projectInfos">
+                  {/* ------------------ REMOTE ------------------ */}
+                  {project.remote ? (
+                    <span remote={project.remote.toString()}>REMOTE</span>
+                  ) : (
+                    <span remote={project.remote.toString()}>LOCAL</span>
+                  )}
+                  {/* ------------------ CREATED AT ------------------ */}
+                  <p className="date">{project.created_at.slice(0, 10)}</p>
+                </div>
+                {/* ------------------ ABOUT ------------------ */}
+                <div className="projectMain">
+                  <div className="grid verticalLine">
+                    <div className="grid3">
+                      <div>
+                        <h4>ABOUT</h4>
+                        <p>{project.description}</p>
+                      </div>
+                      {/* ------------------ STATUS ------------------ */}
+                      <div className="verticalLine">
+                        <h4>STATUS</h4>
+                        <p>{project.status}</p>
+                      </div>
+                    </div>
+                    {/* ------------------ OWNER ------------------ */}
+                    <div className="verticalLine owner">
+                      <h4>OWNER</h4>
 
-            {/* ------------------ OWNER ------------------ */}
-            <>
-              <h4>Owner: </h4>
+                      <Link
+                        to={`/user/${project.owner._id}`}
+                        className="userIcon"
+                      >
+                        <img
+                          src={project.owner.photo}
+                          alt={project.owner.username}
+                        />
+                        <span className="cool-link">
+                          {project.owner.username}
+                        </span>
+                      </Link>
+                    </div>
+                  </div>
+                  <div className="grid">
+                    <div className="grid2">
+                      {/* ------------------ TAGS ------------------ */}
+                      {project.tags && (
+                        <div className="verticalLine">
+                          <h4>KEYWORDS</h4>
+                          {project.tags.map((tag, i) => {
+                            return <p key={i}>{tag}</p>;
+                          })}
+                        </div>
+                      )}
+                      {/* ------------------ ROLES ------------------ */}
+                      {project.requiredRoles && (
+                        <div className="verticalLine">
+                          <h4>REQUIRED</h4>
+                          {this.applied() ? (
+                            <p>Applied for {this.applied()}</p>
+                          ) : (
+                            project.requiredRoles.map((role, i) => {
+                              return (
+                                <div key={i} className="roles">
+                                  {role.open &&
+                                    this.props.user._id !==
+                                      project.owner._id && (
+                                      <button
+                                        name={role.name}
+                                        onClick={this.handleApplication}
+                                        className="editButton"
+                                      >
+                                        Apply
+                                      </button>
+                                    )}
+                                  <p open={role.open}>{role.name}</p>
 
-              <Link to={`/user/${project.owner._id}`}>
-                <img
-                  src={project.owner.photo}
-                  alt={project.owner.username}
-                  style={{ maxHeight: "30px" }}
-                />
-                <span>{project.owner.username}</span>
-              </Link>
-            </>
-
-            {/* ------------------ CONTRIBUTORS ------------------ */}
-            {project.contributors && (
-              <>
-                <h4>Contributors: </h4>
-                {project.contributors.map(c => {
-                  return (
-                    <Link key={c} to={`/user/${c._id}`}>
-                      <img
-                        src={c.photo}
-                        alt={c.username}
-                        style={{ maxHeight: "30px" }}
-                      />
-                      <span>{c.username}</span>
-                    </Link>
-                  );
-                })}
-              </>
-            )}
-            {/* ------------------ ROLES ------------------ */}
-            {project.requiredRoles && (
-              <>
-                <h4>Roles required: </h4>
-                {this.applied() ? (
-                  <span>Applied for {this.applied()}</span>
-                ) : (
-                  project.requiredRoles.map((role, i) => {
-                    return (
-                      <div key={i}>
-                        <span open={role.open}>{role.name}</span>
-                        {role.open &&
-                          this.props.user._id !== project.owner._id && (
-                            <button
-                              name={role.name}
-                              onClick={this.handleApplication}
-                            >
-                              Apply
-                            </button>
+                                  {this.props.user._id === project.owner._id &&
+                                    project.applications.map(applicant => {
+                                      return (
+                                        <div key={applicant.user}>
+                                          {applicant.role === role.name && (
+                                            <>
+                                              <Link
+                                                to={`/user/${applicant.user}`}
+                                              >
+                                                see profile
+                                              </Link>
+                                              <button
+                                                type="button"
+                                                id={applicant.user}
+                                                name={role.name}
+                                                onClick={this.accepted}
+                                              >
+                                                <FaCheck />
+                                                Accept
+                                              </button>
+                                              <button
+                                                type="button"
+                                                id={applicant.user}
+                                                name={role.name}
+                                                onClick={this.rejected}
+                                              >
+                                                <FaTimes />
+                                                Reject
+                                              </button>
+                                            </>
+                                          )}
+                                        </div>
+                                      );
+                                    })}
+                                  <br />
+                                </div>
+                              );
+                            })
                           )}
-                        {this.props.user._id === project.owner._id &&
-                          project.applications.map(applicant => {
+                        </div>
+                      )}
+                    </div>
+                    {/* ------------------ CONTRIBUTORS ------------------ */}
+                    <div className="verticalLine contributors">
+                      {project.contributors && (
+                        <>
+                          <h4>CONTRIBUTORS</h4>
+                          {project.contributors.map(c => {
                             return (
-                              <div key={applicant.user}>
-                                {applicant.role === role.name && (
-                                  <>
-                                    <Link to={`/user/${applicant.user}`}>
-                                      see profile
-                                    </Link>
-                                    <button
-                                      type="button"
-                                      id={applicant.user}
-                                      name={role.name}
-                                      onClick={this.accepted}
-                                    >
-                                      Accept
-                                    </button>
-                                    <button
-                                      type="button"
-                                      id={applicant.user}
-                                      name={role.name}
-                                      onClick={this.rejected}
-                                    >
-                                      Reject
-                                    </button>
-                                  </>
-                                )}
-                              </div>
+                              <Link
+                                key={c}
+                                to={`/user/${c._id}`}
+                                className="userIcon"
+                              >
+                                <img src={c.photo} alt={c.username} />
+                                <span className="cool-link">{c.username}</span>
+                              </Link>
                             );
                           })}
-                        <br />
-                      </div>
-                    );
-                  })
-                )}
-              </>
-            )}
-            {/* ------------------ TAGS ------------------ */}
-            {project.tags && (
-              <>
-                <h4>Keywords: </h4>
-                {project.tags.map((tag, i) => {
-                  return <p key={i}>{tag}</p>;
-                })}
-              </>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
             )}
           </div>
-        )}
-      </div>
+        </div>
+      </ProjectContainer>
     );
   }
 }
