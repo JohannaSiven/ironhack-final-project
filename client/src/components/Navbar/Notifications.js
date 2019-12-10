@@ -27,7 +27,7 @@ class NotificationBox extends Component {
     };
   }
 
-  myUl = (id) => {
+  myUl = id => {
     console.log("heey");
     if (document.getElementById(id).style.display === "") {
       document.getElementById(id).style.display = "none";
@@ -40,6 +40,19 @@ class NotificationBox extends Component {
     this.setState({
       show: !this.state.show
     });
+
+    if (this.state.show) {
+      this.setState({
+        top: 6
+      });
+    } else {
+      this.setState({
+        top: -100
+      });
+    }
+  };
+
+  componentDidMount = () => {
     Axios.get("/api/projects").then(response => {
       let myProjects = response.data.filter(value => {
         if (
@@ -50,7 +63,6 @@ class NotificationBox extends Component {
         }
         return false;
       });
-
 
       let myApplications = response.data.filter(project => {
         if (project.applications) {
@@ -67,17 +79,7 @@ class NotificationBox extends Component {
         myApplications: myApplications
       });
     });
-
-    if (this.state.show) {
-      this.setState({
-        top: 6
-      });
-    } else {
-      this.setState({
-        top: -100
-      });
-    }
-  }
+  };
 
   render() {
     return (
