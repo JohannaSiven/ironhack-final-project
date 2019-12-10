@@ -85,7 +85,6 @@ export default createGlobalStyle`
     z-index: -1;
     border-bottom: 4px solid ${mediumGreen};
   }
-
   .cool-link::after {
     content: "";
     display: block;

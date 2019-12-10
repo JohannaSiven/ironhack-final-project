@@ -24,16 +24,17 @@ class Login extends Component {
           error: data.message
         });
       } else {
-        this.props.setUser(data);
-        this.props.history.push("/");
+        this.props.props.setUser(data);
+        this.props.props.history.push("/");
       }
     });
   };
 
   render() {
     return (
-      <div>
-        <Form onSubmit={this.handleSubmit}>
+      <div className="authContainer login">
+        <form onSubmit={this.handleSubmit}>
+          <h2>LOGIN</h2>
           <div>
             <label htmlFor="username">Username: </label>
             <input
@@ -56,7 +57,7 @@ class Login extends Component {
           </div>
           {this.state.error && <Alert>{this.state.error}</Alert>}
           <button type="submit">Log in</button>
-        </Form>
+        </form>
         <a href="http://localhost:5555/api/auth/linkedin">
           <img
             src="https://content.linkedin.com/content/dam/developer/global/en_US/site/img/signin-button.png"

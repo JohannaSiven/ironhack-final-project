@@ -55,10 +55,10 @@ export default class Navbar extends Component {
             </>
           ) : (
             <>
-              <Link className="cool-link" to="/signup">
+              <Link className="cool-link" to="/auth">
                 Signup
               </Link>
-              <Link className="cool-link" to="/login">
+              <Link className="cool-link" to="/auth">
                 Login
               </Link>
             </>

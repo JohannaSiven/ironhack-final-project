@@ -4,6 +4,8 @@ import axios from "axios";
 import UsersSearch from "./UsersSearch";
 import RoleSelect from "../project/RoleSelect";
 
+import { Container } from "./styles";
+
 export default class extends Component {
   state = {
     users: [],
@@ -52,22 +54,25 @@ export default class extends Component {
 
   render() {
     return (
-      <div>
-        <h1>Users</h1>
-        <UsersSearch
-          city={this.state.city}
-          query={this.state.query}
-          setQuery={this.setQuery}
-        />
-        <RoleSelect onSelect={this.onSelect} onRemove={this.onRemove} />
-        <UsersList
-          city={this.state.city}
-          roles={this.state.roles}
-          query={this.state.query}
-          users={this.state.users}
-          user={this.props.user}
-        />
-      </div>
+      <Container className="main">
+        <div className="bg-header" />
+        <div className="container">
+          <h1>Users</h1>
+          <UsersSearch
+            city={this.state.city}
+            query={this.state.query}
+            setQuery={this.setQuery}
+          />
+          <RoleSelect onSelect={this.onSelect} onRemove={this.onRemove} />
+          <UsersList
+            city={this.state.city}
+            roles={this.state.roles}
+            query={this.state.query}
+            users={this.state.users}
+            user={this.props.user}
+          />
+        </div>
+      </Container>
     );
   }
 }

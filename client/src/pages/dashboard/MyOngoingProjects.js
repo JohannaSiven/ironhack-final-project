@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { Container } from "./styles";
-var Carousel = require("react-responsive-carousel").Carousel;
-var ReactDOM = require("react-dom");
 
 export default class MyOpenProjects extends Component {
   state = {
@@ -43,7 +41,7 @@ export default class MyOpenProjects extends Component {
     return (
       <Container>
         <div className="projects">
-          {this.state.myProjects.map((value,index) => {
+          {this.state.myProjects.map((value, index) => {
             if (value.status !== "Open" && this.state.projectInd === index) {
               return (
                 <div key={value._id}>
