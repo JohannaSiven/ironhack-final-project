@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 import { FaMapMarkerAlt } from "react-icons/fa";
 
@@ -31,7 +32,6 @@ export default class UserProfile extends Component {
               >
                 Contact {profile.username}
               </Link>
-
 
               <h3>
                 <FaMapMarkerAlt size="14px" />
