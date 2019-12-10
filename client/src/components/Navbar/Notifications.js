@@ -40,6 +40,19 @@ class NotificationBox extends Component {
     this.setState({
       show: !this.state.show
     });
+
+    if (this.state.show) {
+      this.setState({
+        top: 6
+      });
+    } else {
+      this.setState({
+        top: -100
+      });
+    }
+  };
+
+  componentDidMount = () => {
     Axios.get("/api/projects").then(response => {
       let myProjects = response.data.filter(value => {
         if (
@@ -66,17 +79,7 @@ class NotificationBox extends Component {
         myApplications: myApplications
       });
     });
-
-    if (this.state.show) {
-      this.setState({
-        top: 6
-      });
-    } else {
-      this.setState({
-        top: -100
-      });
-    }
-  }
+  };
 
   render() {
     return (
@@ -96,22 +99,29 @@ class NotificationBox extends Component {
             >
               Your Projects
             </h3>
-            {this.state.myProjects.length > 0 ? (
-              <ul id="myUl" style={{ listStyleType: "none", display: "none" }}>
-                {this.state.myProjects.map(value => {
-                  return (
-                    <a href={"/projects/" + value._id}>
-                      <li>
-                        You have {value.applications.length} applications for{" "}
-                        {value.title}
-                      </li>
-                    </a>
-                  );
-                })}
-              </ul>
-            ) : (
-              <p>You have 0 projects</p>
-            )}
+
+            <ul id="myUl" style={{ listStyleType: "none", display: "none" }}>
+              {this.state.myProjects.length > 0 ? (
+                <>
+                  {this.state.myProjects.map(value => {
+                    return (
+                      <a href={"/projects/" + value._id}>
+                        {value.applications ? (<li>
+                          You have {value.applications.length} applications for{" "}
+                          {value.title}
+                        </li>) : (<li>
+                          You have 0 applications for
+                          {value.title}</li>)
+                        }
+                        
+                      </a>
+                    )
+                  })}
+                </>
+              ) : (
+                <p>You have 0 projects</p>
+              )}
+            </ul>
             <h3
               onClick={() => {
                 this.myUl("myApps");
@@ -119,22 +129,23 @@ class NotificationBox extends Component {
             >
               Your Applications
             </h3>
-            {this.state.myApplications.length > 0 ? (
-              <ul
-                id="myApps"
-                style={{ listStyleType: "none", display: "none" }}
-              >
-                {this.state.myApplications.map(value => {
-                  return (
-                    <a href={"/projects/" + value._id}>
-                      <li>You have applied for {value.title}</li>
-                    </a>
-                  );
-                })}
-              </ul>
-            ) : (
-              <p>You haven't applied for projects</p>
-            )}
+
+            <ul id="myApps" style={{ listStyleType: "none", display: "none" }}>
+              {" "}
+              {this.state.myApplications.length > 0 ? (
+                <>
+                  {this.state.myApplications.map(value => {
+                    return (
+                      <a href={"/projects/" + value._id}>
+                        <li>You have applied for {value.title}</li>
+                      </a>
+                    );
+                  })}
+                </>
+              ) : (
+                <p>You haven't applied for projects</p>
+              )}
+            </ul>
           </div>
         </Container>
       </React.Fragment>
