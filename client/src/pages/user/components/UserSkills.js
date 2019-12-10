@@ -1,6 +1,10 @@
 import React from "react";
 import { skills } from "../Keywords";
 
+import { FaPen } from "react-icons/fa";
+import { FaCheck } from "react-icons/fa";
+import { FaTrashAlt } from "react-icons/fa";
+
 const UserSkills = props => {
   const { profile } = props;
   return (
@@ -14,18 +18,15 @@ const UserSkills = props => {
                   <button
                     type="button"
                     onClick={() => props.handleRemove(skill)}
+                    className="deleteButton"
                   >
-                    {skill} X
+                    <FaTrashAlt color="red" /> {skill}
                   </button>
                 </li>
               );
             })}
           </ul>
-          <select
-            name="newSkill"
-            onChange={props.onChange}
-            // defaultValue={profile.skills}
-          >
+          <select name="newSkill" onChange={props.onChange}>
             {skills.map(skill => {
               return (
                 <option value={skill} key={skill}>
@@ -34,9 +35,11 @@ const UserSkills = props => {
               );
             })}
           </select>
-          <button type="submit">ADD</button>
-          <button type="button" onClick={props.hideForm}>
-            SAVE
+          <button className="editButton" type="submit">
+            ADD
+          </button>
+          <button className="saveButton" type="button" onClick={props.hideForm}>
+            <FaCheck />
           </button>
         </>
       ) : profile.skills[0] ? (
@@ -46,14 +49,22 @@ const UserSkills = props => {
               return <li key={i}>{skill}</li>;
             })}
           </ul>
-          <button name="newSkill" onClick={props.onClick}>
-            edit
+          <button
+            className="editButton"
+            name="newSkill"
+            onClick={props.onClick}
+          >
+            <FaPen />
           </button>
         </>
       ) : (
         <>
-          <button name="newSkill" onClick={props.onClick}>
-            ADD Skills
+          <button
+            className="editButton"
+            name="newSkill"
+            onClick={props.onClick}
+          >
+            ADD SKILLS
           </button>
         </>
       )}

@@ -26,7 +26,7 @@ export default class EditProfile extends Component {
     showForm: "",
     newSkill: "",
     newTag: "",
-    uploadOn: false
+    uploadOn: true
   };
 
   handleChange = event => {
@@ -87,7 +87,7 @@ export default class EditProfile extends Component {
 
   uploadProfile = () => {
     this.changeState();
-    if (this.state.uploadOn) return;
+    // if (this.state.uploadOn) return;
 
     const { _id } = this.props.profileUser;
 
@@ -103,6 +103,9 @@ export default class EditProfile extends Component {
 
     editUserProfile(_id, userInfos).then(response => {
       this.props.setProfileUser(response);
+    });
+    this.setState({
+      uploadOn: true
     });
   };
 
@@ -129,7 +132,7 @@ export default class EditProfile extends Component {
   render() {
     const profile = this.props.profileUser;
     return (
-      <Container>
+      <Container className="main">
         <div className="bg-header" />
         <form onSubmit={this.handleSubmit}>
           <div className="container">

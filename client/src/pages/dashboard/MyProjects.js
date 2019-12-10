@@ -55,9 +55,14 @@ export default class MyProjects extends Component {
               {value.owner === this.props.user._id && (
                 <p style={{ color: "red" }}>I am the Owner</p>
               )}
-                <h5>Applications</h5>
-                {value.applications.length > 0 &&
-                <p>You have new applications for the following roles: {value.applications.map(applicant => applicant.role + " ")}</p>}
+              <h5>Applications</h5>
+
+              {value.applications && (
+                <p>
+                  You have new applications for the following roles:{" "}
+                  {value.applications.map(applicant => applicant.role + " ")}
+                </p>
+              )}
               <a href={`/projects/${value._id}`}>See Project</a>
             </div>
           );

@@ -13,22 +13,8 @@ const otherGreen = "#45A29E";
 // const gray = "#C5C6C7";
 
 export const Container = styled.div`
-  padding: 2vh 5vw 5vh;
-  height: 100%;
-
-  .bg-header {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: ${darkGreen};
-    width: 100%;
-    height: 22vh;
-    z-index: -1;
-
-    
-    border-bottom: 4px solid ${mediumGreen};
-    }
-  }
+  /* padding: 2vh 5vw 5vh;
+  height: 100%; */
 
   input {
     /* background-color: red; */
@@ -46,8 +32,6 @@ export const Container = styled.div`
 
   .container {
     display: flex;
-    margin: 5vh 5vw;
-    border-radius: 7px;
 
     .userPhoto img {
       max-width: 250px;
@@ -55,10 +39,9 @@ export const Container = styled.div`
       border-radius: 7px 0 0 0;
       border: 1px solid ${mediumGreen};
     }
-
     .newPhoto {
       position: relative;
-      bottom: 27px;
+      bottom: 32px;
       left: 5px;
       display: flex;
       align-items: center;
@@ -92,25 +75,12 @@ export const Container = styled.div`
       div {
         display: flex;
         align-items: baseline;
-        button {
-          color: ${otherGreen};
-          font-weight: bold;
-          font-size: 1.1rem;
-          margin-bottom: 1.5vh;
-        }
-        button:hover {
-          color: ${mediumGreen};
-          border: none;
-          border-bottom: 1px solid ${mediumGreen};
-        }
       }
     }
-
     .userInfos {
       flex: 1;
       padding: 3vh 4vw 7vh 4vw;
       background-color: ${white};
-
       h2 {
         color: ${mediumGreen};
       }
@@ -128,10 +98,6 @@ export const Container = styled.div`
         border: 1px solid ${mediumGreen};
         background-color: ${lightGreen};
         color: ${mediumGreen}
-      }
-
-      button {
-        padding: 1vh 2vw;
       }
       .description {
         border-top: 1px solid ${mediumGray};
@@ -160,7 +126,7 @@ export const Container = styled.div`
   }
 
   @media screen and (min-width: 0px) and (max-width: 800px) {
-    .container
+    .container {
       .userPhoto {
         img {
         max-width: 200px;
@@ -175,7 +141,7 @@ export const Container = styled.div`
       .userInfos {
         position: absolute;
         display: block;
-        top: 42.5vh;
+        top: 45vh;
         left: 3vw;
         right: 3vw;
         margin: 0 7vw;

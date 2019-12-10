@@ -84,7 +84,10 @@ class NotificationBox extends Component {
   render() {
     return (
       <React.Fragment>
-        <button onClick={this.showNotification}>
+        <button
+          onClick={this.showNotification}
+          className="cool-link notificationButton"
+        >
           <FontAwesomeIcon color="white" icon={faBell} />
         </button>
         <Container top={this.state.top}>

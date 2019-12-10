@@ -13,18 +13,18 @@ const ProjectCards = props => {
   }
 
   if (props.role) {
-    projects = projects.filter(project =>{
+    projects = projects.filter(project => {
       let availableRoles = project.requiredRoles.map(value => {
-        if(value.open){
-          return value.name
+        if (value.open) {
+          return value.name;
         }
-        return false
-        })
+        return false;
+      });
       if (availableRoles.includes(props.user.role)) {
-        return project
+        return project;
       }
-      return false
-    })
+      return false;
+    });
     //
   }
 
@@ -32,29 +32,35 @@ const ProjectCards = props => {
     <div>
       {projects.map(project => {
         return (
-          <div key={project._id}>
-            <h3>{project.title}</h3>
-            <h4>About: </h4>
-            <p>{project.description}</p>
-            {project.requiredRoles && (
-              <>
-                <h4>Roles required: </h4>
-                {project.requiredRoles.map((role, index) => {
-                  return <p key={index}>{role.name}</p>;
-                })}
-              </>
-            )}
-            <h4>Posted: </h4>
-            <p>{project.created_at.slice(0, 10)}</p>
-            {project.tags && (
-              <>
-                <h4>Keywords: </h4>
-                {project.tags.map((tag, index) => {
-                  return <p key={index}>{tag}</p>;
-                })}
-              </>
-            )}
-            <Link to={`/projects/${project._id}`}>Learn more</Link>
+          <div className="cardLink">
+            <Link key={project._id} to={`/projects/${project._id}`}>
+              <div className="gridCard">
+                <div>
+                  <h2>{project.title}</h2>
+                  <p>{project.description}</p>
+                </div>
+                {project.tags && (
+                  <div>
+                    <h4>Keywords</h4>
+                    {project.tags.map((tag, index) => {
+                      return <p key={index}>{tag}</p>;
+                    })}
+                  </div>
+                )}
+                {project.requiredRoles && (
+                  <div>
+                    <h4>Roles</h4>
+                    {project.requiredRoles.map((role, index) => {
+                      return <p key={index}>{role.name}</p>;
+                    })}
+                  </div>
+                )}
+              </div>
+              <div className="cardBottom">
+                <p className="date">{project.created_at.slice(0, 10)}</p>
+                <p className="seeMore">SEE MORE</p>
+              </div>
+            </Link>
           </div>
         );
       })}

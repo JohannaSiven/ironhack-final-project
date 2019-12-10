@@ -11,13 +11,13 @@ export default class UserProfile extends Component {
     const profile = this.props.profileUser;
     console.log("active", this.props.user);
     return (
-      <Container>
+      <Container className="main">
         <div className="bg-header" />
         <div className="container">
           <div className="userPhoto">
             <img src={profile.photo} alt={profile.username} />
           </div>
-          <div>
+          <div className="flex1">
             <div className="userName">
               <h1>{profile.username}</h1>
 
@@ -32,7 +32,6 @@ export default class UserProfile extends Component {
               >
                 Contact {profile.username}
               </Link>
-
 
               <h3>
                 <FaMapMarkerAlt size="14px" />

@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
 import ProjectCards from "./ProjectCards";
-import ProjectForm from "./ProjectForm";
 import ProjectSearch from "./ProjectSearch";
+
+import { Container } from "./styles";
 
 export default class Project extends Component {
   state = {
@@ -53,33 +54,35 @@ export default class Project extends Component {
 
   render() {
     return (
-      <div>
-        <h1>Project feed</h1>
-        <div>
-          <ProjectSearch
-            projects={this.state.projects}
-            user={this.state.user}
-            setRemote={this.setRemote}
-            setStatus={this.setStatus}
-            setRole={this.setRole}
-            remote={this.state.remote}
-            status={this.state.status}
-            role={this.state.role}
-          />
+      <Container>
+        <div className="main">
+          <div className="bg-header" />
+          <div className="container">
+            <div className="feedHeader">
+              <h1>Project feed</h1>
+              <ProjectSearch
+                projects={this.state.projects}
+                user={this.state.user}
+                setRemote={this.setRemote}
+                setStatus={this.setStatus}
+                setRole={this.setRole}
+                remote={this.state.remote}
+                status={this.state.status}
+                role={this.state.role}
+              />
+            </div>
+            <div className="feedCards">
+              <ProjectCards
+                remote={this.state.remote}
+                status={this.state.status}
+                role={this.state.role}
+                projects={this.state.projects}
+                user={this.state.user}
+              />
+            </div>
+          </div>
         </div>
-        <div>
-          <ProjectForm user={this.state.user} />
-        </div>
-        <div>
-          <ProjectCards
-            remote={this.state.remote}
-            status={this.state.status}
-            role={this.state.role}
-            projects={this.state.projects}
-            user={this.state.user}
-          />
-        </div>
-      </div>
+      </Container>
     );
   }
 }
