@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 
 import { FaMapMarkerAlt } from "react-icons/fa";
 
@@ -10,13 +9,13 @@ export default class UserProfile extends Component {
     const profile = this.props.profileUser;
 
     return (
-      <Container>
+      <Container className="main">
         <div className="bg-header" />
         <div className="container">
           <div className="userPhoto">
             <img src={profile.photo} alt={profile.username} />
           </div>
-          <div>
+          <div className="flex1">
             <div className="userName">
               <h1>{profile.username}</h1>
               <h3>

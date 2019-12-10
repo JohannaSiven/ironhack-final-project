@@ -1,6 +1,10 @@
 import React from "react";
 import { tags } from "../Keywords";
 
+import { FaPen } from "react-icons/fa";
+import { FaCheck } from "react-icons/fa";
+import { FaTrashAlt } from "react-icons/fa";
+
 const UserTags = props => {
   const { profile } = props;
 
@@ -12,8 +16,12 @@ const UserTags = props => {
             {profile.tags.map((tag, i) => {
               return (
                 <li key={i}>
-                  <button type="button" onClick={() => props.handleRemove(tag)}>
-                    {tag} X
+                  <button
+                    className="deleteButton"
+                    type="button"
+                    onClick={() => props.handleRemove(tag)}
+                  >
+                    <FaTrashAlt color="red" /> {tag}
                   </button>
                 </li>
               );
@@ -28,9 +36,11 @@ const UserTags = props => {
               );
             })}
           </select>
-          <button type="submit">ADD</button>
-          <button type="button" onClick={props.hideForm}>
-            SAVE
+          <button className="editButton" type="submit">
+            ADD
+          </button>
+          <button className="saveButton" type="button" onClick={props.hideForm}>
+            <FaCheck />
           </button>
         </>
       ) : profile.tags[0] ? (
@@ -40,14 +50,14 @@ const UserTags = props => {
               return <li key={i}>{tag}</li>;
             })}
           </ul>
-          <button name="newTag" onClick={props.onClick}>
-            edit
+          <button className="editButton" name="newTag" onClick={props.onClick}>
+            <FaPen />
           </button>
         </>
       ) : (
         <>
-          <button name="newTag" onClick={props.onClick}>
-            ADD Tags
+          <button className="editButton" name="newTag" onClick={props.onClick}>
+            ADD TAGS
           </button>
         </>
       )}

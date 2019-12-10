@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+
+// import { FaPen } from "react-icons/fa";
+import { FaCheck } from "react-icons/fa";
 
 // import { FaLinkedin } from "react-icons/fa/";
 // import { FaGithub } from "react-icons/fa";
@@ -40,7 +42,7 @@ export default class UserPortfolio extends Component {
   render() {
     if (!this.state.portfolio) return <div></div>;
     return (
-      <>
+      <div>
         {this.props.showForm === "newPortfolio" ? (
           <>
             {this.state.portfolio.map(port => {
@@ -57,8 +59,12 @@ export default class UserPortfolio extends Component {
                 </div>
               );
             })}
-            <button type="submit" onClick={this.portfolioNewState}>
-              SAVE
+            <button
+              className="saveButton"
+              type="submit"
+              onClick={this.portfolioNewState}
+            >
+              <FaCheck />
             </button>
           </>
         ) : (
@@ -76,12 +82,16 @@ export default class UserPortfolio extends Component {
                 )
               );
             })}
-            <button name="newPortfolio" onClick={this.props.onClick}>
+            <button
+              className="editButton"
+              name="newPortfolio"
+              onClick={this.props.onClick}
+            >
               EDIT PORTFOLIO
             </button>
           </>
         )}
-      </>
+      </div>
     );
   }
 }
