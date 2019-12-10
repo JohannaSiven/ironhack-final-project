@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-//import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { FaMapMarkerAlt } from "react-icons/fa";
 
@@ -7,26 +7,9 @@ import { Container } from "./styles";
 import axios from "axios";
 
 export default class UserProfile extends Component {
-  getChat = () => {
-    const profileUser = this.props.profileUser._id;
-    const activeUser = this.props.user;
-    console.log('sent users:', profileUser, activeUser);
-    axios
-      .post("/api/chat", {
-        profileUser,
-        activeUser
-      })
-      .then(response => {
-        console.log('found users:', response.data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
-
   render() {
     const profile = this.props.profileUser;
-
+    console.log("active", this.props.user);
     return (
       <Container>
         <div className="bg-header" />
@@ -37,11 +20,20 @@ export default class UserProfile extends Component {
           <div>
             <div className="userName">
               <h1>{profile.username}</h1>
-              <span>
-                <button onClick={this.getChat}>
-                  Chat with {profile.username}
-                </button>
-              </span>
+
+              <Link
+                to={{
+                  pathname: "/chat",
+                  state: {
+                    profileUser: profile._id,
+                    activeUser: this.props.user
+                  }
+                }}
+              >
+                Contact {profile.username}
+              </Link>
+
+
               <h3>
                 <FaMapMarkerAlt size="14px" />
                 {profile.location}

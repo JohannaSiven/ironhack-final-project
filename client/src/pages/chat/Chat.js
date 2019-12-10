@@ -1,29 +1,29 @@
 import React, { Component } from "react";
 import ChatArea from "./ChatArea";
 import ChatForm from "./ChatForm";
-import Axios from "axios";
+import axios from "axios";
 
 export default class Chat extends Component {
   state = {
-    feed: []
+    chatId: "",
+    users: [],
+    feed: [],
+    activeUser: "",
+    profileUser: ""
   };
 
-  getFeed = () =>{
-    Axios.post("/api/chat/").then(response => 
-      {
-      this.setState({
-        feed: response.data
+  getChat = (activeUser, profileUser) => {
+    console.log("users inside getChat", profileUser, activeUser);
+    axios
+      .post("/api/chat", {
+        activeUser,
+        profileUser
       })
-    })
-  }
-
-  sendMessage = message => {
-    if (!message) return false;
-
-    Axios.post("/api/chat/postMessage", { user: this.props.user, message })
       .then(response => {
         this.setState({
-          feed: [...this.state.feed, response.data]
+          chatId: response.data._id,
+          feed: response.data.messages,
+          users: response.data.users
         });
       })
       .catch(err => {
@@ -31,17 +31,50 @@ export default class Chat extends Component {
       });
   };
 
-  componentDidMount(){
-    console.log("this.props", this.props);
-    this.getFeed()
-    
+  sendMessage = message => {
+    if (!message) return false;
+    console.log("???", this.state);
+
+    axios
+      .post(`/api/chat/new`, {
+        sender: this.state.activeUser,
+        message_body: message,
+        chatId: this.state.chatId
+      })
+      .then(response => {
+        console.log(response.data);
+        this.setState({
+          feed: [...this.state.feed, response.data.messages]
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  componentDidMount() {
+    const { activeUser, profileUser } = this.props.location.state;
+    this.setState({
+      profileUser: profileUser,
+      activeUser: activeUser
+    });
+    this.getChat(activeUser, profileUser);
   }
 
   render() {
-
+    console.log(this.props.location.state);
+    console.log(
+      "this.state after render:",
+      "feed:",
+      this.state.feed,
+      "chatId:",
+      this.state.chatId,
+      "users:",
+      this.state.profileUser, this.state.activeUser
+    );
     return (
       <div>
-        <ChatArea feed={this.state.feed} user={this.props.user}/>
+        <ChatArea feed={this.state.feed} user={this.props.user} />
         <ChatForm sendMessage={this.sendMessage} user={this.props.user} />
       </div>
     );
