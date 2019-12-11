@@ -197,6 +197,39 @@ export const ProjectContainer = styled.div`
       margin-right: 7px;
     }
   }
+  .projectForm {
+    form {
+      padding-top: 3vh;
+      input {
+        padding: 5px;
+        margin-left: 1vw;
+        margin: 2vh 0 2vh 5px;
+      }
+      textarea {
+        padding: 5px;
+        margin: 2vh 0 2vh 5px;
+      }
+      label {
+        color: ${darkGreen};
+        font-size: 14px;
+        margin: 2vh 0 2vh 5px;
+        text-transform: uppercase;
+      }
+      select {
+        width: 100px;
+        margin: 10px 10px 0;
+      }
+      .deleteButton {
+        margin-top: 1vh;
+      }
+      .editButton {
+        text-transform: uppercase;
+        margin-top: 3vh;
+        margin-right: 2vw;
+        padding: 10px 25px;
+      }
+    }
+  }
 
   @media screen and (min-width: 0px) and (max-width: 750px) {
     .grid {

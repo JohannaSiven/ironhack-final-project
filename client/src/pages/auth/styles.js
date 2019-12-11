@@ -13,7 +13,7 @@ const otherGreen = "#45A29E";
 // const gray = "#C5C6C7";
 
 export const Alert = styled.p`
-  background-color: red;
+  color: red;
 `;
 
 export const AuthContainer = styled.div`
@@ -72,14 +72,59 @@ export const AuthContainer = styled.div`
       margin-top: 5px;
       color: ${darkGreen};
     }
-    .login {
-      text-align: right;
-      transition: display 0.8s ease;
+  }
+  .login {
+    text-align: right;
+    transition: display 0.8s ease;
+    form {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-content: center;
+      h2 {
+        text-align: center;
+        margin: 3vh 0;
+      }
+      div {
+        margin: 2vh 0;
+      }
+      button {
+        color: ${mediumGreen};
+        padding: 10px 20px;
+        background-color: ${white};
+        border: 1px solid ${mediumGreen};
+        margin: 2vh 0 1vh;
+      }
+      button:hover {
+        color: ${white};
+        padding: 10px 20px;
+        background-color: ${mediumGreen};
+      }
+      .linkedin {
+        font-size: 2rem;
+        display: flex;
+        justify-content: flex-end;
+        span {
+          color: ${mediumGreen};
+          font-size: 0.7rem;
+          margin-right: 3px;
+        }
+        a {
+          color: ${mediumGreen};
+        }
+        a:hover {
+          color: ${green};
+        }
+      }
     }
-    .signup {
+    .role {
+      margin: 1vh;
       text-align: left;
-      transition: display 0.8s ease;
     }
+  }
+  .signup {
+    text-align: left;
+    transition: display 0.8s ease;
   }
 
   .authContainer {
@@ -88,5 +133,68 @@ export const AuthContainer = styled.div`
     padding: 3vh 3vw;
 
     background-color: ${white};
+  }
+
+  .inp {
+    position: relative;
+    margin: auto;
+    width: 100%;
+    max-width: 280px;
+
+    .label {
+      position: absolute;
+      top: 5px;
+      left: 0;
+      font-size: 12px;
+      color: ${green};
+      font-weight: 500;
+      transform-origin: 0 0;
+      transition: all 0.6s ease;
+    }
+    .border {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 2px;
+      width: 100%;
+      background: ${mediumGreen};
+      transform: scaleX(0);
+      transform-origin: 0 0;
+      transition: all 1s ease;
+    }
+    input {
+      width: 100%;
+      border: 0;
+      font-family: inherit;
+      padding: 12px 0;
+      height: 0px;
+      font-size: 16px;
+      font-weight: 500;
+      border-bottom: 2px solid #c8ccd4;
+      background: none;
+      border-radius: 0;
+      color: ${darkGreen};
+      transition: all 1s ease;
+      &:hover {
+        background: rgba(${darkGreen}, 0.03);
+      }
+      &:not(:placeholder-shown) {
+        + span {
+          color: #5a667f;
+          transform: translateY(0) scale(0.75);
+        }
+      }
+      &:focus {
+        background: none;
+        outline: none;
+        + span {
+          color: ${mediumGreen};
+          transform: translateY(-26px) scale(0.75);
+          + .border {
+            transform: translateY(+6px) scaleX(1);
+          }
+        }
+      }
+    }
   }
 `;

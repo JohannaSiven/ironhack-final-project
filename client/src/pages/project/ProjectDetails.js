@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { projectInfos, addApplication } from "../../services/project";
 import { ProjectContainer } from "./styles";
+import { tags } from "../user/Keywords";
 
-import { FaCheck } from "react-icons/fa";
-import { FaTimes } from "react-icons/fa";
+import { FaCheck, FaTimes, FaTrashAlt } from "react-icons/fa";
 
 export default class ProjectDetails extends Component {
   state = {
@@ -19,6 +19,19 @@ export default class ProjectDetails extends Component {
     remote: true,
     status: "Open",
     error: ""
+  };
+
+  handleRemove = elem => {
+    this.setState({
+      tags: this.state.tags.filter(t => t !== elem)
+    });
+  };
+
+  handleSelect = event => {
+    this.setState({
+      tags: [...this.state.tags, event.target.value],
+      newTag: ""
+    });
   };
 
   handleApplication = event => {
@@ -229,6 +242,9 @@ export default class ProjectDetails extends Component {
             {/* Show edit Form */}
             {this.state.editForm && (
               <div className="projectForm">
+                <div className="projectHeader">
+                  <h2>EDIT PROJECT</h2>
+                </div>
                 <form onSubmit={this.handleSubmit}>
                   <label htmlFor="title">Project title</label>
                   <input
@@ -240,7 +256,7 @@ export default class ProjectDetails extends Component {
                   />
                   <br />
                   <label htmlFor="description">Description</label>
-                  <input
+                  <textarea
                     type="text"
                     name="description"
                     id="description"
@@ -248,18 +264,36 @@ export default class ProjectDetails extends Component {
                     onChange={this.handleChange}
                   />
                   <br />
-                  <label htmlFor="tags">Attach keywords that apply</label>
-                  <input
-                    type="text"
-                    name="tags"
-                    id="tags"
-                    value={this.state.tags}
-                    onChange={this.handleChange}
-                  />
-                  <br />
-                  <label htmlFor="remote">
-                    People can join the project group remotely
+                  <label htmlFor="tags" className="label">
+                    keywords
                   </label>
+                  <select name="tags" id="tags" onChange={this.handleSelect}>
+                    {tags.map(tag => {
+                      return (
+                        <option value={tag} key={tag}>
+                          {tag}
+                        </option>
+                      );
+                    })}
+                  </select>
+                  <ul>
+                    {this.state.tags &&
+                      this.state.tags.map((tag, i) => {
+                        return (
+                          <li key={i}>
+                            <button
+                              className="deleteButton"
+                              type="button"
+                              onClick={() => this.handleRemove(tag)}
+                            >
+                              <FaTrashAlt color="red" /> {tag}
+                            </button>
+                          </li>
+                        );
+                      })}
+                  </ul>
+                  <br />
+                  <label htmlFor="remote">remotely</label>
                   <input
                     type="checkbox"
                     name="remote"
@@ -283,9 +317,14 @@ export default class ProjectDetails extends Component {
               Choose which roles are required:{" "}
             </label> */}
                   {/* <RoleSelect onSelect={this.onSelect} onRemove={this.onRemove} /> */}
-
-                  <button type="submit">Save Changes</button>
-                  <button onClick={this.deleteProject}>Delete Project</button>
+                  <div>
+                    <button type="submit" className="editButton">
+                      <FaCheck /> Save Changes
+                    </button>
+                    <button onClick={this.deleteProject} className="editButton">
+                      <FaTrashAlt /> Delete Project
+                    </button>
+                  </div>
                 </form>
               </div>
             )}
@@ -378,7 +417,7 @@ export default class ProjectDetails extends Component {
                                         onClick={this.handleApplication}
                                         className="editButton"
                                       >
-                                        Apply
+                                        APPLY
                                       </button>
                                     )}
                                   <p open={role.open}>{role.name}</p>
@@ -391,26 +430,27 @@ export default class ProjectDetails extends Component {
                                             <>
                                               <Link
                                                 to={`/user/${applicant.user}`}
+                                                className="editButton"
                                               >
-                                                see profile
+                                                SEE PROFILE
                                               </Link>
                                               <button
                                                 type="button"
                                                 id={applicant.user}
                                                 name={role.name}
                                                 onClick={this.accepted}
+                                                className="editButton"
                                               >
-                                                <FaCheck />
-                                                Accept
+                                                <FaCheck /> ACCEPT
                                               </button>
                                               <button
                                                 type="button"
                                                 id={applicant.user}
                                                 name={role.name}
                                                 onClick={this.rejected}
+                                                className="editButton"
                                               >
-                                                <FaTimes />
-                                                Reject
+                                                <FaTimes color="red" /> REJECT
                                               </button>
                                             </>
                                           )}

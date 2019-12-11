@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { login } from "../../services/user";
-import { Form, Alert } from "./styles";
+import { Alert } from "./styles";
+import { FaLinkedin } from "react-icons/fa";
 
 class Login extends Component {
   state = {
@@ -36,6 +37,20 @@ class Login extends Component {
         <form onSubmit={this.handleSubmit}>
           <h2>LOGIN</h2>
           <div>
+            <label htmlFor="username" className="inp">
+              <input
+                type="text"
+                name="username"
+                id="username"
+                value={this.state.username}
+                onChange={this.handleChange}
+                placeholder="&nbsp;"
+              />
+              <span className="label">USERNAME</span>
+              <span className="border"></span>
+            </label>
+          </div>
+          {/* <div>
             <label htmlFor="username">Username: </label>
             <input
               type="text"
@@ -44,26 +59,38 @@ class Login extends Component {
               value={this.state.username}
               onChange={this.handleChange}
             />
-          </div>
+          </div> */}
           <div>
-            <label htmlFor="password">Password: </label>
+            <label htmlFor="password" className="inp">
+              <input
+                type="password"
+                name="password"
+                id="password"
+                value={this.state.password}
+                onChange={this.handleChange}
+                placeholder="&nbsp;"
+              />
+              <span className="label">PASSWORD</span>
+              <span className="border"></span>
+            </label>
+          </div>
+          {/* <label htmlFor="password">Password: </label>
             <input
               type="password"
               name="password"
               id="password"
               value={this.state.password}
               onChange={this.handleChange}
-            />
-          </div>
+            /> */}
           {this.state.error && <Alert>{this.state.error}</Alert>}
-          <button type="submit">Log in</button>
+          <button type="submit">LOG IN</button>
+          <div className="linkedin">
+            <span>or log in with</span>
+            <a href="http://localhost:5555/api/auth/linkedin">
+              <FaLinkedin />
+            </a>
+          </div>
         </form>
-        <a href="http://localhost:5555/api/auth/linkedin">
-          <img
-            src="https://content.linkedin.com/content/dam/developer/global/en_US/site/img/signin-button.png"
-            alt="Linkedin Btn"
-          />
-        </a>
       </div>
     );
   }

@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { signup } from "../../services/user";
-import { Form, Alert } from "./styles";
+import { Alert } from "./styles";
 import { roles } from "../user/Keywords";
+import { FaLinkedin } from "react-icons/fa";
 
 class Signup extends Component {
   state = {
@@ -37,9 +38,24 @@ class Signup extends Component {
 
   render() {
     return (
-      <div className="authContainer signup">
+      <div className="authContainer login">
         <form onSubmit={this.handleSubmit}>
+          <h2>SIGN UP</h2>
           <div>
+            <label htmlFor="username" className="inp">
+              <input
+                type="text"
+                name="username"
+                id="username"
+                value={this.state.username}
+                onChange={this.handleChange}
+                placeholder="&nbsp;"
+              />
+              <span className="label">USERNAME</span>
+              <span className="border"></span>
+            </label>
+          </div>
+          {/* <div>
             <label htmlFor="username">Username: </label>
             <input
               type="text"
@@ -48,8 +64,23 @@ class Signup extends Component {
               value={this.state.username}
               onChange={this.handleChange}
             />
-          </div>
+          </div> */}
           <div>
+            <label htmlFor="password" className="inp">
+              <input
+                type="password"
+                name="password"
+                id="password"
+                value={this.state.password}
+                onChange={this.handleChange}
+                placeholder="&nbsp;"
+              />
+              <span className="label">PASSWORD</span>
+              <span className="border"></span>
+            </label>
+          </div>
+          {this.state.error && <Alert>{this.state.error}</Alert>}
+          {/* <div>
             <label htmlFor="password">Password: </label>
             <input
               type="password"
@@ -58,8 +89,8 @@ class Signup extends Component {
               value={this.state.password}
               onChange={this.handleChange}
             />
-          </div>
-          <div>
+          </div> */}
+          <div className="role">
             <label htmlFor="role">Select your role: </label>
             <select
               id="role"
@@ -76,15 +107,14 @@ class Signup extends Component {
               })}
             </select>
           </div>
-          {this.state.error && <Alert>{this.state.error}</Alert>}
           <button type="submit">Signup</button>
+          <div className="linkedin">
+            <span>or log in with</span>
+            <a href="http://localhost:5555/api/auth/linkedin">
+              <FaLinkedin />
+            </a>
+          </div>
         </form>
-        <a href="http://localhost:5555/api/auth/linkedin">
-          <img
-            src="https://content.linkedin.com/content/dam/developer/global/en_US/site/img/signin-button.png"
-            alt="Linkedin Btn"
-          />
-        </a>
       </div>
     );
   }
