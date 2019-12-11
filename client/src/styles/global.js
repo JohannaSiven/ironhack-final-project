@@ -1,4 +1,6 @@
 import { createGlobalStyle } from "styled-components";
+// import Montserrat from "https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900&display=swap";
+
 const darkGreen = "#17252A";
 const mediumGreen = "#2B7A78";
 const green = "#3AAFA9";

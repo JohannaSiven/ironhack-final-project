@@ -1,7 +1,7 @@
 import styled from "styled-components";
 const darkGreen = "#17252A";
 const mediumGreen = "#2B7A78";
-//const green = "#3AAFA9";
+const green = "#3AAFA9";
 //const lightGreen = "#DEF2F1";
 const white = "#FFF";
 
@@ -19,7 +19,10 @@ export const Container = styled.div`
     background-color: ${darkGreen};
   }
   .height500 {
-    height: 100vh;
+    height: 95vh;
+  }
+  .height250 {
+    height: 32vh;
   }
   .height200 {
     height: 25vh;
@@ -37,21 +40,48 @@ export const Container = styled.div`
     width: 50vw;
   }
   .textDiv {
-    padding: 13vh 1vw 13vh 6vw;
+    padding: 13vh 4vw 13vh 7vw;
     color: ${white};
+    height: 300px;
     h1 {
-      margin-bottom: 1vh;
+      text-transform: uppercase;
+      font-size: 3rem;
+      font-weight: 100;
+
+      display: inline-block;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+      border-bottom: 2px solid ${green};
+    }
+    h2 {
+      font-weight: 100;
+      font-size: 1.3rem;
+    }
+    h3 {
+      font-weight: 100;
+      font-size: 2.5rem;
+
+      display: inline-block;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+      border-bottom: 2px solid ${green};
+    }
+    p {
+      line-height: 1.7rem;
     }
   }
   footer {
     border-top: 3px solid ${mediumGreen};
     background-color: ${otherGreen};
-    height: 15vh;
+    height: 10vh;
     width: 100%;
   }
   @media screen and (min-width: 0px) and (max-width: 800px) {
     .height500 {
       height: 100vh;
+    }
+    .height250 {
+      height: 20vh;
     }
     .height200 {
       height: 15vh;
