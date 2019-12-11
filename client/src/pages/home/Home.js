@@ -50,49 +50,45 @@ export default class Home extends Component {
       <Container>
         <div className="homeGrid">
           <div className="textContainer">
-            <div className="height100" />
+            <div className="height200" />
             <div className="textDiv">
               <h1>Collabrains</h1>
-              <p>The most effective way to make ideas come to life</p>
+              <h2>The innovative way of making your ideas come to life</h2>
             </div>
             <div className="height200" />
             <div className="textDiv">
-              <h1>Lorem ipsum dolor sit amet consectetur</h1>
+              <h3>Make ideas come to life</h3>
               <p>
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                Tempore provident esse laudantium soluta unde tenetur nisi
-                autem, consectetur dicta temporibus cum repellendus quia
-                doloremque dolore! Nihil labore tempora nostrum minima!
+                You have an idea but do not have the skills to make it happen?
+                On Collabrains you have the possibility to publish your ideas as
+                projects and let other people with different backgrounds help
+                you to turn this project into reality.
+              </p>
+            </div>
+            <div className="height250" />
+            <div className="textDiv">
+              <h3>Apply to projects</h3>
+              <p>
+                Search and apply for specific projects or simply find the best
+                options for you in your personalized dashboard.
               </p>
             </div>
             <div className="height200" />
             <div className="textDiv">
-              <h1>Lorem ipsum dolor sit amet consectetur</h1>
+              <h3>Decide who is the best fit </h3>
               <p>
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                Tempore provident esse laudantium soluta unde tenetur nisi
-                autem, consectetur dicta temporibus cum repellendus quia
-                doloremque dolore! Nihil labore tempora nostrum minima!
+                As the project owner, you can go through all applications of
+                your project, check the profile of each applicant, have a
+                private chat with them, and decide if the person is a good match
+                for your project role.
               </p>
             </div>
             <div className="height200" />
             <div className="textDiv">
-              <h1>Lorem ipsum dolor sit amet consectetur</h1>
+              <h3>Start to use the power of Teamwork</h3>
               <p>
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                Tempore provident esse laudantium soluta unde tenetur nisi
-                autem, consectetur dicta temporibus cum repellendus quia
-                doloremque dolore! Nihil labore tempora nostrum minima!
-              </p>
-            </div>
-            <div className="height200" />
-            <div className="textDiv">
-              <h1>Lorem ipsum dolor sit amet consectetur</h1>
-              <p>
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                Tempore provident esse laudantium soluta unde tenetur nisi
-                autem, consectetur dicta temporibus cum repellendus quia
-                doloremque dolore! Nihil labore tempora nostrum minima!
+                Once you decide it is time to start the project, change the
+                status to “On progress” and start to work with your new team.
               </p>
             </div>
             {/* <div className="height100" /> */}
