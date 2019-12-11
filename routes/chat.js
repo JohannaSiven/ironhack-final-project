@@ -10,7 +10,7 @@ router.post("/inbox", (req, res) => {
   const { activeUser } = req.body;
   console.log("### user to match:", activeUser._id);
   Chat.find({ users: { $in: [activeUser._id] } })
-    .populate("messages")
+    .populate("messages users")
     .then(chats => {
       console.log("### inbox content found:", chats);
       res.send(chats);
@@ -21,7 +21,7 @@ router.post("/inbox", (req, res) => {
 });
 
 /*-------------------------------------------------*/
-//GET /api/chat/inbox/:id --> load chat content
+//POST /api/chat/inbox/:id --> load chat content
 
 router.post("/inbox/:id", (req, res) => {
   console.log("### chat to retrieve:", req.params.id);
@@ -74,6 +74,7 @@ router.post("/new", (req, res) => {
 
 /*-------------------------------------------------*/
 //POST /api/chat --> open chat between loggedin user and another member
+
 router.post("/", (req, res) => {
   const { activeUser, profileUser } = req.body;
   console.log("### user1:", activeUser, "user2", profileUser);

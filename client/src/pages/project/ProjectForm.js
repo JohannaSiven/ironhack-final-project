@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 import axios from "axios";
 import RoleSelect from "./RoleSelect";
 import { FaTrashAlt } from "react-icons/fa";
@@ -12,7 +13,9 @@ class ProjectForm extends Component {
     description: "",
     requiredRoles: [],
     tags: [],
-    remote: true
+    remote: true,
+    createdChat: false,
+    createdChatId: ""
   };
 
   handleChange = event => {
@@ -68,14 +71,20 @@ class ProjectForm extends Component {
         remote: this.state.remote
       })
       .then(response => {
+        console.log("PROJECT RESPONSE", response.data._id);
         this.setState({
           title: "",
           description: "",
           requiredRoles: [],
           tags: [],
-          remote: true
+          remote: true,
+          createdChat: true,
+          createdChatId: response.data._id
         });
-        console.log(response);
+        this.setState({
+          createdChat: false,
+          createdChatId: ""
+        });
       })
       .catch(err => {
         console.log(err);
@@ -84,6 +93,12 @@ class ProjectForm extends Component {
 
   render() {
     console.log(this.state);
+
+    if (this.state.createdChat) {
+      console.log("createdChat", this.state.createdChat);
+      return <Redirect to={`/projects/${this.state.createdChatId}`} />;
+    }
+
     return (
       <Form onSubmit={this.handleSubmit}>
         <h2>CREATE NEW PROJECT</h2>

@@ -4,7 +4,7 @@ import axios from "axios";
 
 export class Inbox extends Component {
   state = {
-    activeUser: this.props.user._id,
+    activeUser: this.props.user,
     inboxItems: [],
     chatId: "",
   };
@@ -24,6 +24,7 @@ export class Inbox extends Component {
         activeUser
       })
       .then(res => {
+        console.log(res);
         this.setState({
           inboxItems: res.data
         });
@@ -34,7 +35,7 @@ export class Inbox extends Component {
   };
 
   /*---------------------------------------*/
-  // render the inbox list
+  // render the inbox content
 
   render() {
     const inbox = this.state.inboxItems;
@@ -54,7 +55,7 @@ export class Inbox extends Component {
           {inbox.map(chat => {
             return (
               <div key={chat._id} style={{ border: "1px solid black" }}>
-                <NavLink to={`/inbox/${chat._id}`}>{chat.users}</NavLink>
+                <NavLink to={`/inbox/${chat._id}`}>You and {chat.users[1].username}</NavLink>
               </div>
             );
           })}

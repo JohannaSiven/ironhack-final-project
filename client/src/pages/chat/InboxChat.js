@@ -10,7 +10,7 @@ export class InboxChat extends Component {
   state = {
     messages: [],
     newMessage: "",
-    socketResponse: "", //socket
+    // socketResponse: "", //socket
     chatId: this.props.match.params.id,
     activeUser: this.props.user
   };
@@ -42,15 +42,15 @@ export class InboxChat extends Component {
 
     socket.on("message", msg => {
       console.log("socket received emitted msg:", msg);
-      this.setState({
-        socketResponse: msg
-      });
+      // this.setState({
+      //   socketResponse: msg
+      // });
       this.getInboxChat();
     });
   };
 
   /*---------------------------------------*/
-  // send new message to the database
+  // send new message to a chat
 
   handleChange = event => {
     this.setState({
@@ -69,7 +69,6 @@ export class InboxChat extends Component {
   };
 
   sendMessage = message => {
-    // post new message to database
     if (!message) return false;
     console.log("send msg to backend: ", message);
     axios
@@ -106,7 +105,7 @@ export class InboxChat extends Component {
         {conversation.map((message, i) => {
           return (
             <div key={message._id + i}>
-              <p>{message.created_at}}</p>
+              <p>{message.created_at}</p>
               <p>{message.message_body}</p>
             </div>
           );
