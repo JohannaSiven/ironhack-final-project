@@ -1,10 +1,16 @@
 import React, { Component } from "react";
 import axios from "axios";
+import socketIOClient from "socket.io-client";
+
+// socket client for new messages
+const endpoint = "http://localhost:5555"; //socket
+const socket = socketIOClient(endpoint);
 
 export class InboxChat extends Component {
   state = {
     messages: [],
     newMessage: "",
+    socketResponse: "", //socket
     chatId: this.props.match.params.id,
     activeUser: this.props.user
   };
@@ -15,11 +21,13 @@ export class InboxChat extends Component {
   componentDidMount() {
     if (this.props.match.params) {
       this.getInboxChat();
+      console.log("component mounted");
     }
   }
 
   getInboxChat = () => {
-    console.log("this chatId:", this.props.match.params.id);
+    // get existing inbox messages
+    console.log("chatId found:", this.props.match.params.id);
     axios
       .post(`/api/chat/inbox/${this.props.match.params.id}`)
       .then(res => {
@@ -30,6 +38,15 @@ export class InboxChat extends Component {
       .catch(err => {
         console.log(err);
       });
+    console.log("getInbox()");
+
+    socket.on("message", msg => {
+      console.log("socket received emitted msg:", msg);
+      this.setState({
+        socketResponse: msg
+      });
+      this.getInboxChat();
+    });
   };
 
   /*---------------------------------------*/
@@ -43,16 +60,18 @@ export class InboxChat extends Component {
 
   submitForm = event => {
     event.preventDefault();
-    console.log("sent from chat form: ", this.state.newMessage);
+    console.log("chat form submit: ", this.state.newMessage);
     this.sendMessage(this.state.newMessage);
     this.setState({
-      message_body: ""
+      message_body: "",
+      newMessage: ""
     });
   };
 
   sendMessage = message => {
+    // post new message to database
     if (!message) return false;
-    console.log("newMessage being sent with axios: ", message);
+    console.log("send msg to backend: ", message);
     axios
       .post(`/api/chat/new`, {
         sender: this.state.activeUser,
@@ -60,9 +79,15 @@ export class InboxChat extends Component {
         chatId: this.state.chatId
       })
       .then(response => {
+        const msg =
+          response.data.messages[response.data.messages.length - 1]
+            .message_body;
+        console.log("new msg returned from db: ", msg);
+        console.log("all msgs returned from db: ", response.data.messages);
         this.setState({
-          messages: [...this.state.messages, response.data.messages]
+          messages: response.data.messages
         });
+        socket.send(msg);
       })
       .catch(err => {
         console.log(err);
@@ -74,18 +99,15 @@ export class InboxChat extends Component {
 
   render() {
     const conversation = this.state.messages;
+    //console.log("RENDERING", this.state.messages);
+    console.log("rendering");
     return (
-      // const messages =
-      // this.props.feed.map((msg, i) => {
-      //   return <Messages key={i} content={msg} user={this.props.user} />;
-      // });
-
       <div>
-        {conversation.map(message => {
+        {conversation.map((message, i) => {
           return (
-            <div key={message._id}>
-              <p>message: {message.message_body}</p>
-              <p>sender: {message.sender}</p>
+            <div key={message._id + i}>
+              <p>{message.created_at}}</p>
+              <p>{message.message_body}</p>
             </div>
           );
         })}

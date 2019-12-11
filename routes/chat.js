@@ -3,18 +3,16 @@ const router = express.Router();
 const Message = require("../models/Message");
 const Chat = require("../models/Chat");
 
-
-
 /*-------------------------------------------------*/
-//GET /api/chat/inbox --> all chats
+//POST /api/chat/inbox --> load user's inbox content
 
 router.post("/inbox", (req, res) => {
   const { activeUser } = req.body;
-  console.log("server received:", activeUser._id);
+  console.log("### user to match:", activeUser._id);
   Chat.find({ users: { $in: [activeUser._id] } })
     .populate("messages")
     .then(chats => {
-      console.log("server found:", chats);
+      console.log("### inbox content found:", chats);
       res.send(chats);
     })
     .catch(err => {
@@ -23,14 +21,15 @@ router.post("/inbox", (req, res) => {
 });
 
 /*-------------------------------------------------*/
-//GET /api/chat/inbox/:id --> one convo
+//GET /api/chat/inbox/:id --> load chat content
 
 router.post("/inbox/:id", (req, res) => {
-  console.log("server received chatId:", req.params.id);
+  console.log("### chat to retrieve:", req.params.id);
   Chat.findById({ _id: req.params.id })
     .populate("messages")
+    //.populate({ path: "users messages", populate: { path: "sender" } })
     .then(chat => {
-      console.log("server found:", chat);
+      console.log("### chat content found");
       res.send(chat);
     })
     .catch(err => {
@@ -39,16 +38,17 @@ router.post("/inbox/:id", (req, res) => {
 });
 
 /*-------------------------------------------------*/
-//POST /api/chat/:id/new
+//POST /api/chat/:id/new --> post new message to chat
 
 router.post("/new", (req, res) => {
   const { sender, message_body, chatId } = req.body;
-  console.log("server received: sender: ",sender, "message: ", message_body, "chatId: ",chatId);
+  console.log("### new message to create: ", message_body);
   Message.create({
     sender: sender,
     message_body: message_body
   })
     .then(newMessage => {
+      console.log("### new message created in db: ", newMessage);
       Chat.findByIdAndUpdate(
         { _id: chatId },
         {
@@ -58,10 +58,10 @@ router.post("/new", (req, res) => {
           new: true
         }
       )
-        .populate("messages")
-        .populate("sender")
-        .then(message => {
-          res.send(message);
+        .populate({ path: "users messages", populate: { path: "sender" } })
+        .then(chatDocument => {
+          console.log("### new message added to chat document", chatDocument);
+          res.json(chatDocument);
         })
         .catch(err => {
           console.log(err);
@@ -73,31 +73,32 @@ router.post("/new", (req, res) => {
 });
 
 /*-------------------------------------------------*/
-//POST /api/chat --> open new chat between loggedin user and another member
+//POST /api/chat --> open chat between loggedin user and another member
 router.post("/", (req, res) => {
   const { activeUser, profileUser } = req.body;
-  console.log("user1:", activeUser, "user2", profileUser);
+  console.log("### user1:", activeUser, "user2", profileUser);
   Chat.findOne({
     $and: [{ users: { $in: [activeUser] } }, { users: { $in: [profileUser] } }]
   })
     .then(chat => {
       if (chat) {
-        console.log("chat found", chat);
+        console.log("### chat found", chat.users);
         Chat.findById(chat._id)
           .populate("messages")
+          .populate("users")
           .then(chat => {
-            console.log("RETURNED", chat);
             res.json(chat);
           })
           .catch(err => {
             res.status(500).json(err);
           });
       } else if (!chat) {
-        console.log("chat not found --> create");
+        console.log("### chat not found --> create");
         Chat.create({
           users: [activeUser, profileUser]
         })
           .then(chat => {
+            console.log("### chat created", chat._id);
             res.json(chat);
           })
           .catch(err => {
@@ -109,17 +110,5 @@ router.post("/", (req, res) => {
       res.status(500).json(err);
     });
 });
-
-/*-------------------------------------------------*/
-//GET /api/chat/:id --> get chat between loggedin user and another member
-
-// router.get("/:id", (req, res) => {
-//   Message.find()
-//     .populate("postedBy")
-//     .then(data => {
-//       res.json(data);
-//     })
-//     .catch(err => res.json(err));
-// });
 
 module.exports = router;

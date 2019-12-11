@@ -38,6 +38,7 @@ export class Inbox extends Component {
 
   render() {
     const inbox = this.state.inboxItems;
+    console.log("INBOX", inbox);
     if (inbox.length === 0) {
       console.log("inbox empty");
       return (
