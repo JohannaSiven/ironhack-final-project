@@ -3,7 +3,7 @@ import axios from "axios";
 import socketIOClient from "socket.io-client";
 
 // socket client for new messages
-const endpoint = "http://localhost:5555"; //socket
+const endpoint = process.env.PORT; //socket
 const socket = socketIOClient(endpoint);
 
 export class InboxChat extends Component {
