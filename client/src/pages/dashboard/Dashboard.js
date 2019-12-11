@@ -13,7 +13,7 @@ const StyledButton = styled.button`
   background-color: ${props => (props.focus ? "white" : "#17252a")};
   color: ${props => (props.focus ? "#17252a" : "white")};
   padding: 1vh;
-  border-radius: 1vh;
+  border-radius: 15px 15px 0 0;
   border: 1px solid white;
 `;
 
@@ -24,8 +24,11 @@ const Container = styled.div`
 
   h1 {
     color: white;
-    padding: 10vh;
+    padding: 6vh;
     text-align: center;
+  }
+  h2 {
+    margin: 6vh 0 3vh;
   }
   .topics {
     display: flex;
@@ -34,14 +37,29 @@ const Container = styled.div`
     color: white;
   }
 
+  .btn-projects {
+    font-size: 3vh;
+    width: 50%;
+    background-color: #17252a;
+    color: white;
+    padding: 1vh;
+    border-radius: 1vh;
+    border: 1px solid white;
+  }
+
+  .btn-projects:focus {
+    background-color: white;
+    color: #17252a;
+    border: 1px solid white;
+  }
 
   .projectsMatch {
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    margin: 3vh 0;
     color: white;
+    height: auto;
   }
 `;
 
