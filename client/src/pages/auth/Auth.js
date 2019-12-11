@@ -25,15 +25,7 @@ export default class Auth extends Component {
       left: this.props.location.state.showForm === "login" ? 35 : 0
     });
   }
-
-  // componentDidUpdate() {
-  //   this.setState({
-  //     showForm: this.props.location.state.showForm,
-  //     left: this.props.location.state.showForm === "login" ? 35 : 0
-  //   });
-  // }
   render() {
-    console.log(this.props.location.state.showForm);
     return (
       <AuthContainer>
         <div className="border">

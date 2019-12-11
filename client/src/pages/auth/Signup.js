@@ -20,7 +20,6 @@ class Signup extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    console.log("MY ROLE:", this.state.role);
     signup(this.state.username, this.state.password, this.state.role).then(
       data => {
         if (data.message) {
@@ -28,7 +27,6 @@ class Signup extends Component {
             error: data.message
           });
         } else {
-          console.log("data frontend", data);
           this.props.props.setUser(data);
           this.props.props.history.push("/user/" + data._id);
         }

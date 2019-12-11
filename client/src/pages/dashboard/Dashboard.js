@@ -5,8 +5,17 @@ import ProjectForm from "../project/ProjectForm";
 import MyOpenProjects from "./MyOpenProjects";
 import styled from "styled-components";
 import MyOngoingProjects from "./MyOngoingProjects";
-import AwesomeSlider from "react-awesome-slider";
 import "react-awesome-slider/dist/styles.css";
+
+const StyledButton = styled.button`
+  font-size: 3vh;
+  width: 50%;
+  background-color: ${props => (props.focus ? "white" : "#17252a")};
+  color: ${props => (props.focus ? "#17252a" : "white")};
+  padding: 1vh;
+  border-radius: 1vh;
+  border: 1px solid white;
+`;
 
 const Container = styled.div`
   .main {
@@ -25,22 +34,6 @@ const Container = styled.div`
     color: white;
   }
 
-  .btn-projects {
-    font-size: 3vh;
-    width: 50%;
-    background-color: #17252a;
-    color: white;
-    padding: 1vh;
-    border-radius: 1vh;
-    border: 1px solid white;
-  }
-
-  .btn-projects:focus {
-    background-color: white;
-    color: #17252a;
-    border: 1px solid white;
-  }
-  
 
   .projectsMatch {
     display: flex;
@@ -56,7 +49,8 @@ export default class Dashboard extends Component {
   state = {
     projects: [],
     user: this.props.user,
-    showProjects: "myOpenProjects"
+    showProjects: "myOpenProjects",
+    focus: true
   };
 
   getProjects() {
@@ -94,7 +88,8 @@ export default class Dashboard extends Component {
   showProjects = event => {
     console.log(event);
     this.setState({
-      showProjects: event.target.name
+      showProjects: event.target.name,
+      focus: !this.state.focus
     });
   };
 
@@ -110,20 +105,20 @@ export default class Dashboard extends Component {
           <h1>{this.props.user.username} Dashboard </h1>
           <div className="dashboard-main">
             <div className="topics">
-              <button autoFocus
-                className="btn-projects"
+              <StyledButton
+                focus={this.state.focus}
                 name="myOpenProjects"
                 onClick={this.showProjects}
               >
                 Projects Ideas
-              </button>
-              <button
-                className="btn-projects"
+              </StyledButton>
+              <StyledButton
+                focus={!this.state.focus}
                 name="myOngoingProjects"
                 onClick={this.showProjects}
               >
                 Ongoing Projects
-              </button>
+              </StyledButton>
             </div>
             {this.state.showProjects === "myOpenProjects" ? (
               <div className="projectsMatch">
