@@ -24,7 +24,7 @@ export class Inbox extends Component {
         activeUser
       })
       .then(res => {
-        console.log(res);
+        console.log(res.data);
         this.setState({
           inboxItems: res.data
         });
