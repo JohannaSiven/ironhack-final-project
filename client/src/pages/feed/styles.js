@@ -103,6 +103,4 @@ export const Container = styled.div`
       padding: 2vh 0;
     }
   }
-  @media screen and (min-width: 0px) and (max-width: 450px) {
-  }
 `;

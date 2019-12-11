@@ -16,7 +16,6 @@ export default class Navbar extends Component {
   };
 
   render() {
-    //console.log(this.props.user);
     return (
       <Nav active color={this.color}>
         <Link className="navLogo" to="/">

@@ -5,15 +5,42 @@ import { faBell } from "@fortawesome/free-solid-svg-icons";
 import Axios from "axios";
 
 const Container = styled.div`
-  background-color: #444;
-  font-size: 14px;
-  color: white;
-  padding: 16px;
-  position: absolute;
-  top: ${props => props.top}vh;
-  right: 20px;
-  z-index: 999;
-  transition: top 0.5s ease;
+  .divActive {
+    background-color: white;
+    font-size: 14px;
+    color: #17252a;
+    position: absolute;
+    top: ${props => props.top}vh;
+    right: 8rem;
+    z-index: 999;
+    transition: top 0.5s ease;
+  }
+
+  .navLinks {
+    color: #17252a;
+  }
+
+  h3 {
+    padding: 0.5rem 0.8rem;
+    background-color: #def2f1;
+    border-bottom: 1px solid gray;
+  }
+
+  .rad-dropmenu-item:before {
+    content: "";
+    position: absolute;
+    border-width: 0 10px 10px 10px;
+    border-style: solid;
+    border-color: #def2f1 transparent;
+    top: -0.6rem;
+    right: 2.1rem;
+  }
+
+  .listItem {
+    list-style: none;
+    border-bottom: 1px solid gray;
+    padding-bottom: 0.5rem;
+  }
 `;
 
 class NotificationBox extends Component {
@@ -29,7 +56,6 @@ class NotificationBox extends Component {
   }
 
   myUl = id => {
-    console.log("heey");
     if (document.getElementById(id).style.display === "") {
       document.getElementById(id).style.display = "none";
     } else {
@@ -38,22 +64,6 @@ class NotificationBox extends Component {
   };
 
   showNotification = () => {
-    this.setState({
-      show: !this.state.show
-    });
-
-    if (this.state.show) {
-      this.setState({
-        top: 8
-      });
-    } else {
-      this.setState({
-        top: -100
-      });
-    }
-  };
-
-  componentDidMount = () => {
     Axios.get("/api/projects").then(response => {
       let myProjects = response.data.filter(value => {
         if (
@@ -80,6 +90,20 @@ class NotificationBox extends Component {
         myApplications: myApplications
       });
     });
+
+    this.setState({
+      show: !this.state.show
+    });
+
+    if (this.state.show) {
+      this.setState({
+        top: 8
+      });
+    } else {
+      this.setState({
+        top: -100
+      });
+    }
   };
 
   render() {
@@ -92,7 +116,7 @@ class NotificationBox extends Component {
           <FontAwesomeIcon color="white" icon={faBell} />
         </button>
         <Container top={this.state.top}>
-          <div>
+          <div className="divActive rad-dropmenu-item">
             <h3
               onClick={() => {
                 this.myUl("myUl");
@@ -101,19 +125,29 @@ class NotificationBox extends Component {
               Your Projects
             </h3>
 
-            <ul id="myUl" style={{ listStyleType: "none", display: "none" }}>
+            <ul
+              id="myUl"
+              style={{
+                listStyleType: "none",
+                display: "none",
+                padding: "0 0.7rem"
+              }}
+            >
               {this.state.myProjects.length > 0 ? (
                 <>
                   {this.state.myProjects.map(value => {
                     return (
-                      <a href={"/projects/" + value._id}>
+                      <a
+                        style={{ color: "#17252a" }}
+                        href={"/projects/" + value._id}
+                      >
                         {value.applications ? (
-                          <li>
+                          <li className="listItem">
                             You have {value.applications.length} applications
                             for {value.title}
                           </li>
                         ) : (
-                          <li>
+                          <li className="listItem">
                             You have 0 applications for
                             {value.title}
                           </li>
@@ -134,14 +168,26 @@ class NotificationBox extends Component {
               Your Applications
             </h3>
 
-            <ul id="myApps" style={{ listStyleType: "none", display: "none" }}>
+            <ul
+              id="myApps"
+              style={{
+                listStyleType: "none",
+                display: "none",
+                padding: "0 0.7rem"
+              }}
+            >
               {" "}
               {this.state.myApplications.length > 0 ? (
                 <>
                   {this.state.myApplications.map(value => {
                     return (
-                      <a href={"/projects/" + value._id}>
-                        <li>You have applied for {value.title}</li>
+                      <a
+                        style={{ color: "#17252a" }}
+                        href={"/projects/" + value._id}
+                      >
+                        <li className="listItem">
+                          You have applied for {value.title}
+                        </li>
                       </a>
                     );
                   })}

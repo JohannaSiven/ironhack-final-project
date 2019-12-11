@@ -37,12 +37,17 @@ export default class Profile extends Component {
     });
   };
 
+  componentDidUpdate(prevprops) {
+    if (prevprops !== this.props) {
+      this.getUser();
+    }
+  }
+
   componentDidMount() {
     this.getUser();
   }
 
   render() {
-    
     if (this.state.error) {
       return <p>{this.state.error}</p>;
     }

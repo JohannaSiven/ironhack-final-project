@@ -26,25 +26,28 @@ export default class BestProjects extends Component {
     let content = sorted.map(value => {
       return (
         <div className="blockMatch">
-          <div className="projectDetails1" key={value._id}>
-            <div>
-              <h3>{value.title}</h3>
+          <div className="grid311" key={value._id}>
+            <div className="innerGrid">
+              <h2 className="title">{value.title}</h2>
               <p>{value.description}</p>
+              <br />
+              <Link className="btn-see-project" to={`/projects/${value._id}`}>
+                Check Project
+              </Link>
             </div>
-            <div className="singleInfo1">
+            <div className="innerGrid">
               <h3>Tags</h3>
               {value.tags.map((value, index) => {
                 return <p key={index}>{value}</p>;
               })}
             </div>
-            <div className="singleInfo1">
+            <div className="singleInfo">
               <h3>Roles</h3>
               {value.requiredRoles.map((value, index) => {
                 return <p key={index}>{value.name}</p>;
               })}
             </div>
           </div>
-          <Link className="btn-see-project" to={`/projects/${value._id}`}>Check Project</Link>
         </div>
       );
     });
