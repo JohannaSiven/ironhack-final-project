@@ -16,7 +16,8 @@ export default class UserProfile extends Component {
 
   getChat = () => {
     const activeUser = this.state.activeUser;
-    const profileUser = this.state.profileUser._id;
+    const profileUser = this.props.profileUser;
+    console.log("find/create chat for: ", activeUser, profileUser);
     axios
       .post("/api/chat", {
         activeUser,

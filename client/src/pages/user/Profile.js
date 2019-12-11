@@ -60,7 +60,7 @@ export default class Profile extends Component {
     } else {
       return (
         <UserProfile
-          user={this.props.user._id}
+          user={this.props.user}
           profileUser={this.state.profileUser}
         />
       );
