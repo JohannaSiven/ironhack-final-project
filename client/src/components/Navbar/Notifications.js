@@ -6,11 +6,12 @@ import Axios from "axios";
 
 const Container = styled.div`
   background-color: #444;
+  font-size: 14px;
   color: white;
   padding: 16px;
   position: absolute;
   top: ${props => props.top}vh;
-  right: 10px;
+  right: 20px;
   z-index: 999;
   transition: top 0.5s ease;
 `;
@@ -43,7 +44,7 @@ class NotificationBox extends Component {
 
     if (this.state.show) {
       this.setState({
-        top: 6
+        top: 8
       });
     } else {
       this.setState({
@@ -106,16 +107,19 @@ class NotificationBox extends Component {
                   {this.state.myProjects.map(value => {
                     return (
                       <a href={"/projects/" + value._id}>
-                        {value.applications ? (<li>
-                          You have {value.applications.length} applications for{" "}
-                          {value.title}
-                        </li>) : (<li>
-                          You have 0 applications for
-                          {value.title}</li>)
-                        }
-                        
+                        {value.applications ? (
+                          <li>
+                            You have {value.applications.length} applications
+                            for {value.title}
+                          </li>
+                        ) : (
+                          <li>
+                            You have 0 applications for
+                            {value.title}
+                          </li>
+                        )}
                       </a>
-                    )
+                    );
                   })}
                 </>
               ) : (

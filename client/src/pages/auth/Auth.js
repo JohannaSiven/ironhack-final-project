@@ -18,7 +18,22 @@ export default class Auth extends Component {
       left: event.target.name === "login" ? 35 : 0
     });
   };
+
+  componentDidMount() {
+    this.setState({
+      showForm: this.props.location.state.showForm,
+      left: this.props.location.state.showForm === "login" ? 35 : 0
+    });
+  }
+
+  // componentDidUpdate() {
+  //   this.setState({
+  //     showForm: this.props.location.state.showForm,
+  //     left: this.props.location.state.showForm === "login" ? 35 : 0
+  //   });
+  // }
   render() {
+    console.log(this.props.location.state.showForm);
     return (
       <AuthContainer>
         <div className="border">
@@ -32,28 +47,28 @@ export default class Auth extends Component {
               <div className="signup">
                 <h1>WELCOME BACK</h1>
                 <h2>TO COLLABRAINS</h2>
-                <p>To connect please login with your personal info</p>
+                <p>No account yet?</p>
                 <button
                   type="button"
                   className="editButton"
                   name="signup"
                   onClick={this.toggleEdit}
                 >
-                  Sign up
+                  Sign up here!
                 </button>
               </div>
             ) : (
               <div className="login">
                 <h1>WELCOME</h1>
                 <h2>TO COLLABRAINS</h2>
-                <p>Enter your personal details and start journey with us</p>
+                <p>Already have an account?</p>
                 <button
                   type="button"
                   className="editButton"
                   name="login"
                   onClick={this.toggleEdit}
                 >
-                  Login
+                  Login here!
                 </button>
               </div>
             )}
