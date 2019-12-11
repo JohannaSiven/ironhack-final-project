@@ -17,7 +17,7 @@ const userSchema = new Schema(
     photo: {
       type: String,
       default:
-        "https://res.cloudinary.com/jeffmoraes/image/upload/v1574348835/images/unknown-user.jpg.jpg"
+        "https://res.cloudinary.com/jeffmoraes/image/upload/v1576061366/userPhoto/default-profile.png"
     },
     role: {
       type: String,
