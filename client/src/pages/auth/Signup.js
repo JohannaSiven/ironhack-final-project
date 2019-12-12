@@ -108,7 +108,7 @@ class Signup extends Component {
           <button type="submit">Signup</button>
           <div className="linkedin">
             <span>or log in with</span>
-            <a href="http://localhost:5555/api/auth/linkedin">
+            <a href={`${process.env.REACT_APP_SOCKET_PORT}/api/auth/linkedin`}>
               <FaLinkedin />
             </a>
           </div>
