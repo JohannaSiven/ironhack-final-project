@@ -1,14 +1,13 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { Container } from "./styles";
 
-//import img1 from "../../img/user-01.png";
+import { FaLinkedin, FaGithubAlt, FaRegCopyright } from "react-icons/fa";
+
 import img2 from "../../img/user-02.png";
 import img3 from "../../img/user-03.png";
 import img4 from "../../img/user-04.png";
 import img5 from "../../img/user-05.png";
-//import img6 from "../../img/user-06.png";
-//import img7 from "../../img/user-07.png";
-//import img8 from "../../img/user-08.png";
 export default class Home extends Component {
   state = {
     width: 0,
@@ -85,7 +84,7 @@ export default class Home extends Component {
             </div>
             <div className="height200" />
             <div className="textDiv">
-              <h3>Start to use the power of Teamwork</h3>
+              <h3>Discover the power of Teamwork</h3>
               <p>
                 Once you decide it is time to start the project, change the
                 status to “On progress” and start to work with your new team.
@@ -100,9 +99,9 @@ export default class Home extends Component {
               alt="img 5"
               style={{
                 position: "sticky",
-                top: this.state.heightAverage / 2,
+                top: this.state.heightAverage / 2 - 20,
                 marginLeft: "15vw",
-                zIndex: 2
+                zIndex: 1
               }}
             />
             <div className="height200" />
@@ -112,8 +111,8 @@ export default class Home extends Component {
               style={{
                 position: "sticky",
                 top: this.state.heightAverage / 2 - 30,
-                marginLeft: "7vw",
-                zIndex: 1
+                marginLeft: "10vw",
+                zIndex: 2
               }}
             />
             <div className="height200" />
@@ -122,7 +121,7 @@ export default class Home extends Component {
               alt="img 1"
               style={{
                 position: "sticky",
-                top: this.state.heightAverage / 2 - 30,
+                top: this.state.heightAverage / 2 - 40,
                 marginLeft: "19vw",
                 zIndex: 3
               }}
@@ -132,10 +131,10 @@ export default class Home extends Component {
             <img
               src={img2}
               alt="img 1"
-              className="img4"
               style={{
                 position: "sticky",
-                top: this.state.heightAverage / 2 - 30,
+                top: this.state.heightAverage / 2 - 70,
+                marginLeft: "2vw",
                 zIndex: 0
               }}
             />
@@ -143,7 +142,36 @@ export default class Home extends Component {
           </div>
         </div>
         <footer>
-          <h4>footer</h4>
+          <span>
+            <FaRegCopyright marginLeft="5px" /> 2019 |
+          </span>
+          <div className="linkedin">
+            <Link
+              to="https://www.linkedin.com/in/johanna-siven-32b95759/"
+              target="_blank"
+            >
+              <FaLinkedin /> Johanna Siven
+            </Link>
+            <Link
+              to="https://www.linkedin.com/in/fernando-araujo-filho/"
+              target="_blank"
+            >
+              <FaLinkedin /> Fernando Araujo
+            </Link>
+            <Link to="www.linkedin.com/in/jeff-moraes" target="_blank">
+              <FaLinkedin /> Jeff Moraes
+            </Link>
+          </div>
+          <div className="github">
+            <span>| Full code in our </span>
+
+            <Link
+              to="https://github.com/JohannaSiven/ironhack-final-project"
+              target="_blank"
+            >
+              <FaGithubAlt /> Github Repository
+            </Link>
+          </div>
         </footer>
       </Container>
     );
