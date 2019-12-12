@@ -14,14 +14,16 @@ const ProjectCards = props => {
 
   if (props.role) {
     projects = projects.filter(project => {
-      let availableRoles = project.requiredRoles.map(value => {
-        if (value.open) {
-          return value.name;
+      if (project.requiredRoles) {
+        let availableRoles = project.requiredRoles.map(value => {
+          if (value.open) {
+            return value.name;
+          }
+          return false;
+        });
+        if (availableRoles.includes(props.user.role)) {
+          return project;
         }
-        return false;
-      });
-      if (availableRoles.includes(props.user.role)) {
-        return project;
       }
       return false;
     });
