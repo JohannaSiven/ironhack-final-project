@@ -23,6 +23,7 @@ export const Nav = styled.div`
     margin-right: 4vw;
     display: flex;
     flex-wrap: wrap;
+    justify-content: flex-end;
     a {
       text-decoration: none;
       text-transform: uppercase;
