@@ -76,16 +76,18 @@ export class Inbox extends Component {
                         <h2>{user.username}</h2>
                         <div className="lastMessages">
                           <small className="time">
-                            {chat.messages[
-                              chat.messages.length - 1
-                            ].created_at.slice(11, 16)}
-                            :
+                            {chat.messages.length > 0
+                              ? chat.messages[
+                                  chat.messages.length - 1
+                                ].created_at.slice(11, 16) + ":"
+                              : ""}
                           </small>
                           <small>
-                            {chat.messages[
-                              chat.messages.length - 1
-                            ].message_body.slice(0, 25)}
-                            ...
+                            {chat.messages.length > 0
+                              ? chat.messages[
+                                  chat.messages.length - 1
+                                ].message_body.slice(0, 25) + "..."
+                              : ""}
                           </small>
                         </div>
                       </div>
