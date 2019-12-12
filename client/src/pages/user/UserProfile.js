@@ -53,7 +53,9 @@ export default class UserProfile extends Component {
           <div className="flex1">
             <div className="userName">
               <h1>{profile.username}</h1>
-              <button onClick={this.getChat}>Contact</button>`
+              <button onClick={this.getChat} className="editButton">
+                Contact
+              </button>
               <h3>
                 <FaMapMarkerAlt size="14px" />
                 {profile.location}
@@ -76,7 +78,7 @@ export default class UserProfile extends Component {
                 );
               })}
               <div className="description">
-                <h4>Description</h4>
+                <h4>About me</h4>
                 <p>{profile.description}</p>
               </div>
               <div className="lists">

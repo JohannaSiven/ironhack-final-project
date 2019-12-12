@@ -13,6 +13,7 @@ const lighterGreen = "#66FCF1";
 const gray = "#C5C6C7";
 
 export const Container = styled.div`
+  flex: 1;
   .rightSide {
     text-align: right;
     position: relative;
@@ -41,7 +42,7 @@ export const Container = styled.div`
     transform: rotate(-90deg);
   }
   .chatHeader {
-    margin: 7vh 5vw 0;
+    margin: 7vh 3vw 0;
     /* position: absolute;
     top: 0; */
     h1 {
@@ -50,18 +51,20 @@ export const Container = styled.div`
   }
   .main {
     padding: 0;
-    margin: 2vh 5vw 5vh;
-    height: 100%;
+    margin: 2vh 5vw 2vh 1vw;
+    height: 95%;
     border: 2px solid ${darkGreen};
   }
   .container {
+    margin-right: 3vw;
+    margin-left: 3vw;
     height: 65vh;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     position: relative;
 
-    margin-top: 2vh;
+    margin-top: 3vh;
     padding-top: 2vh;
 
     background-color: ${lightGreen};
@@ -121,9 +124,20 @@ export const Container = styled.div`
 `;
 
 export const ChatList = styled.div`
-  width: 25vw;
+  width: 30vw;
   display: flex;
   flex-direction: column;
+  .main {
+    padding-right: 0;
+  }
+  .chatHeader {
+    margin: 7vh 0 3vh;
+    /* position: absolute;
+    top: 0; */
+    h1 {
+      color: ${white};
+    }
+  }
 
   a {
     margin-top: 10px;

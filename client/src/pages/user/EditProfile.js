@@ -184,7 +184,7 @@ export default class EditProfile extends Component {
                 />
 
                 <div className="description">
-                  <h4>Description</h4>
+                  <h4>About me</h4>
                   {/* ------------------ DESCRIPTION ------------------ */}
                   <UserDescription
                     onChange={this.handleChange}

@@ -45,12 +45,13 @@ export const Container = styled.div`
     }
     .gridCard {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: 2fr 1fr 1fr;
       padding-top: 3vh;
       justify-content: space-between;
       border-top: 2px solid ${darkGreen};
       h2 {
         color: ${darkGreen};
+        margin-right: 2vw;
       }
       h4 {
         color: ${darkGreen};
@@ -60,6 +61,7 @@ export const Container = styled.div`
       p {
         line-height: 1.3rem;
         color: ${mediumGreen};
+        margin-right: 2vw;
       }
     }
     .cardBottom {

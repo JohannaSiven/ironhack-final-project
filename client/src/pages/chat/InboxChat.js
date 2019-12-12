@@ -31,6 +31,11 @@ export class InboxChat extends Component {
       console.log("component mounted");
     }
   }
+  componentDidUpdate(prevProps) {
+    if (prevProps !== this.props) {
+      this.getInboxChat();
+    }
+  }
 
   getInboxChat = () => {
     console.log("chatId found:", this.props.match.params.id);
