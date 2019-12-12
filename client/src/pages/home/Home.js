@@ -146,31 +146,31 @@ export default class Home extends Component {
             <FaRegCopyright marginLeft="5px" /> 2019 |
           </span>
           <div className="linkedin">
-            <Link
-              to="https://www.linkedin.com/in/johanna-siven-32b95759/"
+            <a
+              href="https://www.linkedin.com/in/johanna-siven-32b95759/"
               target="_blank"
             >
               <FaLinkedin /> Johanna Siven
-            </Link>
-            <Link
-              to="https://www.linkedin.com/in/fernando-araujo-filho/"
+            </a>
+            <a
+              href="https://www.linkedin.com/in/fernando-araujo-filho/"
               target="_blank"
             >
               <FaLinkedin /> Fernando Araujo
-            </Link>
-            <Link to="www.linkedin.com/in/jeff-moraes" target="_blank">
+            </a>
+            <a href="https://www.linkedin.com/in/jeff-moraes" target="_blank">
               <FaLinkedin /> Jeff Moraes
-            </Link>
+            </a>
           </div>
           <div className="github">
             <span>| Full code in our </span>
 
-            <Link
-              to="https://github.com/JohannaSiven/ironhack-final-project"
+            <a
+              href="https://github.com/JohannaSiven/ironhack-final-project"
               target="_blank"
             >
               <FaGithubAlt /> Github Repository
-            </Link>
+            </a>
           </div>
         </footer>
       </Container>
