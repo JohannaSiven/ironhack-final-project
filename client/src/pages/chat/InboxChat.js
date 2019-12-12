@@ -80,6 +80,7 @@ export class InboxChat extends Component {
         chatId: this.state.chatId
       })
       .then(response => {
+        console.log("!!!!!", response.data);
         const msg =
           response.data.messages[response.data.messages.length - 1]
             .message_body;
@@ -99,16 +100,18 @@ export class InboxChat extends Component {
 
   render() {
     const conversation = this.state.messages;
-    //console.log("RENDERING", this.state.messages);
-    console.log("rendering");
+    console.log("RENDERING", this.state.messages);
+    console.log("rendering", this.state.activeUser._id);
     return (
       <div>
         {conversation.map((message, i) => {
           return (
+            //if message.sender === this.state.activeUser --> apply style "right side"
             <div key={message._id + i}>
               <p>{message.created_at}</p>
               <p>{message.message_body}</p>
             </div>
+            //else if message.sender !== this.state.activeUser --> apply style "left side"
           );
         })}
         <form onSubmit={this.submitForm}>

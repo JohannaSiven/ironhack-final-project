@@ -50,16 +50,6 @@ class Login extends Component {
               <span className="border"></span>
             </label>
           </div>
-          {/* <div>
-            <label htmlFor="username">Username: </label>
-            <input
-              type="text"
-              name="username"
-              id="username"
-              value={this.state.username}
-              onChange={this.handleChange}
-            />
-          </div> */}
           <div>
             <label htmlFor="password" className="inp">
               <input
@@ -74,19 +64,11 @@ class Login extends Component {
               <span className="border"></span>
             </label>
           </div>
-          {/* <label htmlFor="password">Password: </label>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              value={this.state.password}
-              onChange={this.handleChange}
-            /> */}
           {this.state.error && <Alert>{this.state.error}</Alert>}
           <button type="submit">LOG IN</button>
           <div className="linkedin">
             <span>or log in with</span>
-            <a href="http://localhost:5555/api/auth/linkedin">
+            <a href={`${process.env.REACT_APP_SOCKET_PORT}/api/auth/linkedin`}>
               <FaLinkedin />
             </a>
           </div>

@@ -6,6 +6,7 @@ import MyOpenProjects from "./MyOpenProjects";
 import styled from "styled-components";
 import MyOngoingProjects from "./MyOngoingProjects";
 import "react-awesome-slider/dist/styles.css";
+import {Link} from "react-router-dom"
 
 const StyledButton = styled.button`
   font-size: 3vh;
@@ -115,6 +116,8 @@ export default class Dashboard extends Component {
     this.getProjects();
   }
 
+  
+
   render() {
     return (
       <Container>
@@ -157,7 +160,7 @@ export default class Dashboard extends Component {
               </div>
             </div>
             <div>
-              <ProjectForm user={this.state.user} />
+              <ProjectForm id="createProject" user={this.state.user} />
             </div>
           </div>
         </div>

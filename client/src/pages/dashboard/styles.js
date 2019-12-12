@@ -165,4 +165,8 @@ export const Container = styled.div`
       grid-template-columns: 1fr 1fr;
     }
   }
+
+  h4 {
+    padding-bottom: 2rem;
+  }
 `;

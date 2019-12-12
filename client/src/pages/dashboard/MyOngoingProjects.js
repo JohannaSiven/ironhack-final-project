@@ -84,7 +84,15 @@ export default class MyOngoingProjects extends Component {
     return (
       <Container>
         <div className="projects1">
-          <AwesomeSlider>{projectsJsx}</AwesomeSlider>
+          {projectsJsx.length > 0 ? (
+            <AwesomeSlider>{projectsJsx}</AwesomeSlider>
+          ) : (
+            <AwesomeSlider>
+              <div>
+                YOU DON'T HAVE ANY ONGOING PROJECT
+              </div>
+            </AwesomeSlider>
+          )}
         </div>
       </Container>
     );
