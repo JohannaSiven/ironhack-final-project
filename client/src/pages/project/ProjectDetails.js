@@ -4,8 +4,11 @@ import axios from "axios";
 import { projectInfos, addApplication } from "../../services/project";
 import { ProjectContainer } from "./styles";
 import { tags } from "../user/Keywords";
-
+import socketIOClient from "socket.io-client";
 import { FaCheck, FaTimes, FaTrashAlt } from "react-icons/fa";
+// socket client for notification about new application
+const endpoint = "http://localhost:5555"; //socket
+const socket = socketIOClient(endpoint);
 
 export default class ProjectDetails extends Component {
   state = {
@@ -38,14 +41,19 @@ export default class ProjectDetails extends Component {
     addApplication(this.state.project._id, {
       user: this.props.user._id,
       role: event.target.name
-    }).then(response => {
-      this.setState({
-        project: response
+    })
+      .then(response => {
+        const application =
+          response.applications[response.applications.length - 1];
+        console.log("new application returned from db: ", application);
+        this.setState({
+          project: response
+        });
+        socket.emit("application",application);
+      })
+      .catch(err => {
+        console.log(err);
       });
-      console.log(this.state.project);
-      console.log(this.props.user);
-    });
-    // this.state.project.applications
   };
 
   applied = () => {
@@ -70,8 +78,9 @@ export default class ProjectDetails extends Component {
         project
       })
       .then(response => {
-        /* this.props.history.push(`/projects/${this.state.project._id}`); */
-        console.log("RESULT", response.data);
+        const accepted = response.data.contributors[response.data.contributors.length-1]
+        console.log("new accepted contributor returned from db: ", accepted);
+        socket.emit("accepted", accepted);
       })
       .catch(err => {
         console.log(err);
@@ -85,8 +94,10 @@ export default class ProjectDetails extends Component {
         project
       })
       .then(response => {
+        //const rejected = ??
         console.log(response.data);
         console.log(response.data.applications);
+        //socket.emit("rejected", rejected)
       })
       .catch(err => {
         console.log(err);
@@ -153,10 +164,14 @@ export default class ProjectDetails extends Component {
           });
         }
       });
+      console.log("getInitialData()");
   };
 
   componentDidMount() {
     const { projectId } = this.props.match.params;
+     socket.on("application", application => {
+      console.log("socket received emitted application: ", application);
+    });
     this.getInitialData(projectId);
   }
 
@@ -229,7 +244,7 @@ export default class ProjectDetails extends Component {
   };
 
   render() {
-    console.log(this.props);
+    //console.log(this.props);
     if (!this.state.project) {
       return <div></div>;
     }

@@ -56,8 +56,31 @@ io.on("connection", socket => {
   socket.on("disconnect", () => {
     console.log("### client disconnected");
   });
+
+  //emit new message in chat
   socket.on("message", msg => {
     console.log("### SOCKET message received: ", msg);
     io.emit("message", msg);
+  });
+
+  //emit notification about new applicant
+  socket.on("application", application => {
+    console.log("### SOCKET new application: ", application);
+    console.log(socket.id);
+
+    io.emit("application", application);
+  });
+
+  //emit notification about accepted application
+  socket.on("accepted", accepted => {
+    console.log("### SOCKET application accepted: ", accepted);
+    // send to specific socket id?
+    io.emit("accepted", accepted);
+  });
+  //emit notification about rejected application
+  socket.on("rejected", rejected => {
+    console.log("### SOCKET application rejected: ", rejected);
+    // send to specific socket id?
+    io.emit("rejected", rejected);
   });
 });

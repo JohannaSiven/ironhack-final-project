@@ -76,6 +76,7 @@ router.get("/:id", (req, res) => {
 // POST /api/projects/apply/:id
 
 router.put("/apply/:id", (req, res) => {
+  console.log("### new application submitted")
   Project.findOneAndUpdate(
     { _id: req.params.id },
     {
@@ -88,6 +89,7 @@ router.put("/apply/:id", (req, res) => {
     .populate("contributors")
     .populate("owner")
     .then(project => {
+      console.log("### new application created in db: ", project.applications);
       res.json(project);
     })
     .catch(err => res.status(500).json(err));
@@ -134,10 +136,10 @@ router.post("/applications/reject", (req, res) => {
           user: applicant
         }
       }
-    },
-    { new: true }
+    }
   )
     .then(project => {
+      console.log("### applicant rejected: ", applicant);
       res.json(project);
     })
     .catch(err => res.status(500).json(err));
