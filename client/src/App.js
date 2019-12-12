@@ -93,9 +93,8 @@ class App extends Component {
             }
           }}
         />
-        <Switch>
+        <div className="chatPage">
           <Route
-            exact
             path="/inbox"
             render={props => {
               if (this.state.user) {
@@ -106,7 +105,6 @@ class App extends Component {
             }}
           />
           <Route
-            exact
             path="/inbox/:id"
             render={props => {
               if (this.state.user) {
@@ -116,7 +114,7 @@ class App extends Component {
               }
             }}
           />
-        </Switch>
+        </div>
       </div>
     );
   }
