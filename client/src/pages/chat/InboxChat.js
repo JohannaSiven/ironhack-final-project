@@ -3,8 +3,10 @@ import axios from "axios";
 import socketIOClient from "socket.io-client";
 
 // socket client for new messages
-const endpoint = "http://localhost:5555"; //socket
-const socket = socketIOClient(endpoint);
+const endpoint = process.env.REACT_APP_SOCKET_PORT;
+//const endpoint = "http://localhost:5555";
+// const socket = socketIOClient(endpoint);
+const socket = socketIOClient();
 
 export class InboxChat extends Component {
   state = {
@@ -20,13 +22,16 @@ export class InboxChat extends Component {
 
   componentDidMount() {
     if (this.props.match.params) {
+      socket.on("message", msg => {
+        console.log("socket received emitted msg:", msg);
+        this.getInboxChat();
+      });
       this.getInboxChat();
       console.log("component mounted");
     }
   }
 
   getInboxChat = () => {
-    // get existing inbox messages
     console.log("chatId found:", this.props.match.params.id);
     axios
       .post(`/api/chat/inbox/${this.props.match.params.id}`)
@@ -40,13 +45,10 @@ export class InboxChat extends Component {
       });
     console.log("getInbox()");
 
-    socket.on("message", msg => {
-      console.log("socket received emitted msg:", msg);
-      // this.setState({
-      //   socketResponse: msg
-      // });
-      this.getInboxChat();
-    });
+    // socket.on("message", msg => {
+    //   console.log("socket received emitted msg:", msg);
+    //   this.getInboxChat();
+    // });
   };
 
   /*---------------------------------------*/
@@ -82,7 +84,6 @@ export class InboxChat extends Component {
           response.data.messages[response.data.messages.length - 1]
             .message_body;
         console.log("new msg returned from db: ", msg);
-        console.log("all msgs returned from db: ", response.data.messages);
         this.setState({
           messages: response.data.messages
         });
