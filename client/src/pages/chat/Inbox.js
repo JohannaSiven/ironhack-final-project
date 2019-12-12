@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
+import { ChatList } from "./styles";
 
 export class Inbox extends Component {
   state = {
     activeUser: this.props.user,
     inboxItems: [],
-    chatId: "",
+    chatId: ""
   };
 
   /*---------------------------------------*/
@@ -50,16 +51,43 @@ export class Inbox extends Component {
       );
     } else if (inbox.length > 0) {
       console.log("render inbox");
+      console.log("user id", this.state.activeUser);
       return (
-        <div style={{ width: "50%" }}>
+        <ChatList>
           {inbox.map(chat => {
-            return (
-              <div key={chat._id} style={{ border: "1px solid black" }}>
-                <NavLink to={`/inbox/${chat._id}`}>You and {chat.users[1].username}</NavLink>
-              </div>
-            );
+            return chat.users.map(user => {
+              return (
+                user.username !== this.state.activeUser.username && (
+                  <NavLink
+                    key={chat._id}
+                    to={`/inbox/${chat._id}`}
+                    otherUser={user}
+                    style={{ border: "1px solid black" }}
+                  >
+                    <img src={user.photo} alt={user.username} />
+                    <div className="message">
+                      <h2>{user.username}</h2>
+                      <div className="lastMessages">
+                        <small className="time">
+                          {chat.messages[
+                            chat.messages.length - 1
+                          ].created_at.slice(11, 16)}
+                          :
+                        </small>
+                        <small>
+                          {chat.messages[
+                            chat.messages.length - 1
+                          ].message_body.slice(0, 25)}
+                          ...
+                        </small>
+                      </div>
+                    </div>
+                  </NavLink>
+                )
+              );
+            });
           })}
-        </div>
+        </ChatList>
       );
     }
   }
