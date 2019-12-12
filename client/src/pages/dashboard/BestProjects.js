@@ -54,7 +54,21 @@ export default class BestProjects extends Component {
     return (
       <Container>
         <div className="projects1">
-          <AwesomeSlider>{content}</AwesomeSlider>
+          {content.length > 0 ? (
+            <AwesomeSlider>{content}</AwesomeSlider>
+          ) : (
+            <AwesomeSlider>
+              <div>
+                <h4>YOU DON'T HAVE ANY PROJECT MATCHING YOUR PREFERENCES</h4>
+                <Link
+                  className="btn-see-project"
+                  to={`/user/${this.props.user._id}`}
+                >
+                  Edit your profile
+                </Link>
+              </div>
+            </AwesomeSlider>
+          )}
         </div>
       </Container>
     );

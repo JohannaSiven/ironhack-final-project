@@ -68,7 +68,7 @@ class Login extends Component {
           <button type="submit">LOG IN</button>
           <div className="linkedin">
             <span>or log in with</span>
-            <a href={`${process.env.CALLBACK_URL}/api/auth/linkedin`}>
+            <a href={`${process.env.REACT_APP_SOCKET_PORT}/api/auth/linkedin`}>
               <FaLinkedin />
             </a>
           </div>

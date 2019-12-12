@@ -36,6 +36,14 @@ export default class MyOpenProjects extends Component {
   componentDidMount() {
     this.getProjects();
   }
+
+  goTo() {
+    window.scrollTo({
+      top: 1200,
+      behavior: "smooth"
+    });
+  }
+
   render() {
     let projectsJsx = this.state.myProjects
       .filter(value => value.status === "Open")
@@ -113,10 +121,22 @@ export default class MyOpenProjects extends Component {
           </div>
         );
       });
+    console.log("PROJECTSJSX", projectsJsx);
     return (
       <Container>
         <div className="projects1">
-          <AwesomeSlider>{projectsJsx}</AwesomeSlider>
+          {projectsJsx.length > 0 ? (
+            <AwesomeSlider>{projectsJsx}</AwesomeSlider>
+          ) : (
+            <AwesomeSlider>
+              <div>
+                <h4>YOU DON'T HAVE ANY OPEN PROJECT</h4>
+                <Link className="btn-see-project" onClick={this.goTo}>
+                  Create new Project
+                </Link>
+              </div>
+            </AwesomeSlider>
+          )}
         </div>
       </Container>
     );
