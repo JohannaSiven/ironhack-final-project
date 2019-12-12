@@ -58,25 +58,25 @@ export default class Home extends Component {
             <div className="textDiv">
               <h3>Make ideas come to life</h3>
               <p>
-                You have an idea but do not have the skills to make it happen?
+                You have an idea but not all the skills to make it happen?
                 On Collabrains you have the possibility to publish your ideas as
-                projects and let other people with different backgrounds help
-                you to turn this project into reality.
+                projects, and let other people with different backgrounds help
+                you turn this project into reality.
               </p>
             </div>
             <div className="height250" />
             <div className="textDiv">
-              <h3>Apply to projects</h3>
+              <h3>Apply for projects</h3>
               <p>
                 Search and apply for specific projects or simply find the best
-                options for you in your personalized dashboard.
+                opportunities for yourself on your personalized dashboard.
               </p>
             </div>
             <div className="height200" />
             <div className="textDiv">
-              <h3>Decide who is the best fit </h3>
+              <h3>Decide who's the best fit </h3>
               <p>
-                As the project owner, you can go through all applications of
+                As the project owner, you can go through all applications to
                 your project, check the profile of each applicant, have a
                 private chat with them, and decide if the person is a good match
                 for your project role.
