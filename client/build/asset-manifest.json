@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.js": "/static/js/main.fce3791d.chunk.js",
-    "main.js.map": "/static/js/main.fce3791d.chunk.js.map",
+    "main.js": "/static/js/main.11f5b64b.chunk.js",
+    "main.js.map": "/static/js/main.11f5b64b.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.8eac158a.js",
     "runtime-main.js.map": "/static/js/runtime-main.8eac158a.js.map",
     "static/css/2.b8b69a64.chunk.css": "/static/css/2.b8b69a64.chunk.css",
     "static/js/2.3cfb0f30.chunk.js": "/static/js/2.3cfb0f30.chunk.js",
     "static/js/2.3cfb0f30.chunk.js.map": "/static/js/2.3cfb0f30.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.1e072c5539c8a82929a5edffc9a7a21b.js": "/precache-manifest.1e072c5539c8a82929a5edffc9a7a21b.js",
+    "precache-manifest.d45006a310a525c43a6a6184fc5d1e43.js": "/precache-manifest.d45006a310a525c43a6a6184fc5d1e43.js",
     "service-worker.js": "/service-worker.js",
     "static/css/2.b8b69a64.chunk.css.map": "/static/css/2.b8b69a64.chunk.css.map",
     "static/media/collabrains-01.svg": "/static/media/collabrains-01.badaf319.svg",
@@ -22,6 +22,6 @@
     "static/js/runtime-main.8eac158a.js",
     "static/css/2.b8b69a64.chunk.css",
     "static/js/2.3cfb0f30.chunk.js",
-    "static/js/main.fce3791d.chunk.js"
+    "static/js/main.11f5b64b.chunk.js"
   ]
 }
