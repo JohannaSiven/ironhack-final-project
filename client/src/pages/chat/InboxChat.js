@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import socketIOClient from "socket.io-client";
+import { Container } from "./styles";
 
 // socket client for new messages
 const endpoint = process.env.REACT_APP_SOCKET_PORT;
@@ -102,28 +103,48 @@ export class InboxChat extends Component {
     const conversation = this.state.messages;
     console.log("RENDERING", this.state.messages);
     console.log("rendering", this.state.activeUser._id);
+    console.log(this.props);
     return (
-      <div>
-        {conversation.map((message, i) => {
-          return (
-            //if message.sender === this.state.activeUser --> apply style "right side"
-            <div key={message._id + i}>
-              <p>{message.created_at}</p>
-              <p>{message.message_body}</p>
+      <Container>
+        <div className="main">
+          <div className="bg-header" />
+          <div className="chatHeader">
+            <h1>CHAT</h1>
+          </div>
+          <div className="container">
+            <div className="chat">
+              {conversation.map((message, i) => {
+                return (
+                  <div key={message._id + i}>
+                    {message.sender !== this.state.activeUser._id ? (
+                      <div className="leftSide">
+                        <p>{message.message_body}</p>
+                        <small>{message.created_at.slice(11, 16)}</small>
+                      </div>
+                    ) : (
+                      <div className="rightSide">
+                        <p>{message.message_body}</p>
+                        <small>{message.created_at.slice(11, 16)}</small>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
-            //else if message.sender !== this.state.activeUser --> apply style "left side"
-          );
-        })}
-        <form onSubmit={this.submitForm}>
-          <input
-            type="text"
-            name="newMessage"
-            value={this.state.newMessage}
-            onChange={this.handleChange}
-          />
-          <button type="submit">send</button>
-        </form>
-      </div>
+            <form onSubmit={this.submitForm}>
+              <textarea
+                type="text"
+                name="newMessage"
+                value={this.state.newMessage}
+                onChange={this.handleChange}
+              />
+              <button type="submit" className="sendButton">
+                send
+              </button>
+            </form>
+          </div>
+        </div>
+      </Container>
     );
   }
 }
